@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import Banner from '../components/Banner'
-import CardItems from '../components/ProductList/CardItems'
 import ProductList from '../components/ProductList/ProductList'
+import GroceriesList from '../components/Groceries/GroceriesList'
+import NavigationBar from '../components/NavigationBar'
 
 const HomeScreen = () => {
 
@@ -28,6 +29,7 @@ const HomeScreen = () => {
 
                 {/* Content */}
                 <View style={style.container} >
+                    {/* Newest */}
                     <View style={style.titleProduct} >
                         <Text style={style.heading} >Mới nhất</Text>
                         <TouchableOpacity>
@@ -35,8 +37,34 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <CardItems  /> */}
-                    {/* <ProductList/> */}
+                    {/* Card Items */}
+                    <ProductList/>
+
+                    {/* Best selling */}
+                    <View style={style.titleProduct} >
+                        <Text style={style.heading} >Bán chạy</Text>
+                        <TouchableOpacity>
+                            <Text style={style.seeAll} >Xem tất cả</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Card Items*/}
+                    <ProductList/>
+
+                    {/* Groceries */}
+                    <View style={style.titleProduct} >
+                        <Text style={style.heading} >Các mặt hàng</Text>
+                        <TouchableOpacity>
+                            <Text style={style.seeAll} >Xem tất cả</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Card Items */}
+                    <GroceriesList/>
+
+                    {/* Navigation Bar */}
+                    <NavigationBar/>
+
                 </View>
 
             </ScrollView>
