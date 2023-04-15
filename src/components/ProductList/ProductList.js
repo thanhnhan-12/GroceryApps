@@ -3,9 +3,17 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'r
 import { dataProduct } from './data';
 
 import CardSilder from 'react-native-cards-slider';
+import { useNavigation } from '@react-navigation/native';
 
 
 const ProductList = () => {
+    const navigation = useNavigation();
+
+
+    const handlePressDetails = (id) => {
+        console.log(id);
+        navigation.navigate('ProductDetails')
+    }
 
     return (
         <View style={styles.wrapper} >
@@ -14,26 +22,29 @@ const ProductList = () => {
                     dataProduct.map((items, index) =>
                     (
                         <>
-                            <SafeAreaView style={styles.container} key={index} >
-                                <View  >
-                                    <View style={styles.centerImg} >
-                                        <Image source={items.imgProduct} key={index} style={styles.imageProduct} />
+                            <TouchableOpacity onPress={() => handlePressDetails(items.id)  } key={items.id}>
+                                <SafeAreaView style={styles.container} key={index} >
+                                    <View  >
+                                        <View style={styles.centerImg} >
+                                            <Image source={items.imgProduct} key={index} style={styles.imageProduct} />
+                                        </View>
+
+                                        <Text style={styles.nameProduct} > {items.nameProduct} </Text>
+                                        <Text style={[styles.common, styles.unit] } >{items.unit}</Text>
+
+                                        <View style={[styles.inline]} >
+                                            <Text style={[styles.price ]} >{items.price}</Text>
+
+                                            <TouchableOpacity style={[styles.btnAdd]} >
+                                                <Image source={items.icon} key={index} style={styles.iconAdd} />
+                                            </TouchableOpacity>
+
+                                        </View>
+
                                     </View>
+                                </SafeAreaView>
 
-                                    <Text style={styles.nameProduct} > {items.nameProduct} </Text>
-                                    <Text style={[styles.common, styles.unit] } >{items.unit}</Text>
-
-                                    <View style={[styles.inline]} >
-                                        <Text style={[styles.price ]} >{items.price}</Text>
-
-                                        <TouchableOpacity style={[styles.btnAdd]} >
-                                            <Image source={items.icon} key={index} style={styles.iconAdd} />
-                                        </TouchableOpacity>
-
-                                    </View>
-
-                                </View>
-                            </SafeAreaView>
+                            </TouchableOpacity>
                         </>
                     )
 

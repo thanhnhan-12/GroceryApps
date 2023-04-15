@@ -15,7 +15,7 @@ const GroceriesList = () => {
                             <SafeAreaView style={styles.container} key={index} >
                                 <TouchableOpacity>
 
-                                    <View style={styles.grocery} >
+                                    <View style={[styles.grocery ]} >
                                         <Image style={styles.imageProduct} source={items.imgGroceries} />
 
                                         <Text style={styles.nameGroceries} >{items.nameGroceries}</Text>

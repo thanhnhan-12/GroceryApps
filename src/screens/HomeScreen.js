@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
-import SearchBar from '../components/SearchBar'
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Banner from '../components/Banner'
-import ProductList from '../components/ProductList/ProductList'
 import GroceriesList from '../components/Groceries/GroceriesList'
-import NavigationBar from '../components/NavigationBar'
+import ProductList from '../components/ProductList/ProductList'
+import SearchBar from '../components/SearchBar'
+import { useNavigation } from '@react-navigation/native'
 
 const HomeScreen = () => {
+
 
     const [value, setValue] = useState()
     function updateSearch(value) {
@@ -62,8 +63,7 @@ const HomeScreen = () => {
                     {/* Card Items */}
                     <GroceriesList/>
 
-                    {/* Navigation Bar */}
-                    <NavigationBar/>
+                    
 
                 </View>
 
