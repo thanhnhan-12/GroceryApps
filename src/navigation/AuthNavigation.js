@@ -22,13 +22,19 @@ const AuthNavigation = () => {
               component={HomeNavigation}
               options={{headerShown: false}}
             />
+
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{headerShown: false}}
+            />
             
           </>
         ) : (
           <>
             <Stack.Screen
               name="Home"
-              component={LoginScreen}
+              component={MenuNavigation}
               options={{headerShown: false}}
             />
            

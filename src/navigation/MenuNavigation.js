@@ -22,12 +22,13 @@ const MenuNavigation = () => {
           backgroundColor: '#fff',
           borderTopColor: 'rgba(225,225,225,0.2)',
         },
+        
       }}>
       <Tab.Screen
         name="Shop"
         component={HomeNavigation}
         options={{
-          tabBarLabel: 'Shop',
+          tabBarLabel: 'Trang chủ',
           tabBarIcon: ({color}) => <Shop name="shop" color={color} size={30} />,
         }}
       />
@@ -36,7 +37,7 @@ const MenuNavigation = () => {
         name="Explore"
         component={HomeNavigation}
         options={{
-          tabBarLabel: 'Explore',
+          tabBarLabel: 'Danh mục',
           tabBarIcon: ({color}) => (
             <Explore name="explore" color={color} size={30} />
           ),
@@ -47,7 +48,7 @@ const MenuNavigation = () => {
         name="Cart"
         component={HomeNavigation}
         options={{
-          tabBarLabel: 'Cart',
+          tabBarLabel: 'Giỏ hàng',
           tabBarIcon: ({color}) => <Cart name="cart" color={color} size={30} />,
         }}
       />
@@ -56,7 +57,7 @@ const MenuNavigation = () => {
         name="Favourite"
         component={HomeNavigation}
         options={{
-          tabBarLabel: 'Favourite',
+          tabBarLabel: 'Yêu thích',
           tabBarIcon: ({color}) => (
             <Favourite name="favourite" color={color} size={30} />
           ),
@@ -67,7 +68,7 @@ const MenuNavigation = () => {
         name="Account"
         component={HomeNavigation}
         options={{
-          tabBarLabel: 'Account',
+          tabBarLabel: 'Tài khoản',
           tabBarIcon: ({color}) => (
             <Account name="account" color={color} size={30} />
           ),

@@ -16,7 +16,7 @@ const HomeScreen = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor: '#fff'}} >
             <ScrollView>
                 {/* Search */}
                 <SearchBar

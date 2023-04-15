@@ -13,8 +13,13 @@ import BannerProductDetails from '../components/ProductDetails/BannerProductDeta
 import AddFavourite from '../assets/SVG/AddFavourite.svg';
 import IconIn from '../assets/SVG/iconIncrease.svg';
 import IconDe from '../assets/SVG/iconDecrease.svg';
+import IconArrowDown from '../assets/SVG/IconArrowDown.svg';
+import IconArrowUp from '../assets/SVG/IconArrowUp.svg';
+import Star from '../assets/SVG/Star.svg';
+import { dataStar } from '../components/ReviewStar/DataStar';
 
 const ProductDetails = () => {
+  // Increase Or Decrease Amount
   const [amount, setAmount] = useState(1);
 
   const handleAmountIncrease = () => {
@@ -25,8 +30,22 @@ const ProductDetails = () => {
     setAmount(() => amount - 1);
   };
 
+  // Expanded Test
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
+
+  // Set color for Star
+  const [isStarred, setIsStarred] = useState(false);
+
+  const handleStarPress = () => {
+    setIsStarred(!isStarred);
+  };
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: '#fff'}}>
       <ScrollView>
         {/* Banner */}
         <View>
@@ -46,14 +65,17 @@ const ProductDetails = () => {
           <Text style={[styles.common, styles.unit]}>350ml</Text>
 
           {/* Price: Giá   */}
-          <View style={[styles.heading, styles.money ]} > 
+          <View style={[styles.heading, styles.money, styles.borderBottom ]}>
             {/* Button Decrease - Increase */}
-            <View style={[styles.heading, styles.btnAmount  ]} >
-              <TouchableOpacity onPress={handleAmountDecrease} disabled={amount === 1 && true } style={[styles.btnDecrease]} >
+            <View style={[styles.heading, styles.btnAmount]}>
+              <TouchableOpacity
+                onPress={handleAmountDecrease}
+                disabled={amount === 1 && true}
+                style={[styles.btnDecrease]}>
                 <IconDe />
               </TouchableOpacity>
 
-              <Text style={[styles.amount]} >{amount}</Text>
+              <Text style={[styles.amount]}>{amount}</Text>
 
               <TouchableOpacity onPress={handleAmountIncrease}>
                 <IconIn />
@@ -64,10 +86,58 @@ const ProductDetails = () => {
             <Text>220,000VNĐ</Text>
           </View>
 
+          <View style={[{marginTop: 18.05 }, styles.borderBottom ]}>
+            <View style={[styles.heading]}>
+              <Text style={styles.productDetail}>Chi tiết sản phẩm</Text>
+              <TouchableOpacity onPress={toggleExpanded}>
+                <Text>{expanded ? 'Thu gọn' : 'Xem thêm'}</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text
+              numberOfLines={expanded ? undefined : 3}
+              style={{
+                textAlign: 'justify',
+                color: '#7C7C7C',
+                fontSize: 13,
+                marginTop: 9.45,
+              }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Vestibulum eleifend, magna non commodo pretium, nulla augue
+              scelerisque ex, ac bibendum metus velit vel augue. Suspendisse eu
+              lacus ut tellus lobortis malesuada vel ac est. Donec ut urna odio.
+              Ut venenatis nunc sed dignissim volutpat. Integer tristique neque
+              eget tortor placerat, sit amet rhoncus urna euismod. Donec
+              hendrerit purus id consequat luctus. Vestibulum ante ipsum primis
+              in faucibus orci luctus et ultrices posuere cubilia curae; Nulla
+              commodo nibh et risus consectetur commodo. Nullam sed nunc
+              ullamcorper, pellentesque lorem vel, mattis lectus.
+            </Text>
+          </View>
+
+          <View style={[{marginTop: 18.05 }, styles.borderBottom, styles.heading ]} >
+              <Text style={[styles.productDetail]} >Đánh giá </Text>
+
+              {
+                dataStar.map((items, index) => (
+                  <TouchableOpacity  onPress={handleStarPress} key={index} >
+                    <Text style={{paddingLeft: 20, color: isStarred ? 'yellow' : 'red'  }} name={isStarred ? 'star' : 'star-o'} >
+                      {items.iconStart }
+                    </Text>
+                  </TouchableOpacity>
+                  ) 
+                )
+              }
+
+          </View>
+            
+          <TouchableOpacity style={ styles.btnAddCart} >
+              <Text style={{fontWeight: '600', fontSize: 18, color: '#FFF9FF', textAlign: 'center' }} >Thêm vào giỏ hàng</Text>
+          </TouchableOpacity>
+
         </View>
 
       </ScrollView>
-
     </SafeAreaView>
   );
 };
@@ -76,6 +146,13 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     paddingHorizontal: 25,
+    backgroundColor: '#fff',
+  },
+
+  borderBottom: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+    paddingBottom: 30.4,
   },
 
   common: {
@@ -104,20 +181,11 @@ const styles = StyleSheet.create({
 
   money: {
     marginTop: 30.14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E2E2',
-    paddingBottom: 30.4,
+    
   },
 
-  btnAmount:{
+  btnAmount: {
     paddingRight: 100,
-  },
-
-  btnDecrease: {
-  },
-
-  btnIncrease: {
-
   },
 
   amount: {
@@ -128,6 +196,21 @@ const styles = StyleSheet.create({
     borderColor: '#E2E2E2',
     paddingHorizontal: 19.38,
     paddingVertical: 13.83,
+  },
+
+  productDetail: {
+    color: '#181725',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+
+  btnAddCart: {
+    marginVertical: 44.64,
+    borderWidth: 1,
+    borderRadius: 19,
+    borderColor: 'transparent',
+    paddingVertical: 15.5,
+    backgroundColor: '#53B175',
   },
 
 });
