@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Login from '../assets/SVG/login.svg'
+import LoginShopper from '../assets/SVG/LoginShopper.svg'
 import Eye from '../assets/SVG/eyepass.svg'
+import BgEclipse from '../assets/images/BackgroundEllipse.png'
 
 const LoginScreen = () => {
     const [email, setEmail] = useState(null)
@@ -12,10 +13,15 @@ const LoginScreen = () => {
         <SafeAreaView>
             <ScrollView>
                 {/* Background */}
-                <View style={styles.backgroundCurved} >
-                    <Text style={styles.titleLogin} >Login</Text>
-                    {/* <Login/> */}
-                </View>
+                <ImageBackground source={BgEclipse} resizeMode='cover' style={{height: 360}} >
+                    <View style={styles.backgroundCurved} >
+                        <Text style={styles.titleLogin} >Login</Text>
+                        {/* <Login/> */}
+                    </View>
+                    <View style={{marginLeft: 200}} >
+                         <LoginShopper  />
+                    </View>
+                </ImageBackground>
 
                 {/* Input */}
                 <View style={styles.doubleInput} >
@@ -51,6 +57,14 @@ const LoginScreen = () => {
                     <TouchableOpacity style={styles.btnLogin} >
                         <Text style={styles.textLogin} >Đăng nhập</Text>
                     </TouchableOpacity>
+
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'baseline' }} >
+                        <Text style={{color: "#0EB177"}} >
+                            Chưa có tài khoản?
+                        </Text>
+                        <TouchableOpacity><Text style={{color: "#0EB177", fontWeight: '700', marginLeft: 4, marginTop: 15 }} >Đăng ký</Text></TouchableOpacity>
+                    </View>
+                   
                 </View>
 
 
@@ -66,21 +80,21 @@ const styles = StyleSheet.create({
         fontSize: 34,
         fontWeight: 700,
         color: "#fff",
-        marginTop: 234,
+        marginTop: 30,
         marginLeft: 20,
     },
 
     backgroundCurved: {
-        backgroundColor: "#53B97C",
-        height: 370,
-        marginBottom: 80,
-        borderBottomEndRadius: wp('30%'),
-        borderBottomStartRadius: hp('8%'),
+        // flex: 1, 
+        // flexDirection: 'row', 
+        // justifyContent: 'space-between', 
+        // alignItems: 'baseline'
+        
     },
 
     doubleInput: {
         marginLeft: 20,
-        marginTop: -30
+        marginTop: 20
     },
 
     inputEmail: {
@@ -117,7 +131,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '95%',
         paddingVertical: "4%",
-        marginTop: 42,
+        marginTop: 35,
 
     },
 
