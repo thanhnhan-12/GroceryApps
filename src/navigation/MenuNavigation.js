@@ -7,6 +7,7 @@ import Explore from '../assets/SVG/ExploreBar.svg';
 import Cart from '../assets/SVG/CartBar.svg';
 import Favourite from '../assets/SVG/FavouriteBar.svg';
 import Account from '../assets/SVG/AccountBar.svg';
+import ExploreScreen from '../screens/ExploreScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ const MenuNavigation = () => {
 
       <Tab.Screen
         name="Explore"
-        component={HomeNavigation}
+        component={ExploreScreen}
         options={{
           tabBarLabel: 'Danh mục',
           tabBarIcon: ({color}) => (
