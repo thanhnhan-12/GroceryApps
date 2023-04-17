@@ -8,6 +8,7 @@ import Cart from '../assets/SVG/CartBar.svg';
 import Favourite from '../assets/SVG/FavouriteBar.svg';
 import Account from '../assets/SVG/AccountBar.svg';
 import ExploreScreen from '../screens/ExploreScreen';
+import CartScreen from '../screens/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +48,7 @@ const MenuNavigation = () => {
 
       <Tab.Screen
         name="Cart"
-        component={HomeNavigation}
+        component={CartScreen}
         options={{
           tabBarLabel: 'Giỏ hàng',
           tabBarIcon: ({color}) => <Cart name="cart" color={color} size={30} />,

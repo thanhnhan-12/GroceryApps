@@ -12,7 +12,6 @@ const ExploreScreen = () => {
 
         {/* Explore List */}
         <ExploreList />
-
        
       </ScrollView>
 

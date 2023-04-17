@@ -12,8 +12,18 @@ import {dataExplore} from './DataExplore';
 
 import {FlatGrid} from 'react-native-super-grid';
 
+import { useNavigation } from '@react-navigation/native';
+
+
 const ExploreList = () => {
   const [items, setItems] = React.useState(dataExplore);
+
+  const navigation = useNavigation();
+
+  const handlePressForwardExploreDetails = (id) => {
+    console.log(id);
+    navigation.navigate('ExploreDetailsScreen')
+  }
 
   return (
     <ScrollView>
@@ -26,6 +36,7 @@ const ExploreList = () => {
           <ScrollView>
             <View style={[styles.itemContainer]}>
               <TouchableOpacity
+                onPress={() => handlePressForwardExploreDetails(item.id)}
                 style={[
                   styles.container,
                   {backgroundColor: item.bgColor},
