@@ -12,7 +12,7 @@ const GroceriesList = () => {
                     dataGroceries.map((items, index) =>
                     (
                         <>
-                            <SafeAreaView style={styles.container} key={index} >
+                            <SafeAreaView style={[styles.container, {backgroundColor: items.bgColor } ] } key={index} >
                                 <TouchableOpacity>
 
                                     <View style={[styles.grocery ]} >
@@ -42,9 +42,6 @@ const styles = StyleSheet.create({
         borderColor: '#E2E2E2',
         borderWidth: 1,
         borderRadius: 18,
-        // paddingVertical: 10,
-        // paddingHorizontal: 10,
-
     },
 
     grocery: {
@@ -55,10 +52,8 @@ const styles = StyleSheet.create({
     },
 
     imageProduct: {
-        // width: '20%',
-        // height: '40%',
         width: 140,
-        height: 160,
+        height: 140,
         resizeMode: 'contain',
     },
 

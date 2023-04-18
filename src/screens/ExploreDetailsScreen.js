@@ -16,9 +16,13 @@ import ProductList from '../components/ProductList/ProductList';
 import ProductCard from '../components/ProductList/ProductCard';
 import IconFilter from '../assets/SVG/IconFilter.svg';
 import SearchBar from '../components/SearchBar';
+import { useRoute } from '@react-navigation/native';
 
 const ExploreDetailsScreen = ({i}) => {
   const [items, setItems] = React.useState(dataProduct);
+
+  const route = useRoute();
+
 
   const navigation = useNavigation();
 
@@ -39,7 +43,7 @@ const ExploreDetailsScreen = ({i}) => {
           <BackArrow/>
         </TouchableOpacity>
 
-        <Text style={[styles.nameList,  ]} >Nước giải khát</Text>
+        <Text style={[styles.nameList,  ]} >Nước giải khát </Text>
 
         <TouchableOpacity>
           <IconFilter/>
@@ -97,20 +101,6 @@ const ExploreDetailsScreen = ({i}) => {
 };
 
 const styles = StyleSheet.create({
-  gridView: {
-    // flex: 1,
-  },
-
-  itemContainer: {
-    // justifyContent: 'flex-end',
-    // borderRadius: 5,
-    // padding: 10,
-    // height: 150,
-    // marginTop: 80,
-
-    // backgroundColor: 'grey'
-  },
-
   nameList: {
     fontSize: 20,
     color: '#181725',

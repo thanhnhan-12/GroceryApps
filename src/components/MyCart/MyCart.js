@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { dataProduct } from '../ProductList/data'
 import IconDe from '../../assets/SVG/iconDecrease.svg'
 import IconIn from '../../assets/SVG/iconIncrease.svg'
@@ -32,8 +32,8 @@ const MyCart = () => {
       };
 
   return (
-    <View>
-        <Text style={[ { fontSize: 20, color: '#181725', marginVertical: 30, textAlign: 'center', } ]} >Giỏ hàng của tôi</Text>
+    <View style={[{backgroundColor: '#fff'}]} >
+        <Text style={[ { fontSize: 20, color: '#181725', marginVertical: 30, textAlign: 'center', } ]} >Giỏ hàng</Text>
 
        {
             products.map((items, index) => (
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
 
     common: {
         flexDirection: 'row',
-        // justifyContent: 'space-between',
         alignItems: 'center',
         
     },

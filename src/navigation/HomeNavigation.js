@@ -5,6 +5,8 @@ import ProductDetails from '../screens/ProductDetailsScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import ExploreDetailsScreen from '../screens/ExploreDetailsScreen';
 import CartScreen from '../screens/CartScreen';
+import FavouriteScreen from '../screens/FavouriteScreen';
+import AccountScreen from '../screens/AccountScreen';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -38,6 +40,18 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'CartScreen'}
           component={CartScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'FavouriteScreen'}
+          component={FavouriteScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'AccountScreen'}
+          component={AccountScreen}
           options={{headerShown: false}}
         />
 

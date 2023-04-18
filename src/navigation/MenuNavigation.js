@@ -9,6 +9,8 @@ import Favourite from '../assets/SVG/FavouriteBar.svg';
 import Account from '../assets/SVG/AccountBar.svg';
 import ExploreScreen from '../screens/ExploreScreen';
 import CartScreen from '../screens/CartScreen';
+import FavouriteScreen from '../screens/FavouriteScreen';
+import AccountScreen from '../screens/AccountScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +59,7 @@ const MenuNavigation = () => {
 
       <Tab.Screen
         name="Favourite"
-        component={HomeNavigation}
+        component={FavouriteScreen}
         options={{
           tabBarLabel: 'Yêu thích',
           tabBarIcon: ({color}) => (
@@ -68,7 +70,7 @@ const MenuNavigation = () => {
 
       <Tab.Screen
         name="Account"
-        component={HomeNavigation}
+        component={AccountScreen}
         options={{
           tabBarLabel: 'Tài khoản',
           tabBarIcon: ({color}) => (
