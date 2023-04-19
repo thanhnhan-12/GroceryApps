@@ -7,6 +7,7 @@ import ExploreDetailsScreen from '../screens/ExploreDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import FavouriteScreen from '../screens/FavouriteScreen';
 import AccountScreen from '../screens/AccountScreen';
+import Filter from '../components/Filter/Filter';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -52,6 +53,12 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'AccountScreen'}
           component={AccountScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'Filter'}
+          component={Filter}
           options={{headerShown: false}}
         />
 

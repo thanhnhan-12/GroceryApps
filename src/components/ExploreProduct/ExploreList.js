@@ -4,13 +4,12 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {dataExplore} from './DataExplore';
+import { dataExplore } from './DataExplore';
 
-import {FlatGrid} from 'react-native-super-grid';
+import { FlatGrid } from 'react-native-super-grid';
 
 import { useNavigation } from '@react-navigation/native';
 

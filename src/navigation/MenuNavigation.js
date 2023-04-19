@@ -78,6 +78,8 @@ const MenuNavigation = () => {
           ),
         }}
       />
+
+      
     </Tab.Navigator>
   );
 };

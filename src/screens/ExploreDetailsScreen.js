@@ -1,28 +1,26 @@
-import React from 'react';
-import BackArrow from '../assets/SVG/IconBackArrow.svg';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
   Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import {FlatGrid} from 'react-native-super-grid';
-import {dataProduct} from '../components/ProductList/data';
-import {useNavigation} from '@react-navigation/native';
-import ProductList from '../components/ProductList/ProductList';
-import ProductCard from '../components/ProductList/ProductCard';
+import { FlatGrid } from 'react-native-super-grid';
+import BackArrow from '../assets/SVG/IconBackArrow.svg';
 import IconFilter from '../assets/SVG/IconFilter.svg';
+import Filter from '../components/Filter/Filter';
+import { dataProduct } from '../components/ProductList/data';
 import SearchBar from '../components/SearchBar';
-import { useRoute } from '@react-navigation/native';
 
-const ExploreDetailsScreen = ({i}) => {
-  const [items, setItems] = React.useState(dataProduct);
+const ExploreDetailsScreen = () => {
+
+  const [items, setItems] = useState(dataProduct);
 
   const route = useRoute();
-
 
   const navigation = useNavigation();
 
@@ -36,6 +34,24 @@ const ExploreDetailsScreen = ({i}) => {
     navigation.navigate('ProductDetails');
   };
 
+  const handlePressFilters = (id) => {
+    console.log(id);
+    navigation.navigate('Filter');
+  }
+
+  const [isFilterVisible, setFilterVisible] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState('Tất cả');
+
+  
+  const handleFilterSelect = (filter) => {
+    setSelectedFilter(filter);
+    setFilterVisible(false);
+  };
+
+  const handleFilterClose = () => {
+    setFilterVisible(false);
+  };
+
   return (
     <ScrollView style={{backgroundColor: '#fff'}} >
       <View style={[styles.inline, {paddingHorizontal: 15,} ]} >
@@ -45,14 +61,20 @@ const ExploreDetailsScreen = ({i}) => {
 
         <Text style={[styles.nameList,  ]} >Nước giải khát </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setFilterVisible(true)} >
           <IconFilter/>
+    
         </TouchableOpacity>
-
 
       </View>
 
       <SearchBar />
+
+      <Filter
+        visible={isFilterVisible} 
+        onClose={handleFilterClose} 
+        onSelectFilter={handleFilterSelect} 
+      />
 
       <FlatGrid
         itemDimension={120}
@@ -61,7 +83,7 @@ const ExploreDetailsScreen = ({i}) => {
         spacing={10}
         renderItem={({item}) => (
           <ScrollView>
-            <View style={[styles.itemContainer]} >
+            <View style={[ ]} >
             <TouchableOpacity
               // onPress={() => handlePressDetails(items.id)}
               key={items.id}>
@@ -96,11 +118,13 @@ const ExploreDetailsScreen = ({i}) => {
           </ScrollView>
         )}
       />
+
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+
   nameList: {
     fontSize: 20,
     color: '#181725',
@@ -111,8 +135,6 @@ const styles = StyleSheet.create({
     borderColor: '#E2E2E2',
     borderWidth: 1,
     borderRadius: 18,
-    // paddingVertical: 10,
-    // paddingHorizontal: 10,
   },
 
   common: {
@@ -140,7 +162,6 @@ const styles = StyleSheet.create({
   },
 
   unit: {
-    // textAlign: 'center',
     color: '#7C7C7C',
     fontSize: 14,
     marginTop: 5,
@@ -151,7 +172,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    // paddingHorizontal: 20,
     marginBottom: 20,
   },
 
