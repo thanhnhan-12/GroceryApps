@@ -6,6 +6,7 @@ import {AuthContext} from '../context/AuthContext';
 import HomeScreen from '../screens/HomeScreen';
 import MenuNavigation from './MenuNavigation';
 import HomeNavigation from './HomeNavigation';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,18 @@ const AuthNavigation = () => {
             <Stack.Screen
               name="Home"
               component={MenuNavigation}
+              options={{headerShown: false}}
+            />
+
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
+
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
               options={{headerShown: false}}
             />
            

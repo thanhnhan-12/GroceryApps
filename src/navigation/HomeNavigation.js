@@ -8,12 +8,26 @@ import CartScreen from '../screens/CartScreen';
 import FavouriteScreen from '../screens/FavouriteScreen';
 import AccountScreen from '../screens/AccountScreen';
 import Filter from '../components/Filter/Filter';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Group>
+        {/* <Stack.Screen
+          name={'LoginScreen'}
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'RegisterScreen'}
+          component={RegisterScreen}
+          options={{headerShown: false}}
+        /> */}
+
         <Stack.Screen
           name={'HomeScreen'}
           component={HomeScreen}

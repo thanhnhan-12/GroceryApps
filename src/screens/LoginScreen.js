@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LoginShopper from '../assets/SVG/LoginShopper.svg'
 import Eye from '../assets/SVG/eyepass.svg'
 import BgEclipse from '../assets/images/BackgroundEllipse.png'
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null);
 
@@ -25,8 +24,8 @@ const LoginScreen = () => {
 
                 {/* Input */}
                 <View style={styles.doubleInput} >
-                    <View style={styles.inputEmail} >
                         {/* Input Email */}
+                    <View style={styles.inputEmail} >
                         <Text style={styles.label} >Email</Text>
                         <TextInput
                             placeholder={'Nhập Email'}
@@ -35,23 +34,20 @@ const LoginScreen = () => {
                             onChangeText={text => setEmail(text)}
                             secureTextEntry={true}
                             style={styles.input}
-
                         />
                     </View>
 
+                        {/* Input Password */}
                     <View style={styles.inputPass} >
-                        {/* Input Email */}
                         <Text style={styles.label} >Password</Text>
                         <TextInput
                             placeholder={'Nhập Mật khẩu'}
-                            keyboardType={"email-address"}
+                            keyboardType={"visible-password"}
                             value={password}
                             onChangeText={text => setPassword(text)}
                             secureTextEntry={true}
                             style={styles.input}
-
                         />
-
                     </View>
 
                     <TouchableOpacity style={styles.btnLogin} >
@@ -62,11 +58,10 @@ const LoginScreen = () => {
                         <Text style={{color: "#0EB177"}} >
                             Chưa có tài khoản?
                         </Text>
-                        <TouchableOpacity><Text style={{color: "#0EB177", fontWeight: '700', marginLeft: 4, marginTop: 15 }} >Đăng ký</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')} ><Text style={{color: "#0EB177", fontWeight: '700', marginLeft: 4, marginTop: 15 }} >Đăng ký</Text></TouchableOpacity>
                     </View>
                    
                 </View>
-
 
             </ScrollView>
 
@@ -85,16 +80,12 @@ const styles = StyleSheet.create({
     },
 
     backgroundCurved: {
-        // flex: 1, 
-        // flexDirection: 'row', 
-        // justifyContent: 'space-between', 
-        // alignItems: 'baseline'
         
     },
 
     doubleInput: {
         marginLeft: 20,
-        marginTop: 20
+        marginTop: 20,
     },
 
     inputEmail: {
@@ -105,7 +96,6 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontSize: 14,
         fontWeight: 500,
-
     },
 
     input: {
