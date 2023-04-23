@@ -2,22 +2,22 @@ export const dataGroceries = [
     {
         id: 1,
         imgGroceries: require('../../assets/images/beerHuda.png'),
-        nameGroceries: 'Bia Huda',
-        bgColor: '#F8A44C',
+        nameGroceries: 'Bia ',
+        bgColor: '#F6CFA7',
     },
 
     {
         id: 2,
         imgGroceries: require('../../assets/images/cocaColaGro.png'),
-        nameGroceries: 'Coca Cola',
+        nameGroceries: 'Nước giải khát',
         bgColor: '#53B175',
     },
 
     {
         id: 3,
         imgGroceries: require('../../assets/images/miOmachi.png'),
-        nameGroceries: 'Mì Omachi',
-        bgColor: '#F8A44C',
+        nameGroceries: 'Mì gói',
+        bgColor: '#F6CFA7',
     },
 
     {

@@ -38,7 +38,7 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Card Items */}
+                    {/* Card Items - Newest */}
                     <ProductList/>
 
                     {/* Best selling */}
@@ -49,7 +49,7 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Card Items*/}
+                    {/* Card Items - Best Selling */}
                     <ProductList/>
 
                     {/* Groceries */}
@@ -60,10 +60,19 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Card Items */}
+                    {/* Card Items - Grocerieslist */}
                     <GroceriesList/>
 
-                    
+                    {/* Popular */}
+                    <View style={style.titleProduct} >
+                        <Text style={style.heading} >Phổ biến</Text>
+                        <TouchableOpacity>
+                            <Text style={style.seeAll} >Xem tất cả</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Card Items - Popular */}
+                    <ProductList/>
 
                 </View>
 
@@ -75,13 +84,11 @@ const HomeScreen = () => {
 
 const style = StyleSheet.create({
     container: {
-        // marginLeft: 23.5,
-        // marginRight: 23.5
+        paddingBottom: 50
     },
 
     titleProduct: {
         marginTop: 30,
-        // marginLeft: 24.71,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',

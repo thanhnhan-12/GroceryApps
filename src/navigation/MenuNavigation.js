@@ -25,6 +25,9 @@ const MenuNavigation = () => {
         tabBarStyle: {
           backgroundColor: '#fff',
           borderTopColor: 'rgba(225,225,225,0.2)',
+          borderTopStartRadius: 15,
+          borderTopEndRadius: 15,
+          height: 60,
         },
         
       }}>
@@ -33,7 +36,7 @@ const MenuNavigation = () => {
         component={HomeNavigation}
         options={{
           tabBarLabel: 'Trang chủ',
-          tabBarIcon: ({color}) => <Shop name="shop" color={color} size={30} />,
+          tabBarIcon: ({color}) => <Shop name="shop" color={color} size={30} />,    
         }}
       />
 
