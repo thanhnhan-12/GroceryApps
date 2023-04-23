@@ -6,7 +6,22 @@ import BgEclipse from '../assets/images/BackgroundEllipse.png'
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState(null)
+
     const [password, setPassword] = useState(null);
+
+    const [isInputValid, setIsInputValid] = useState(false);
+
+    const handleCheckInputField = () => {
+        if (!email || !password) {
+            // Kiểm tra nếu email hoặc mật khẩu không hợp lệ
+            setIsInputValid(false);
+            // Hiển thị thông báo lỗi
+            alert('Email và mật khẩu không được để trống');
+          } else {
+            // Xử lý đăng nhập
+            // ...
+          }
+    }
 
     return (
         <SafeAreaView>
@@ -33,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
                             value={email}
                             onChangeText={text => setEmail(text)}
                             secureTextEntry={true}
-                            style={styles.input}
+                            style={[styles.input, isInputValid && (!email || !password) ? { borderColor: 'red' } : null, ]}
                         />
                     </View>
 
@@ -46,11 +61,11 @@ const LoginScreen = ({ navigation }) => {
                             value={password}
                             onChangeText={text => setPassword(text)}
                             secureTextEntry={true}
-                            style={styles.input}
+                            style={[styles.input, ]}
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.btnLogin} >
+                    <TouchableOpacity style={styles.btnLogin} onPress={handleCheckInputField} >
                         <Text style={styles.textLogin} >Đăng nhập</Text>
                     </TouchableOpacity>
 
