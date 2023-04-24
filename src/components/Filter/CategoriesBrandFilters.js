@@ -36,6 +36,7 @@ const CategoriesBrandFilters = () => {
     }
   };
 
+
   return (
     <View
       style={[styles.categoriesBrand, {paddingHorizontal: 25, paddingTop: 30}]}>

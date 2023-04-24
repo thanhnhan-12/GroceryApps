@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  View,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
+  View
 } from 'react-native';
-import {dataProduct} from '../ProductList/data';
+import { dataProduct } from '../ProductList/data';
+import SwipeableFavourite from './SwipeableFavourite';
 
 const Favourite = () => {
   const [myfavourite, setMyFavourite] = useState(dataProduct);
 
   return (
-    <View>
+    <View style={[ {backgroundColor: '#fff'} ]} >
       <Text
         style={[
           {
@@ -26,7 +26,7 @@ const Favourite = () => {
         Ưa thích
       </Text>
 
-      {myfavourite.map((items, index) => (
+      {/* {myfavourite.map((items, index) => (
         <>
           <View style={[styles.common, styles.border]} key={index}>
             <Image style={[styles.imgProduct]} source={items.imgProduct} />
@@ -49,7 +49,8 @@ const Favourite = () => {
             </View>
           </View>
         </>
-      ))}
+      ))} */}
+      <SwipeableFavourite/>
 
       <TouchableOpacity style={styles.btnCheckout}>
         <Text style={styles.textCheckout}>Thêm vào giỏ hàng</Text>
