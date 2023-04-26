@@ -10,13 +10,13 @@ import {
   View,
 } from 'react-native';
 import BannerProductDetails from '../components/ProductDetails/BannerProductDetails';
-import AddFavourite from '../assets/SVG/AddFavourite.svg';
+import AddFavourite from '../assets/SVG/AddFavourite.js';
+
 import IconIn from '../assets/SVG/iconIncrease.svg';
 import IconDe from '../assets/SVG/iconDecrease.svg';
 import IconArrowDown from '../assets/SVG/IconArrowDown.svg';
 import IconArrowUp from '../assets/SVG/IconArrowUp.svg';
-import Star from '../assets/SVG/Star.svg';
-import { dataStar } from '../components/ReviewStar/DataStar';
+import Star, { StarRatings } from '../components/ReviewStar/Star';
 
 const ProductDetails = () => {
   // Increase Or Decrease Amount
@@ -57,9 +57,7 @@ const ProductDetails = () => {
           {/* Name: Tên sản phẩm  */}
           <View style={[styles.heading]}>
             <Text style={[styles.nameHeading]}>Coca Cola</Text>
-            <TouchableOpacity>
-              <AddFavourite style={[styles.common, styles.iconHeading]} />
-            </TouchableOpacity>
+            <AddFavourite/>
           </View>
 
           <Text style={[styles.common, styles.unit]}>350ml</Text>
@@ -117,18 +115,9 @@ const ProductDetails = () => {
 
           <View style={[{marginTop: 18.05 }, styles.borderBottom, styles.heading ]} >
               <Text style={[styles.productDetail]} >Đánh giá </Text>
+              <StarRatings/>
 
-              {
-                dataStar.map((items, index) => (
-                  <TouchableOpacity  onPress={handleStarPress} key={index} >
-                    <Text style={{paddingLeft: 20, color: isStarred ? 'yellow' : 'red'  }} name={isStarred ? 'star' : 'star-o'} >
-                      {items.iconStart }
-                    </Text>
-                  </TouchableOpacity>
-                  ) 
-                )
-              }
-
+              {/* <Star/> */}
           </View>
             
           <TouchableOpacity style={ styles.btnAddCart} >
@@ -171,7 +160,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 
-  iconHeading: {},
+  iconHeading: {
+    color: 'red',
+  },
 
   unit: {
     fontWeight: '600',

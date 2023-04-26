@@ -22,6 +22,7 @@
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-native": "0.71.6",
+    "react-native-animatable": "^1.3.3",
     "react-native-cards-slider": "latest",
     "react-native-check-box": "^2.1.7",
     "react-native-checkbox-form": "^1.1.5",
