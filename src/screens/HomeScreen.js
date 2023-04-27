@@ -5,6 +5,7 @@ import GroceriesList from '../components/Groceries/GroceriesList'
 import ProductList from '../components/ProductList/ProductList'
 import SearchBar from '../components/SearchBar'
 import { useNavigation } from '@react-navigation/native'
+import Distributor from '../components/Distributor/Distributor'
 
 const HomeScreen = () => {
 
@@ -74,6 +75,13 @@ const HomeScreen = () => {
                     {/* Card Items - Popular */}
                     <ProductList/>
 
+                    {/* Distributor */}
+                    <View style={style.titleProduct}>
+                        <Text style={style.heading} >Nhà phân phối</Text>
+                    </View>
+
+                    {/* Card Items - Distributor */}
+                    <Distributor />
                 </View>
 
             </ScrollView>
@@ -84,7 +92,7 @@ const HomeScreen = () => {
 
 const style = StyleSheet.create({
     container: {
-        paddingBottom: 50
+        paddingBottom: 40
     },
 
     titleProduct: {

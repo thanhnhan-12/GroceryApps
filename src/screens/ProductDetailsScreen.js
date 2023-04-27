@@ -1,22 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import BannerProductDetails from '../components/ProductDetails/BannerProductDetails';
 import AddFavourite from '../assets/SVG/AddFavourite.js';
+import BannerProductDetails from '../components/ProductDetails/BannerProductDetails';
 
-import IconIn from '../assets/SVG/iconIncrease.svg';
 import IconDe from '../assets/SVG/iconDecrease.svg';
-import IconArrowDown from '../assets/SVG/IconArrowDown.svg';
-import IconArrowUp from '../assets/SVG/IconArrowUp.svg';
-import Star, { StarRatings } from '../components/ReviewStar/Star';
+import IconIn from '../assets/SVG/iconIncrease.svg';
+import { StarRatings } from '../components/ReviewStar/Star';
 
 const ProductDetails = () => {
   // Increase Or Decrease Amount
@@ -117,7 +113,6 @@ const ProductDetails = () => {
               <Text style={[styles.productDetail]} >Đánh giá </Text>
               <StarRatings/>
 
-              {/* <Star/> */}
           </View>
             
           <TouchableOpacity style={ styles.btnAddCart} >
