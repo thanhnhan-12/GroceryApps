@@ -1,8 +1,13 @@
 import React from 'react'
+import { SafeAreaView, View } from 'react-native'
 
 const PersonalInformation = () => {
   return (
-    <div>PersonalInformation</div>
+    <SafeAreaView>
+      <View>
+        
+      </View>
+    </SafeAreaView>
   )
 }
 

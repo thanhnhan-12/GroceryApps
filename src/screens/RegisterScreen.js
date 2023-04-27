@@ -137,8 +137,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  backgroundCurved: {},
-
   vectorRegister: {
     flexDirection: 'row',
     justifyContent: 'center',
