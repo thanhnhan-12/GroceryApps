@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, TouchableOpacity, StyleSheet, Text} from 'react-native';
+import SelectDateTimePicker from './SelectDateTimePicker';
 
 
 const Personal = () => {
@@ -64,6 +65,9 @@ const Personal = () => {
           />
         </View>
 
+        {/* Select Date */}
+        <SelectDateTimePicker />
+
         <TouchableOpacity style={styles.btnLogin}>
           <Text style={styles.textLogin}>Cập nhật</Text>
         </TouchableOpacity>
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 12,
     borderColor: '#ccc',
-    backgroundColor: '#F2F2F2',
+    // backgroundColor: '#F2F2F2',
   },
 
   btnLogin: {
