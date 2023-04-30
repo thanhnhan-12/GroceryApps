@@ -10,6 +10,7 @@ import AccountScreen from '../screens/AccountScreen';
 import Filter from '../components/Filter/Filter';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import PersonalInformation from '../screens/PersonalInformation';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -73,6 +74,12 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'Filter'}
           component={Filter}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'PersonalInformation'}
+          component={PersonalInformation}
           options={{headerShown: false}}
         />
 

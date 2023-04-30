@@ -2,118 +2,146 @@ import React, {useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {dataInforAccount} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
-import IconLogout from '../../assets/SVG/IconLogout.svg'
+import IconLogout from '../../assets/SVG/IconLogout.svg';
+import {useNavigation} from '@react-navigation/native';
 
 const InforAccount = () => {
   const [inforAccount, setInforAccount] = useState(dataInforAccount);
 
+  const navigation = useNavigation();
+
+  const handleCheckFieldItems = id => {
+    if (id === 1) {
+      navigation.navigate('');
+    }
+
+    if (id === 2) {
+      navigation.navigate('PersonalInformation');
+    }
+
+    if (id === 3) {
+      navigation.navigate('');
+    }
+  };
+
   return (
-    <View style={{backgroundColor: '#fff'}} >
-      <View style={[styles.account  ]} >
-          <TouchableOpacity style={[styles.iconAccount, ]} >
-              <IconAccount width={80}  />
-          </TouchableOpacity>
-          <View style={{marginLeft: 20, }} >
-              <Text style={[styles.nameAccount, styles.colors ]}>Họ và tên</Text>
-              <Text style={[styles.emailAccount ]} >Email</Text>
-          </View>
+    <View style={{backgroundColor: '#fff'}}>
+      <View style={[styles.account]}>
+        <TouchableOpacity style={[styles.iconAccount]}>
+          <IconAccount width={80} />
+        </TouchableOpacity>
+        <View style={{marginLeft: 20}}>
+          <Text style={[styles.nameAccount, styles.colors]}>Họ và tên</Text>
+          <Text style={[styles.emailAccount]}>Email</Text>
+        </View>
       </View>
 
       {inforAccount.map((items, index) => (
         <>
-          <TouchableOpacity style={[styles.inline1 ]} >
-            <View>
-                {items.iconRepresent}
-            </View>
+          <TouchableOpacity
+            style={[styles.inline1]}
+            onPress={id => {
+              if (items.id === 1) {
+                navigation.navigate('');
+              }
 
-            <View style={[styles.inline2 ]} >
-              <Text style={[styles.textTitle, styles.colors]} >  {items.title} </Text>
+              if (items.id === 2) {
+                navigation.navigate('PersonalInformation');
+              }
+
+              if (items.id === 3) {
+                navigation.navigate('');
+              }
+            }}>
+            <View>{items.iconRepresent}</View>
+
+            <View style={[styles.inline2]}>
+              <Text style={[styles.textTitle, styles.colors]}>
+                {' '}
+                {items.title}{' '}
+              </Text>
               {items.iconArrow}
             </View>
           </TouchableOpacity>
         </>
       ))}
 
-      <TouchableOpacity style={[styles.btnLogout ]} >
+      <TouchableOpacity style={[styles.btnLogout]}>
         {/* <View
           style={[{flexDirection: 'row', alignItems: 'center' } ]}
         > 
         </View> */}
-          <View style={[{marginRight: '4%', }]} >
-            <IconLogout/>
-          </View>
-          <Text style={[styles.textLogout ]} >Đăng xuất</Text>
+        <View style={[{marginRight: '4%'}]}>
+          <IconLogout />
+        </View>
+        <Text style={[styles.textLogout]}>Đăng xuất</Text>
       </TouchableOpacity>
-
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    account: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 20,
-        marginLeft: 23,
-    },
+  account: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 20,
+    marginLeft: 23,
+  },
 
-    colors: {
-        color: '#181725',
-    },
+  colors: {
+    color: '#181725',
+  },
 
-    iconAccount: {
+  iconAccount: {},
 
-    },
+  nameAccount: {
+    fontSize: 20,
+    marginBottom: 5,
+  },
 
-    nameAccount: {
-        fontSize: 20,
-        marginBottom: 5,
-    },
+  emailAccount: {
+    color: '#7C7C7C',
+    fontSize: 16,
+  },
 
-    emailAccount: {
-        color: '#7C7C7C',
-        fontSize: 16,
-    },
+  inline1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E2E2',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+  },
 
-    inline1: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 20,
-        paddingHorizontal: 25,
-        borderTopWidth: 1,
-        borderTopColor: '#E2E2E2',
-        borderBottomWidth: 1,
-        borderBottomColor: '#E2E2E2',
-    },
+  inline2: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 
-    inline2: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
+  textTitle: {
+    fontSize: 18,
+    marginLeft: 20.49,
+  },
 
-    textTitle: {
-        fontSize: 18,
-        marginLeft: 20.49,
-    },
+  btnLogout: {
+    backgroundColor: '#DCF5DC',
+    borderRadius: 19,
+    paddingVertical: '4%',
+    marginHorizontal: 18,
+    marginVertical: 35,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-    btnLogout: {
-      backgroundColor: '#DCF5DC',
-      borderRadius: 19,
-      paddingVertical: '4%',
-      marginHorizontal: 18,
-      marginVertical: 35,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
-    textLogout: {
-      color: '#53B175',
-      fontSize: 18,
-    },
-
+  textLogout: {
+    color: '#53B175',
+    fontSize: 18,
+  },
 });
 
 export default InforAccount;

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleSheet, Text} from 'react-native';
+
 
 const Personal = () => {
   const [name, setName] = useState(null);
