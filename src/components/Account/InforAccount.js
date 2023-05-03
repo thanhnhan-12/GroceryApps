@@ -52,6 +52,10 @@ const InforAccount = () => {
               if (items.id === 3) {
                 navigation.navigate('');
               }
+
+              if (items.id === 4) {
+                navigation.navigate('AdminScreen');
+              }
             }}>
             <View>{items.iconRepresent}</View>
 

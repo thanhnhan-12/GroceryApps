@@ -11,6 +11,7 @@ import Filter from '../components/Filter/Filter';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import PersonalInformation from '../screens/PersonalInformation';
+import AdminScreen from '../screens/Admin/AdminScreen';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -83,6 +84,11 @@ const HomeNavigation = () => {
           options={{headerShown: false}}
         />
 
+        <Stack.Screen
+          name={'AdminScreen'}
+          component={AdminScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
