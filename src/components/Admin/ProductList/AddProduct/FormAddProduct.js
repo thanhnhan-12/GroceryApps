@@ -8,41 +8,7 @@ const FormAddProduct = () => {
 
   return (
     <View style={[styles.commonInputs]}>
-      <View style={[styles.commonInput]}>
-        <Text style={styles.label}>Nhập tên sản phẩm</Text>
-        <TextInput
-          placeholder={'Nhập tên sản phẩm'}
-          keyboardType={'default'}
-          value={nameProduct}
-          onChangeText={text => setNameProduct(text)}
-          secureTextEntry={true}
-          style={[styles.input]}
-        />
-      </View>
-
-      <View style={[styles.commonInput]}>
-        <Text style={styles.label}>Nhập đơn vị</Text>
-        <TextInput
-          placeholder={'Nhập đơn vị'}
-          keyboardType={'default'}
-          value={unit}
-          onChangeText={text => setUnit(text)}
-          secureTextEntry={true}
-          style={[styles.input]}
-        />
-      </View>
-
-      <View style={[styles.commonInput]}>
-        <Text style={styles.label}>Nhập giá tiền</Text>
-        <TextInput
-          placeholder={'Nhập giá tiền'}
-          keyboardType={'default'}
-          value={price}
-          onChangeText={text => setPrice(text)}
-          secureTextEntry={true}
-          style={[styles.input]}
-        />
-      </View>
+      
     </View>
   );
 };
