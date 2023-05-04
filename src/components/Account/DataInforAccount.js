@@ -2,8 +2,8 @@ import IconOrders from '../../assets/SVG/IconOrders.svg';
 import IconInfor from '../../assets/SVG/IconInfor.svg';
 import IconDelivery from '../../assets/SVG/IconDelivery.svg';
 import IconArrowNext from '../../assets/SVG/IconArrowNext.svg';
-import AntDesign from 'react-native-vector-icons/AntDesign'
- 
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 export const dataInforAccount = [
   {
     id: 1,
@@ -28,7 +28,14 @@ export const dataInforAccount = [
 
   {
     id: 4,
-    iconRepresent: <AntDesign name='addusergroup' size={28} color="black" style={[ {marginLeft: -5} ]} />,
+    iconRepresent: (
+      <AntDesign
+        name="addusergroup"
+        size={28}
+        color="black"
+        style={[{marginLeft: -5}]}
+      />
+    ),
     title: 'Quản lý',
     iconArrow: <IconArrowNext />,
   },
