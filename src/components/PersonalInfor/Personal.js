@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 12,
     borderColor: '#ccc',
-    // backgroundColor: '#F2F2F2',
   },
 
   btnLogin: {

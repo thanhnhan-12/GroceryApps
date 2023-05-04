@@ -12,6 +12,8 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import PersonalInformation from '../screens/PersonalInformation';
 import AdminScreen from '../screens/Admin/AdminScreen';
+import AccountAdmin from '../components/Admin/Account';
+import ProductListAdmin from '../components/Admin/ProductList';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -84,11 +86,25 @@ const HomeNavigation = () => {
           options={{headerShown: false}}
         />
 
+        {/* ADMIN */}
         <Stack.Screen
           name={'AdminScreen'}
           component={AdminScreen}
           options={{headerShown: false}}
         />
+
+        <Stack.Screen
+          name={'AccountAdmin'}
+          component={AccountAdmin}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'ProductListAdmin'}
+          component={ProductListAdmin}
+          options={{headerShown: false}}
+        />
+
       </Stack.Group>
     </Stack.Navigator>
   );

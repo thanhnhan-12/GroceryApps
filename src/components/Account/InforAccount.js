@@ -71,10 +71,6 @@ const InforAccount = () => {
       ))}
 
       <TouchableOpacity style={[styles.btnLogout]}>
-        {/* <View
-          style={[{flexDirection: 'row', alignItems: 'center' } ]}
-        > 
-        </View> */}
         <View style={[{marginRight: '4%'}]}>
           <IconLogout />
         </View>
