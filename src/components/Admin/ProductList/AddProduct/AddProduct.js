@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { SafeAreaView, Text, TouchableOpacity, StyleSheet, View } from 'react-native'
+import { SafeAreaView, Text, TouchableOpacity, StyleSheet, View, ScrollView } from 'react-native'
 import IconBackArrow from '../../../../assets/SVG/IconBackArrow.svg'
 import FormAddProduct from './FormAddProduct'
 import {useNavigation} from '@react-navigation/native';
@@ -12,15 +12,18 @@ const AddProduct = () => {
 
   return (
     <SafeAreaView>
-      <View style={[styles.flex]} >
-        <TouchableOpacity>
-            <IconBackArrow/>
-        </TouchableOpacity>
-        <Text style={[styles.textAdd ]} >Thêm mới sản phẩm</Text>
-        <Text>{hidden }</Text>
-      </View>
+      <ScrollView>
+        <View style={[styles.flex]} >
+          <TouchableOpacity>
+              <IconBackArrow/>
+          </TouchableOpacity>
+          <Text style={[styles.textAdd ]} >Thêm mới sản phẩm</Text>
+          <Text>{hidden }</Text>
+        </View>
 
-      <FormAddProduct  />
+        <FormAddProduct  />
+
+      </ScrollView>
 
     </SafeAreaView>
   )
