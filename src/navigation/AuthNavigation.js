@@ -12,15 +12,14 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigation = () => {
   const {userInfo} = useContext(AuthContext);
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {userInfo && userInfo.toString().length > 0 ? (
+        {userInfo && userInfo?.toString().length > 0 ? (
           <>
-            <Stack.Screen
-              name="Home"
-              component={HomeNavigation}
+             <Stack.Screen
+              name="HomeNavigation"
+              component={MenuNavigation}
               options={{headerShown: false}}
             />
 
@@ -29,16 +28,9 @@ const AuthNavigation = () => {
               component={HomeScreen}
               options={{headerShown: false}}
             />
-            
           </>
         ) : (
           <>
-            <Stack.Screen
-              name="Home"
-              component={MenuNavigation}
-              options={{headerShown: false}}
-            />
-
             <Stack.Screen
               name="Login"
               component={LoginScreen}
@@ -50,7 +42,6 @@ const AuthNavigation = () => {
               component={RegisterScreen}
               options={{headerShown: false}}
             />
-           
           </>
         )}
       </Stack.Navigator>

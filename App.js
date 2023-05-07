@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import AuthProvider from './src/context/AuthContext';
 import AuthNavigation from './src/navigation/AuthNavigation';
+import {toastConfig} from './src/constant/toastConfig';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <AuthNavigation />
-    </AuthProvider>
+    <Fragment>
+      <AuthProvider>
+        <AuthNavigation />
+      </AuthProvider>
+      <Toast config={toastConfig} />
+    </Fragment>
   );
 };
 

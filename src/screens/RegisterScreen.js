@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,21 +11,37 @@ import {
 } from 'react-native';
 import BgEclipse from '../assets/images/BackgroundEllipse.png';
 import RegisterShopper from '../assets/SVG/RegisterShopper.svg';
-import { useNavigation } from '@react-navigation/native';
-
+import {useNavigation} from '@react-navigation/native';
+import {AuthContext} from '../context/AuthContext';
 
 const RegisterScreen = ({navigation}) => {
-  const [name, setName] = useState(null);
+  const [fullName, setFullName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPass, setConfirmPass] = useState(null);
 
+  const {register, isLoading} = useContext(AuthContext);
+
   // const navigation = useNavigation();
 
-  const handlePressLoginScreen = (id) => {
+  const handlePressLoginScreen = id => {
     console.log(id);
-    navigation.navigate('LoginScreen')
-  }
+    navigation.navigate('LoginScreen');
+  };
+
+  const handleCheckInputField = async () => {
+    if (!email || !password) {
+      // Kiểm tra nếu email hoặc mật khẩu không hợp lệ
+      setIsInputValid(false);
+      // Hiển thị thông báo lỗi
+      console.error('Email và mật khẩu không được để trống');
+    } else {
+      if (password !== confirmPass) {
+        console.error('Mật khẩu không trùng khớp');
+      }
+      register(fullName, email, password);
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -52,9 +68,9 @@ const RegisterScreen = ({navigation}) => {
             <TextInput
               placeholder={'Nhập Họ và tên'}
               keyboardType={'default'}
-              value={name}
-              onChangeText={text => setName(text)}
-              secureTextEntry={true}
+              value={fullName}
+              onChangeText={text => setFullName(text.trim())}
+              secureTextEntry={false}
               style={styles.input}
             />
           </View>
@@ -66,7 +82,7 @@ const RegisterScreen = ({navigation}) => {
               placeholder={'Nhập Email'}
               keyboardType={'email-address'}
               value={email}
-              onChangeText={text => setEmail(text)}
+              onChangeText={text => setEmail(text.trim())}
               secureTextEntry={true}
               style={styles.input}
             />
@@ -79,7 +95,7 @@ const RegisterScreen = ({navigation}) => {
               placeholder={'Nhập Mật khẩu'}
               keyboardType={'default'}
               value={password}
-              onChangeText={text => setPassword(text)}
+              onChangeText={text => setPassword(text.trim())}
               secureTextEntry={true}
               style={styles.input}
             />
@@ -92,13 +108,15 @@ const RegisterScreen = ({navigation}) => {
               placeholder={'Nhập lại Mật khẩu'}
               keyboardType={'default'}
               value={confirmPass}
-              onChangeText={text => setConfirmPass(text)}
+              onChangeText={text => setConfirmPass(text.trim())}
               secureTextEntry={true}
               style={styles.input}
             />
           </View>
 
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity
+            style={styles.btnLogin}
+            onPress={handleCheckInputField}>
             <Text style={styles.textLogin}>Đăng ký</Text>
           </TouchableOpacity>
 
@@ -110,7 +128,7 @@ const RegisterScreen = ({navigation}) => {
               alignItems: 'baseline',
             }}>
             <Text style={{color: '#0EB177'}}>Đã có tài khoản?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')} >
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text
                 style={{
                   color: '#0EB177',
@@ -176,18 +194,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderRadius: 10,
     width: '95%',
-    paddingVertical: "4%",
+    paddingVertical: '4%',
     marginTop: 35,
-
   },
 
   textLogin: {
-      color: 'white',
-      fontWeight: 700,
-      width: '100%',
-      textAlign: 'center',
-  }
-
+    color: 'white',
+    fontWeight: 700,
+    width: '100%',
+    textAlign: 'center',
+  },
 });
 
 export default RegisterScreen;

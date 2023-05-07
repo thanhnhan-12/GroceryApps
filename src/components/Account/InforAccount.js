@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {dataInforAccount} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
 import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext';
 
 const InforAccount = () => {
   const [inforAccount, setInforAccount] = useState(dataInforAccount);
+
+  const {logout} = useContext(AuthContext);
 
   const navigation = useNavigation();
 
@@ -70,7 +73,7 @@ const InforAccount = () => {
         </>
       ))}
 
-      <TouchableOpacity style={[styles.btnLogout]}>
+      <TouchableOpacity style={[styles.btnLogout]} onPress={logout} >
         <View style={[{marginRight: '4%'}]}>
           <IconLogout />
         </View>

@@ -20,18 +20,6 @@ const HomeNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Group>
-        {/* <Stack.Screen
-          name={'LoginScreen'}
-          component={LoginScreen}
-          options={{headerShown: false}}
-        />
-
-        <Stack.Screen
-          name={'RegisterScreen'}
-          component={RegisterScreen}
-          options={{headerShown: false}}
-        /> */}
-
         <Stack.Screen
           name={'HomeScreen'}
           component={HomeScreen}
