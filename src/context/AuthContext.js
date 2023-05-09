@@ -55,23 +55,21 @@ const AuthProvider = ({children}) => {
     }
   };
 
-  const saveLoginInfo = async (username, password) => {
+  const checkLoginStatus = async () => {
     try {
-      await AsyncStorage.setItem('username', username);
-      await AsyncStorage.setItem('password', password);
+      const savedUserInfo = await AsyncStorage.getItem('userInfo');
+      if (savedUserInfo !== null) {
+        setUserInfo(JSON.parse(savedUserInfo));
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const checkLoginStatus = async () => {
+  const saveLoginInfo = async (username, password) => {
     try {
-      const username = await AsyncStorage.getItem('username');
-      const password = await AsyncStorage.getItem('password');
-      if (username !== null && password !== null) {
-        // tự động đăng nhập người dùng
-        login(username, password);
-      }
+      await AsyncStorage.setItem('userInfo', username);
+      await AsyncStorage.setItem('passWord', password);
     } catch (error) {
       console.error(error);
     }
@@ -90,8 +88,8 @@ const AuthProvider = ({children}) => {
         isLoading,
         userInfo,
         isError,
-        saveLoginInfo,
         checkLoginStatus,
+        saveLoginInfo,
         // dataPost,
         // lengthCart,
       }}>
