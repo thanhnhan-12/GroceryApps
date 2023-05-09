@@ -55,6 +55,28 @@ const AuthProvider = ({children}) => {
     }
   };
 
+  const saveLoginInfo = async (username, password) => {
+    try {
+      await AsyncStorage.setItem('username', username);
+      await AsyncStorage.setItem('password', password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const checkLoginStatus = async () => {
+    try {
+      const username = await AsyncStorage.getItem('username');
+      const password = await AsyncStorage.getItem('password');
+      if (username !== null && password !== null) {
+        // tự động đăng nhập người dùng
+        login(username, password);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -68,6 +90,8 @@ const AuthProvider = ({children}) => {
         isLoading,
         userInfo,
         isError,
+        saveLoginInfo,
+        checkLoginStatus,
         // dataPost,
         // lengthCart,
       }}>

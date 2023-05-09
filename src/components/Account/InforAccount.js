@@ -13,20 +13,6 @@ const InforAccount = () => {
 
   const navigation = useNavigation();
 
-  const handleCheckFieldItems = id => {
-    if (id === 1) {
-      navigation.navigate('');
-    }
-
-    if (id === 2) {
-      navigation.navigate('PersonalInformation');
-    }
-
-    if (id === 3) {
-      navigation.navigate('');
-    }
-  };
-
   return (
     <View style={{backgroundColor: '#fff'}}>
       <View style={[styles.account]}>
@@ -45,7 +31,7 @@ const InforAccount = () => {
             style={[styles.inline1]}
             onPress={id => {
               if (items.id === 1) {
-                navigation.navigate('');
+                navigation.navigate('OrderScreen');
               }
 
               if (items.id === 2) {
@@ -53,7 +39,7 @@ const InforAccount = () => {
               }
 
               if (items.id === 3) {
-                navigation.navigate('');
+                navigation.navigate('DeliveryScreen');
               }
 
               if (items.id === 4) {

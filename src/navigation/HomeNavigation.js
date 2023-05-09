@@ -14,6 +14,8 @@ import PersonalInformation from '../screens/PersonalInformation';
 import AdminScreen from '../screens/Admin/AdminScreen';
 import AccountAdmin from '../components/Admin/Account';
 import ProductListAdmin from '../components/Admin/ProductList';
+import DeliveryScreen from '../screens/DeliveryScreen';
+import OrderScreen from '../screens/OrderScreen';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -69,6 +71,18 @@ const HomeNavigation = () => {
         />
 
         <Stack.Screen
+          name={'OrderScreen'}
+          component={OrderScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'DeliveryScreen'}
+          component={DeliveryScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
           name={'PersonalInformation'}
           component={PersonalInformation}
           options={{headerShown: false}}
@@ -92,7 +106,6 @@ const HomeNavigation = () => {
           component={ProductListAdmin}
           options={{headerShown: false}}
         />
-
       </Stack.Group>
     </Stack.Navigator>
   );
