@@ -4,7 +4,7 @@ import {dataInforAccount} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
 import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
-import { AuthContext } from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 
 const InforAccount = () => {
   const [inforAccount, setInforAccount] = useState(dataInforAccount);
@@ -59,7 +59,7 @@ const InforAccount = () => {
         </>
       ))}
 
-      <TouchableOpacity style={[styles.btnLogout]} onPress={logout} >
+      <TouchableOpacity style={[styles.btnLogout]} onPress={logout}>
         <View style={[{marginRight: '4%'}]}>
           <IconLogout />
         </View>

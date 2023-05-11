@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState, useEffect } from 'react';
 import authApi from '../api/authApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Toast} from 'react-native-toast-message';
@@ -64,6 +64,8 @@ const AuthProvider = ({children}) => {
     } catch (error) {
       console.error(error);
     }
+    console.log({saveLoginInfo});
+    console.log({userInfo});
   };
 
   const saveLoginInfo = async (username, password) => {
@@ -73,7 +75,13 @@ const AuthProvider = ({children}) => {
     } catch (error) {
       console.error(error);
     }
+    console.log({userInfo});
+    console.log({username, password});
   };
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   return (
     <AuthContext.Provider
