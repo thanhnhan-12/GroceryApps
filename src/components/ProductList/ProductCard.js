@@ -1,5 +1,5 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -7,86 +7,62 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { dataProduct } from '../../components/ProductList/data';
+import {dataProduct} from '../../components/ProductList/data';
+import productApi from '../../api/productApi';
 
-
-const ProductCard = () => {
-
-  const [items, setItems] = useState(dataProduct);
-
+const ProductCard = ({card}) => {
+  const {productID, imageURL, productName, unit, price} = card;
+  
   const route = useRoute();
 
   const navigation = useNavigation();
 
-  const handlePressBackExplore = (id) => {
+  const handlePressBackExplore = id => {
     console.log(id);
-    navigation.navigate('ExploreScreen')
-  }
+    navigation.navigate('ExploreScreen');
+  };
 
   const handlePressDetails = id => {
     console.log(id);
     navigation.navigate('ProductDetails');
   };
 
-
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}} >
+    <View style={[{}]}>
+      <View style={[]}>
+        <TouchableOpacity
+          style={[{marginLeft: 40, marginHorizontal: 50}]}
+          onPress={() => handlePressDetails(productID)}>
+          <SafeAreaView style={styles.container}>
+            <View>
+              <View style={styles.centerImg}>
+                <Image source={{uri: imageURL}} style={styles.imageProduct} />
+              </View>
 
-      <FlatList
-        contentContainerStyle={{paddingRight: 25}}
-        data={items}
-        style={styles.gridView}
-        spacing={20}
-        horizontal
-        renderItem={({item}) => (
-          <View style={[{}]} >
-            <View style={[ ]} >
-            <TouchableOpacity
-              style={[{marginLeft: 40, marginHorizontal: 50, }]}
-              onPress={() => handlePressDetails(items.id)}
-              key={items.id}>
-              <SafeAreaView style={styles.container} >
-                <View>
-                  <View style={styles.centerImg}>
-                    <Image
-                      source={item.imgProduct}
-                      style={styles.imageProduct}
-                    />
-                  </View>
+              <Text style={styles.nameProduct}> {productName} </Text>
+              <Text style={[styles.common, styles.unit]}>{unit}</Text>
 
-                  <Text style={styles.nameProduct}> {item.nameProduct} </Text>
-                  <Text style={[styles.common, styles.unit]}>{item.unit}</Text>
+              <View style={[styles.inline]}>
+                <Text style={[styles.common, styles.price]}>{price}</Text>
 
-                  <View style={[styles.inline]}>
-                    <Text style={[styles.common, styles.price]}>{item.price}</Text>
-
-                    <TouchableOpacity style={[styles.btnAdd]}>
-                      <Image
-                        source={item.icon}
-                        style={styles.iconAdd}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </SafeAreaView>
-            </TouchableOpacity>
+                <TouchableOpacity style={[styles.btnAdd]}>
+                  <Image
+                    source={require('../../assets/images/IconAddProduct.png')}
+                    style={styles.iconAdd}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        )}
-        
-      />
-
+          </SafeAreaView>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  gridView: {
-      marginLeft: -20,
-  },
-
   nameList: {
     fontSize: 20,
     color: '#181725',
@@ -97,8 +73,8 @@ const styles = StyleSheet.create({
     borderColor: '#E2E2E2',
     borderWidth: 1,
     borderRadius: 18,
-    width: '140%',
-    height: '100%',
+    width: '130%',
+    // height: '50%',
   },
 
   common: {
@@ -112,9 +88,10 @@ const styles = StyleSheet.create({
   },
 
   imageProduct: {
-    width: 120,
-    height: 180,
+    width: '100%',
+    height: 140,
     resizeMode: 'contain',
+    marginVertical: 20,
   },
 
   nameProduct: {
@@ -157,7 +134,6 @@ const styles = StyleSheet.create({
     width: 17,
     height: 17,
   },
-
 });
 
 export default ProductCard;

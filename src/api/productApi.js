@@ -1,8 +1,12 @@
 import instance from "./axiosClient";
 
 const productApi = {
-    product: async (payload) => {
-        return await instance.get(`/product`, payload);
+    product: async () => {
+        return await instance.get(`/product/get-product`);
+    },
+
+    productSelling: async () => {
+        return await instance.get(`/product/get-productselling`)
     },
    
 }

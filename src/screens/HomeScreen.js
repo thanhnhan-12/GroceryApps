@@ -1,121 +1,153 @@
-import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Banner from '../components/Banner'
-import GroceriesList from '../components/Groceries/GroceriesList'
-import ProductList from '../components/ProductList/ProductList'
-import SearchBar from '../components/SearchBar'
-import { useNavigation } from '@react-navigation/native'
-import Distributor from '../components/Distributor/Distributor'
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Banner from '../components/Banner';
+import GroceriesList from '../components/Groceries/GroceriesList';
+import ProductList from '../components/ProductList/ProductList';
+import SearchBar from '../components/SearchBar';
+import {useNavigation} from '@react-navigation/native';
+import Distributor from '../components/Distributor/Distributor';
+import productApi from '../api/productApi';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 const HomeScreen = () => {
+  const [items, setItems] = useState([]); // Product New
+  const [loading, setLoading] = useState(true);
+  const [sellingProduct, setSellingProduct] = useState([]); // Product Selling
 
+  const [value, setValue] = useState();
+  function updateSearch(value) {
+    //do your search logic or anything
+    console.log(value);
+  }
 
-    const [value, setValue] = useState()
-    function updateSearch(value) {
-        //do your search logic or anything
-        console.log(value)
+  const fetchApi = async () => {
+    try {
+      const renderProduct = await productApi.product();
+      setItems(renderProduct.productNew);
+      //   console.log("Log " + JSON.stringify(renderProduct) );
+      const renderProductSelling = await productApi.productSelling();
+      setSellingProduct(renderProductSelling.productSelling);
+      //   console.log('Log ' + JSON.stringify(renderProductSelling));
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return (
-        <SafeAreaView style={{backgroundColor: '#fff'}} >
-            <ScrollView>
-                {/* Search */}
-                <SearchBar
-                    value={value}
-                    updateSearch={updateSearch}
-                    style={{ marginTop: '8%' }}
-                />
+  useEffect(() => {
+    console.log('Fetch');
+    fetchApi();
+  }, []);
 
-                {/* Banner */}
-                <Banner />
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
 
-                {/* Content */}
-                <View style={style.container} >
-                    {/* Newest */}
-                    <View style={style.titleProduct} >
-                        <Text style={style.heading} >Mới nhất</Text>
-                        <TouchableOpacity>
-                            <Text style={style.seeAll} >Xem tất cả</Text>
-                        </TouchableOpacity>
-                    </View>
+  return (
+    <SafeAreaView style={{backgroundColor: '#fff'}}>
+      <ScrollView>
+        {/* Search */}
+        <SearchBar
+          value={value}
+          updateSearch={updateSearch}
+          style={{marginTop: '8%'}}
+        />
 
-                    {/* Card Items - Newest */}
-                    <ProductList/>
+        {/* Banner */}
+        <Banner />
 
-                    {/* Best selling */}
-                    <View style={style.titleProduct} >
-                        <Text style={style.heading} >Bán chạy</Text>
-                        <TouchableOpacity>
-                            <Text style={style.seeAll} >Xem tất cả</Text>
-                        </TouchableOpacity>
-                    </View>
+        {/* Content */}
+        <View style={style.container}>
+          {/* Newest */}
+          <View style={style.titleProduct}>
+            <Text style={style.heading}>Mới nhất</Text>
+            <TouchableOpacity>
+              <Text style={style.seeAll}>Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
 
-                    {/* Card Items - Best Selling */}
-                    <ProductList/>
+          {/* Card Items - Newest */}
+          <ProductList productList={items} />
 
-                    {/* Groceries */}
-                    <View style={style.titleProduct} >
-                        <Text style={style.heading} >Các mặt hàng</Text>
-                        <TouchableOpacity>
-                            <Text style={style.seeAll} >Xem tất cả</Text>
-                        </TouchableOpacity>
-                    </View>
+          {/* Best selling */}
+          <View style={style.titleProduct}>
+            <Text style={style.heading}>Bán chạy</Text>
+            <TouchableOpacity>
+              <Text style={style.seeAll}>Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
 
-                    {/* Card Items - Grocerieslist */}
-                    <GroceriesList/>
+          {/* Card Items - Best Selling */}
+          <ProductList productList={sellingProduct} />
 
-                    {/* Popular */}
-                    <View style={style.titleProduct} >
-                        <Text style={style.heading} >Phổ biến</Text>
-                        <TouchableOpacity>
-                            <Text style={style.seeAll} >Xem tất cả</Text>
-                        </TouchableOpacity>
-                    </View>
+          {/* Groceries */}
+          <View style={style.titleProduct}>
+            <Text style={style.heading}>Các mặt hàng</Text>
+            <TouchableOpacity>
+              <Text style={style.seeAll}>Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
 
-                    {/* Card Items - Popular */}
-                    <ProductList/>
+          {/* Card Items - Grocerieslist */}
+          <GroceriesList />
 
-                    {/* Distributor */}
-                    <View style={style.titleProduct}>
-                        <Text style={style.heading} >Nhà phân phối</Text>
-                    </View>
+          {/* Popular */}
+          <View style={style.titleProduct}>
+            <Text style={style.heading}>Phổ biến</Text>
+            <TouchableOpacity>
+              <Text style={style.seeAll}>Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
 
-                    {/* Card Items - Distributor */}
-                    <Distributor />
-                </View>
+          {/* Card Items - Popular */}
+          {/* <ProductList /> */}
 
-            </ScrollView>
+          {/* Distributor */}
+          <View style={style.titleProduct}>
+            <Text style={style.heading}>Nhà phân phối</Text>
+          </View>
 
-        </SafeAreaView>
-    )
-}
+          {/* Card Items - Distributor */}
+          <Distributor />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 const style = StyleSheet.create({
-    container: {
-        paddingBottom: 40
-    },
+  container: {
+    paddingBottom: 40,
+  },
 
-    titleProduct: {
-        marginTop: 30,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 24.71,
-    },
+  titleProduct: {
+    marginTop: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24.71,
+  },
 
-    heading: {
-        fontWeight: '600',
-        fontSize: 24,
-        color: '#181725',
-    },
+  heading: {
+    fontWeight: '600',
+    fontSize: 24,
+    color: '#181725',
+  },
 
-    seeAll: {
-        color: '#53B175',
-        fontWeight: '900',
-        fontSize: 16,
-    },
+  seeAll: {
+    color: '#53B175',
+    fontWeight: '900',
+    fontSize: 16,
+  },
+});
 
-})
-
-export default HomeScreen
+export default HomeScreen;
