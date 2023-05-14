@@ -23,6 +23,8 @@ const renderHiddenItem = ({item}) => (
 const Cart = () => {
   const data = dataProduct;
 
+  const [products, setProducts] = useState(1);
+
   const handleIncreaseQuantity = productId => {
     setProducts(prevState => {
       return prevState.map(product => {

@@ -6,8 +6,12 @@ const productApi = {
     },
 
     productSelling: async () => {
-        return await instance.get(`/product/get-productselling`)
+        return await instance.get(`/product/get-productselling`);
     },
+
+    productPopular: async () => {
+        return await instance.get(`/product/get-productpopular`);
+    }
    
 }
 

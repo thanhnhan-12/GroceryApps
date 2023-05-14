@@ -15,13 +15,29 @@ import {useNavigation} from '@react-navigation/native';
 import Distributor from '../components/Distributor/Distributor';
 import productApi from '../api/productApi';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
+import Groceries from '../components/Groceries/Groceries';
+import categoryApi from '../api/categoryApi';
 
 const HomeScreen = () => {
-  const [items, setItems] = useState([]); // Product New
   const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]); // Product New
   const [sellingProduct, setSellingProduct] = useState([]); // Product Selling
+  const [popularProduct, setPopularProduct] = useState([]); // Product Popular
+
+  const [categoryList, setCategoryList] = useState([]);
+
+  const fetchApiCategory = async () => {
+    try {
+      // const renderCategory = await categoryApi.category;
+      // setCategoryList(renderCategory.categoryList);
+      // console.log('Log ' + JSON.stringify(renderCategory));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const [value, setValue] = useState();
+
   function updateSearch(value) {
     //do your search logic or anything
     console.log(value);
@@ -35,6 +51,13 @@ const HomeScreen = () => {
       const renderProductSelling = await productApi.productSelling();
       setSellingProduct(renderProductSelling.productSelling);
       //   console.log('Log ' + JSON.stringify(renderProductSelling));
+      const renderProductPopular = await productApi.productPopular();
+      setPopularProduct(renderProductPopular.productPopular);
+      // console.log('Log ' + JSON.stringify(renderProductPopular));
+
+      const renderCategory = await categoryApi.category();
+      setCategoryList(renderCategory.categoryList);
+      // console.log('Log ' + JSON.stringify(renderCategory));
 
       setLoading(false);
     } catch (error) {
@@ -45,6 +68,8 @@ const HomeScreen = () => {
   useEffect(() => {
     console.log('Fetch');
     fetchApi();
+
+    // fetchApiCategory();
   }, []);
 
   if (loading) {
@@ -97,7 +122,9 @@ const HomeScreen = () => {
           </View>
 
           {/* Card Items - Grocerieslist */}
-          <GroceriesList />
+          {/* <GroceriesList item={categoryList} /> */}
+
+          <Groceries categoryList={categoryList} />
 
           {/* Popular */}
           <View style={style.titleProduct}>
@@ -108,7 +135,7 @@ const HomeScreen = () => {
           </View>
 
           {/* Card Items - Popular */}
-          {/* <ProductList /> */}
+          <ProductList productList={popularProduct} />
 
           {/* Distributor */}
           <View style={style.titleProduct}>

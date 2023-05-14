@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 18,
     width: '130%',
-    // height: '50%',
   },
 
   common: {
@@ -85,13 +84,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
 
   imageProduct: {
-    width: '100%',
+    width: '70%',
     height: 140,
-    resizeMode: 'contain',
+    // resizeMode: 'contain',
     marginVertical: 20,
+    marginHorizontal: 80,
+
   },
 
   nameProduct: {

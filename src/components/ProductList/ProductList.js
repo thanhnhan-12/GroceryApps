@@ -5,8 +5,10 @@ import {useNavigation} from '@react-navigation/native';
 import ProductCard from './ProductCard';
 
 const ProductList = ({productList}) => {
+  // console.log({productList});
+
   const navigation = useNavigation();
-  console.log({productList});
+
   const handlePressDetails = id => {
     navigation.navigate('ProductDetails');
   };
@@ -18,7 +20,6 @@ const ProductList = ({productList}) => {
           contentContainerStyle={{paddingRight: 25}}
           data={productList}
           style={styles.gridView}
-          spacing={20}
           horizontal
           renderItem={({item}) => <ProductCard card={item} />}
         />
