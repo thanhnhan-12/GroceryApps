@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
 import DropdownList from './DropdownList';
 
 const Delivery = () => {
+  const [address, setAddress] = useState(null);
 
   return (
     <View>
-      <Text>Text</Text>
-    </View>
-  )
-}
+      <View>
+        <Text>Nhập địa chỉ</Text>
+        <TextInput
+          placeholder={'Nhập địa chỉ'}
+          keyboardType={'default'}
+          value={address}
+          onChangeText={text => setAddress(text.trim())}
+          secureTextEntry={true}
+        />
+      </View>
 
-export default Delivery
+      
+
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+
+})
+
+export default Delivery;

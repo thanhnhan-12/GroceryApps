@@ -3,8 +3,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const DropdownList = () => {
+const DropdownList = ({delivery}) => {
+  const { nameProvince, nameDistrict, nameWard } = delivery;
+
   const data = [];
+
+  const [provinceValue, setProvinceValue] = useState([]);
+  const [districtValue, setDistrictValue] = useState([]);
+  const [wardValue, setWardValue] = useState([]);
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);

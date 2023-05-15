@@ -26,16 +26,6 @@ const HomeScreen = () => {
 
   const [categoryList, setCategoryList] = useState([]);
 
-  const fetchApiCategory = async () => {
-    try {
-      // const renderCategory = await categoryApi.category;
-      // setCategoryList(renderCategory.categoryList);
-      // console.log('Log ' + JSON.stringify(renderCategory));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [value, setValue] = useState();
 
   function updateSearch(value) {
