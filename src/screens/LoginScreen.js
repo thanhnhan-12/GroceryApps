@@ -128,8 +128,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  backgroundCurved: {},
-
   doubleInput: {
     marginLeft: 20,
     marginTop: 20,
