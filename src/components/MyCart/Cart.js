@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {dataProduct} from '../ProductList/data';
@@ -6,6 +6,7 @@ import IconDe from '../../assets/SVG/iconDecrease.svg';
 import IconIn from '../../assets/SVG/iconIncrease.svg';
 import IconRemove from '../../assets/SVG/IconRemove.svg';
 import Checkbox from '../CheckBoxTrash/Checkbox';
+import cartApi from '../../api/cartApi';
 
 const renderHiddenItem = ({item}) => (
   <View style={styles.rowBack}>
@@ -14,16 +15,37 @@ const renderHiddenItem = ({item}) => (
       onPress={() => {
         console.log(`Left action for item with key: ${item.key}`);
       }}>
-      <Checkbox/>
+      <Checkbox />
     </TouchableOpacity>
-    
   </View>
 );
 
-const Cart = () => {
-  const data = dataProduct;
+const Cart = ({card}) => {
+  // const data = dataProduct;
+
+  // const {
+  //   productID,
+  //   imageURL,
+  //   productName,
+  //   unit,
+  //   price,
+  //   expirationDate,
+  //   // quantity,
+  // } = card;
 
   const [products, setProducts] = useState(1);
+
+  const [cart, setCart] = useState([]);
+
+  const fetchCartApi = async () => {
+    const renderCart = await cartApi.cart();
+    setCart(renderCart.cartList);
+    console.log('Log ' + JSON.stringify(renderCart));
+  };
+
+  useEffect(() => {
+    fetchCartApi();
+  }, []);
 
   const handleIncreaseQuantity = productId => {
     setProducts(prevState => {
@@ -49,11 +71,11 @@ const Cart = () => {
 
   const renderItem = ({item, index}) => (
     <View style={[styles.common, styles.border]} key={index}>
-      <Image style={[styles.imgProduct]} source={item.imgProduct} />
+      <Image style={[styles.imgProduct]} source={{uri: item.imageURL}} />
 
       <View style={[styles.common, {marginVertical: 30}]}>
         <View style={[{marginLeft: 18, marginRight: 20}]}>
-          <Text style={[styles.nameProduct]}>{item.nameProduct}</Text>
+          <Text style={[styles.nameProduct]}>{item.productName}</Text>
           <Text>{item.unit}</Text>
           <View style={[{flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
             <TouchableOpacity
@@ -91,10 +113,10 @@ const Cart = () => {
 
   return (
     <SwipeListView
-      data={data}
+      data={cart}
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
-      leftOpenValue={75} // Khoảng cách vuốt bên trái
+      leftOpenValue={75} 
     />
   );
 };
@@ -162,8 +184,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E2E2E2',
   },
-
-  
 });
 
 export default Cart;

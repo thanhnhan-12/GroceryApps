@@ -13,8 +13,26 @@ import {dataProduct} from '../../components/ProductList/data';
 import productApi from '../../api/productApi';
 
 const ProductCard = ({card}) => {
-  const {productID, imageURL, productName, unit, price} = card;
-  
+  const {
+    productID,
+    imageURL,
+    productName,
+    unit,
+    price,
+    expirationDate,
+    quantity,
+  } = card;
+
+  const dateObject = new Date(expirationDate);
+  const day = dateObject.getDate();
+  const month = dateObject.getMonth() + 1; // Tháng trong đối tượng Date được đếm từ 0 đến 11, nên cần +1
+  const year = dateObject.getFullYear();
+
+  // Định dạng lại thành "DD-MM-YYYY"
+  const formattedDate = `${day < 10 ? '0' + day : day}-${
+    month < 10 ? '0' + month : month
+  }-${year}`;
+
   const route = useRoute();
 
   const navigation = useNavigation();
@@ -43,6 +61,8 @@ const ProductCard = ({card}) => {
 
               <Text style={styles.nameProduct}> {productName} </Text>
               <Text style={[styles.common, styles.unit]}>{unit}</Text>
+              <Text style={[styles.common, styles.unit]}>HSD: {formattedDate}</Text>
+              <Text style={[styles.common, styles.unit]}>Số lượng: {quantity}</Text>
 
               <View style={[styles.inline]}>
                 <Text style={[styles.common, styles.price]}>{price}</Text>
@@ -84,7 +104,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
 
   imageProduct: {
@@ -93,7 +112,6 @@ const styles = StyleSheet.create({
     // resizeMode: 'contain',
     marginVertical: 20,
     marginHorizontal: 80,
-
   },
 
   nameProduct: {

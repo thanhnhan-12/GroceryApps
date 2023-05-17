@@ -1,34 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { dataExplore } from './DataExplore';
+import {dataExplore} from './DataExplore';
 
-import { FlatGrid } from 'react-native-super-grid';
+import {FlatGrid} from 'react-native-super-grid';
 
-import { useNavigation } from '@react-navigation/native';
-
+import {useNavigation} from '@react-navigation/native';
+import exploreApi from '../../api/exploreApi';
 
 const ExploreList = () => {
-  const [items, setItems] = React.useState(dataExplore);
-
   const navigation = useNavigation();
 
-  const handlePressForwardExploreDetails = (id) => {
+  const handlePressForwardExploreDetails = id => {
     console.log(id);
-    navigation.navigate('ExploreDetailsScreen')
-  }
+    navigation.navigate('ExploreDetailsScreen');
+  };
+
+  const [explore, setExplore] = useState([]);
+
+  const fetchExploreApi = async () => {
+    const renderExplore = await exploreApi.explore();
+    setExplore(renderExplore.categoryList);
+    console.log('Log ' + JSON.stringify(renderExplore));
+  };
+
+  useEffect(() => {
+    fetchExploreApi();
+  }, [])
 
   return (
     <ScrollView>
       <FlatGrid
         itemDimension={130}
-        data={items}
+        data={explore}
         style={styles.gridView}
         spacing={10}
         renderItem={({item}) => (
@@ -38,14 +48,14 @@ const ExploreList = () => {
                 onPress={() => handlePressForwardExploreDetails(item.id)}
                 style={[
                   styles.container,
-                  {backgroundColor: item.bgColor},
+                  {backgroundColor: item.categoryColor},
                   {alignItems: 'center', justifyContent: 'center'},
                 ]}>
                 <Image
                   style={[styles.imgExploreList]}
-                  source={item.imgExplore}
+                  source={{uri: item.categoryImage}}
                 />
-                <Text style={[styles.nameExploreList]}>{item.nameExplore}</Text>
+                <Text style={[styles.nameExploreList]}>{item.categoryName}</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -87,4 +97,3 @@ const styles = StyleSheet.create({
 });
 
 export default ExploreList;
-
