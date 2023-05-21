@@ -28,6 +28,8 @@ const HomeScreen = () => {
 
   const [value, setValue] = useState();
 
+  const navigation = useNavigation();
+
   function updateSearch(value) {
     //do your search logic or anything
     console.log(value);
@@ -59,7 +61,6 @@ const HomeScreen = () => {
     console.log('Fetch');
     fetchApi();
 
-    // fetchApiCategory();
   }, []);
 
   if (loading) {
@@ -106,14 +107,12 @@ const HomeScreen = () => {
           {/* Groceries */}
           <View style={style.titleProduct}>
             <Text style={style.heading}>Các mặt hàng</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ExploreScreen') } >
               <Text style={style.seeAll}>Xem tất cả</Text>
             </TouchableOpacity>
           </View>
 
           {/* Card Items - Grocerieslist */}
-          {/* <GroceriesList item={categoryList} /> */}
-
           <Groceries categoryList={categoryList} />
 
           {/* Popular */}

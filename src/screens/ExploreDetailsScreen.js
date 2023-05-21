@@ -1,5 +1,5 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,43 +7,45 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { FlatGrid } from 'react-native-super-grid';
+import {FlatGrid} from 'react-native-super-grid';
 import BackArrow from '../assets/SVG/IconBackArrow.svg';
 import IconFilter from '../assets/SVG/IconFilter.svg';
 import Filter from '../components/Filter/Filter';
-import { dataProduct } from '../components/ProductList/data';
+import {dataProduct} from '../components/ProductList/data';
 import SearchBar from '../components/SearchBar';
+import categoryApi from '../api/categoryApi';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
+import moment from 'moment';
 
-const ExploreDetailsScreen = () => {
-
+const ExploreDetailsScreen = ({navigation, route}) => {
   const [items, setItems] = useState(dataProduct);
 
-  const route = useRoute();
-
-  const navigation = useNavigation();
-
-  const handlePressBackExplore = (id) => {
-    console.log(id);
-    navigation.navigate('ExploreScreen')
-  }
-
-  const handlePressDetails = id => {
-    console.log(id);
-    navigation.navigate('ProductDetails');
-  };
-
-  const handlePressFilters = (id) => {
-    console.log(id);
-    navigation.navigate('Filter');
-  }
+  const [exploreDetailType, setExploreDetailType] = useState([]);
+  const {id, categoryName} = route.params;
+  console.log('ID: ', id);
+  const [loading, setLoading] = useState(true);
 
   const [isFilterVisible, setFilterVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('Tất cả');
 
-  
-  const handleFilterSelect = (filter) => {
+  const handlePressBackExplore = id => {
+    console.log(id);
+    navigation.navigate('ExploreScreen', {id});
+  };
+
+  const handlePressDetails = id => {
+    console.log(id);
+    navigation.navigate('ProductDetails', {id});
+  };
+
+  const handlePressFilters = id => {
+    console.log(id);
+    navigation.navigate('Filter');
+  };
+
+  const handleFilterSelect = filter => {
     setSelectedFilter(filter);
     setFilterVisible(false);
   };
@@ -52,78 +54,108 @@ const ExploreDetailsScreen = () => {
     setFilterVisible(false);
   };
 
+  const fetchExploreType = async categoryID => {
+    const {categoryTypeList} = await categoryApi.categoryType(categoryID);
+    setExploreDetailType(categoryTypeList);
+    console.log({categoryTypeList});
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchExploreType(id);
+  }, [id]);
+
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
+
   return (
-    <ScrollView style={{backgroundColor: '#fff'}} >
-      <View style={[styles.inline, {paddingHorizontal: 15,} ]} >
-        <TouchableOpacity onPress={() => handlePressBackExplore() } >
-          <BackArrow/>
+    <SafeAreaView style={[{ backgroundColor: '#fff' }]} >
+      <View style={[styles.inline, {paddingHorizontal: 15}]}>
+        <TouchableOpacity onPress={() => handlePressBackExplore()}>
+          <BackArrow />
         </TouchableOpacity>
 
-        <Text style={[styles.nameList,  ]} >Nước giải khát </Text>
+        <Text style={[styles.nameList, ]}>{categoryName} </Text>
 
-        <TouchableOpacity onPress={() => setFilterVisible(true)} >
-          <IconFilter/>
-    
+        <TouchableOpacity onPress={() => setFilterVisible(true)}>
+          <IconFilter />
         </TouchableOpacity>
-
       </View>
 
       <SearchBar />
 
       <Filter
-        visible={isFilterVisible} 
-        onClose={handleFilterClose} 
-        onSelectFilter={handleFilterSelect} 
+        visible={isFilterVisible}
+        onClose={handleFilterClose}
+        onSelectFilter={handleFilterSelect}
       />
 
-      <FlatGrid
-        itemDimension={120}
-        data={items}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({item}) => (
-          <ScrollView>
-            <View style={[ ]} >
-            <TouchableOpacity
-              // onPress={() => handlePressDetails(items.id)}
-              key={items.id}>
-              <SafeAreaView style={styles.container} >
-                <View>
-                  <View style={styles.centerImg}>
-                    <Image
-                      source={item.imgProduct}
-                      // key={index}
-                      style={styles.imageProduct}
-                    />
-                  </View>
+      <>
+        {exploreDetailType.length > 0 ? (
+          <FlatGrid
+            itemDimension={120}
+            data={exploreDetailType}
+            style={styles.gridView}
+            spacing={10}
+            renderItem={({item}) => (
+              <View style={[]}>
+                <TouchableOpacity
+                // onPress={() => handlePressDetails(items.id)}
+                >
+                  <SafeAreaView style={styles.container}>
+                    <View>
+                      <View style={styles.centerImg}>
+                        <Image
+                          source={{uri: item.imageURL}}
+                          style={styles.imageProduct}
+                        />
+                      </View>
 
-                  <Text style={styles.nameProduct}> {item.nameProduct} </Text>
-                  <Text style={[styles.common, styles.unit]}>{item.unit}</Text>
+                      <Text style={styles.nameProduct}>
+                        {' '}
+                        {item.productName}{' '}
+                      </Text>
+                      <Text style={[styles.common, styles.unit]}>
+                        {item.unit}
+                      </Text>
+                      <Text style={[styles.common, styles.unit]}>
+                        HSD: {moment(item.expirationDate).format('DD-MM-YYYY')}
+                      </Text>
+                      <Text style={[styles.common, styles.unit]}>
+                        Số lượng: {item.quantity}
+                      </Text>
 
-                  <View style={[styles.inline]}>
-                    <Text style={[styles.common, styles.price]}>{item.price}</Text>
+                      <View style={[styles.inline]}>
+                        <Text style={[styles.common, styles.price]}>
+                          {item.price}
+                        </Text>
 
-                    <TouchableOpacity style={[styles.btnAdd]}>
-                      <Image
-                        source={item.icon}
-                        // key={index}
-                        style={styles.iconAdd}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </SafeAreaView>
-            </TouchableOpacity>
-            </View>
-          </ScrollView>
+                        <TouchableOpacity style={[styles.btnAdd]}>
+                          <Image
+                            source={require('../assets/images/IconAddProduct.png')}
+                            style={styles.iconAdd}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </SafeAreaView>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        ) : (
+          <Text> Không có sản phẩm </Text>
         )}
-      />
-
-    </ScrollView>
+      </>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  gridView: {
+    marginBottom: '50%',
+  },
 
   nameList: {
     fontSize: 20,
@@ -168,11 +200,11 @@ const styles = StyleSheet.create({
   },
 
   inline: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    marginBottom: 20,
+    // marginBottom: 20,
   },
 
   price: {
@@ -193,7 +225,6 @@ const styles = StyleSheet.create({
     width: 17,
     height: 17,
   },
-
 });
 
 export default ExploreDetailsScreen;

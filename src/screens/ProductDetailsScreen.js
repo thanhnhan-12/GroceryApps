@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import AddFavourite from '../assets/SVG/AddFavourite.js';
 import BannerProductDetails from '../components/ProductDetails/BannerProductDetails';
-
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 import IconDe from '../assets/SVG/iconDecrease.svg';
 import IconIn from '../assets/SVG/iconIncrease.svg';
-import { StarRatings } from '../components/ReviewStar/Star';
+import {StarRatings} from '../components/ReviewStar/Star';
+import productApi from '../api/productApi.js';
 
-const ProductDetails = () => {
-  // Increase Or Decrease Amount
+const ProductDetails = ({navigation, route}) => {
   const [amount, setAmount] = useState(1);
+  const [expanded, setExpanded] = useState(false);
+  const [detail, setDetail] = useState([]);
+  const {id} = route.params;
+  console.log('ID: ', id);
+  const [loading, setLoading] = useState(true);
 
+  const {productDetail, images} = detail;
+
+  // Increase Or Decrease Amount
   const handleAmountIncrease = () => {
     setAmount(() => amount + 1);
   };
@@ -27,39 +35,49 @@ const ProductDetails = () => {
   };
 
   // Expanded Test
-  const [expanded, setExpanded] = useState(false);
-
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
 
-  // Set color for Star
-  const [isStarred, setIsStarred] = useState(false);
+  const fetchProductDetailApi = async productID => {
+    const {productDetail, images} = await productApi.productDetail(productID);
+    setDetail({productDetail, images});
+    // console.log({productDetail, images});
+    setLoading(false);
 
-  const handleStarPress = () => {
-    setIsStarred(!isStarred);
   };
+
+  useEffect(() => {
+    fetchProductDetailApi(id);
+
+  }, []);
+
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff'}}>
       <ScrollView>
         {/* Banner */}
         <View>
-          <BannerProductDetails />
+          <BannerProductDetails imageURL={images} />
         </View>
 
         {/* Details */}
         <View style={[styles.container]}>
           {/* Name: Tên sản phẩm  */}
           <View style={[styles.heading]}>
-            <Text style={[styles.nameHeading]}>Coca Cola</Text>
-            <AddFavourite/>
+            <Text style={[styles.nameHeading]}>
+              {productDetail.productName}
+            </Text>
+            <AddFavourite />
           </View>
 
-          <Text style={[styles.common, styles.unit]}>350ml</Text>
+          <Text style={[styles.common, styles.unit]}>{productDetail.unit}</Text>
 
           {/* Price: Giá   */}
-          <View style={[styles.heading, styles.money, styles.borderBottom ]}>
+          <View style={[styles.heading, styles.money, styles.borderBottom]}>
             {/* Button Decrease - Increase */}
             <View style={[styles.heading, styles.btnAmount]}>
               <TouchableOpacity
@@ -77,10 +95,10 @@ const ProductDetails = () => {
             </View>
 
             {/* Money */}
-            <Text>220,000VNĐ</Text>
+            <Text>{productDetail.price}</Text>
           </View>
 
-          <View style={[{marginTop: 18.05 }, styles.borderBottom ]}>
+          <View style={[{marginTop: 18.05}, styles.borderBottom]}>
             <View style={[styles.heading]}>
               <Text style={styles.productDetail}>Chi tiết sản phẩm</Text>
               <TouchableOpacity onPress={toggleExpanded}>
@@ -96,31 +114,28 @@ const ProductDetails = () => {
                 fontSize: 13,
                 marginTop: 9.45,
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Vestibulum eleifend, magna non commodo pretium, nulla augue
-              scelerisque ex, ac bibendum metus velit vel augue. Suspendisse eu
-              lacus ut tellus lobortis malesuada vel ac est. Donec ut urna odio.
-              Ut venenatis nunc sed dignissim volutpat. Integer tristique neque
-              eget tortor placerat, sit amet rhoncus urna euismod. Donec
-              hendrerit purus id consequat luctus. Vestibulum ante ipsum primis
-              in faucibus orci luctus et ultrices posuere cubilia curae; Nulla
-              commodo nibh et risus consectetur commodo. Nullam sed nunc
-              ullamcorper, pellentesque lorem vel, mattis lectus.
+              {productDetail.productDescription}
             </Text>
           </View>
 
-          <View style={[{marginTop: 18.05 }, styles.borderBottom, styles.heading ]} >
-              <Text style={[styles.productDetail]} >Đánh giá </Text>
-              <StarRatings/>
-
+          <View
+            style={[{marginTop: 18.05}, styles.borderBottom, styles.heading]}>
+            <Text style={[styles.productDetail]}>Đánh giá </Text>
+            <StarRatings />
           </View>
-            
-          <TouchableOpacity style={ styles.btnAddCart} >
-              <Text style={{fontWeight: '600', fontSize: 18, color: '#FFF9FF', textAlign: 'center' }} >Thêm vào giỏ hàng</Text>
+
+          <TouchableOpacity style={styles.btnAddCart}>
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 18,
+                color: '#FFF9FF',
+                textAlign: 'center',
+              }}>
+              Thêm vào giỏ hàng
+            </Text>
           </TouchableOpacity>
-
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
@@ -167,7 +182,6 @@ const styles = StyleSheet.create({
 
   money: {
     marginTop: 30.14,
-    
   },
 
   btnAmount: {
@@ -198,7 +212,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15.5,
     backgroundColor: '#53B175',
   },
-
 });
 
 export default ProductDetails;

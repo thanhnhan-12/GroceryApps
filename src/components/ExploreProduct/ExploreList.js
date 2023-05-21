@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   Image,
-  ScrollView,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {dataExplore} from './DataExplore';
 
 import {FlatGrid} from 'react-native-super-grid';
 
@@ -17,9 +17,9 @@ import exploreApi from '../../api/exploreApi';
 const ExploreList = () => {
   const navigation = useNavigation();
 
-  const handlePressForwardExploreDetails = id => {
+  const handlePressForwardExploreDetails = (id, categoryName) => {
     console.log(id);
-    navigation.navigate('ExploreDetailsScreen');
+    navigation.navigate('ExploreDetailsScreen', {id, categoryName});
   };
 
   const [explore, setExplore] = useState([]);
@@ -27,47 +27,51 @@ const ExploreList = () => {
   const fetchExploreApi = async () => {
     const renderExplore = await exploreApi.explore();
     setExplore(renderExplore.categoryList);
-    console.log('Log ' + JSON.stringify(renderExplore));
+    // console.log('Log ' + JSON.stringify(renderExplore));
   };
 
   useEffect(() => {
     fetchExploreApi();
-  }, [])
+  }, []);
 
   return (
-    <ScrollView>
+    <SafeAreaView>
       <FlatGrid
-        itemDimension={130}
         data={explore}
         style={styles.gridView}
         spacing={10}
+        keyExtractor={item => item.categoryID}
         renderItem={({item}) => (
-          <ScrollView>
-            <View style={[styles.itemContainer]}>
-              <TouchableOpacity
-                onPress={() => handlePressForwardExploreDetails(item.id)}
-                style={[
-                  styles.container,
-                  {backgroundColor: item.categoryColor},
-                  {alignItems: 'center', justifyContent: 'center'},
-                ]}>
-                <Image
-                  style={[styles.imgExploreList]}
-                  source={{uri: item.categoryImage}}
-                />
-                <Text style={[styles.nameExploreList]}>{item.categoryName}</Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+          <View style={[styles.itemContainer]}>
+            <TouchableOpacity
+              onPress={() =>
+                handlePressForwardExploreDetails(
+                  item.categoryID,
+                  item.categoryName,
+                )
+              }
+              style={[
+                styles.container,
+                {backgroundColor: item.categoryColor},
+                {alignItems: 'center', justifyContent: 'center'},
+              ]}>
+              <Image
+                style={[styles.imgExploreList]}
+                source={{uri: item.categoryImage}}
+              />
+              <Text style={[styles.nameExploreList]}>{item.categoryName}</Text>
+            </TouchableOpacity>
+          </View>
         )}
       />
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   gridView: {
-    flex: 1,
+    marginBottom: '70%',
+
   },
 
   itemContainer: {

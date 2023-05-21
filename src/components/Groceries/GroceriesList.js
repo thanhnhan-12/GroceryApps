@@ -20,31 +20,23 @@ const GroceriesList = ({cards}) => {
       <SafeAreaView style={[styles.container]}>
         <TouchableOpacity>
           <View style={[styles.grocery]}>
-            <Image
-              style={styles.imageProduct}
-              source={{uri: categoryImage}}
-            />
+            <Image style={styles.imageProduct} source={{uri: categoryImage}} />
 
-            <Text style={styles.nameGroceries}>
-              {categoryName}
-            </Text>
+            <Text style={styles.nameGroceries}>{categoryName}</Text>
           </View>
         </TouchableOpacity>
       </SafeAreaView>
-      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-  },
+  wrapper: {},
 
   container: {
     borderColor: '#E2E2E2',
     borderWidth: 1,
     borderRadius: 18,
-    backgroundColor: '#6e8898',
   },
 
   grocery: {

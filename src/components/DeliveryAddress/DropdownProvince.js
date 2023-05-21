@@ -47,7 +47,7 @@ const DropdownProvince = () => {
         valueField="value"
         placeholder={!isFocus ? 'Chọn Tỉnh/ Thành' : '...'}
         searchPlaceholder="Tìm kiếm..."
-        value={value ? value.value : null}
+        value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {

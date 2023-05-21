@@ -9,13 +9,9 @@ const ProductList = ({productList}) => {
 
   const navigation = useNavigation();
 
-  const handlePressDetails = id => {
-    navigation.navigate('ProductDetails');
-  };
-
   return (
     <View style={[styles.wrapper]}>
-      <View style={[styles.gridView]} >
+      <View style={[styles.gridView]}>
         <FlatList
           contentContainerStyle={{paddingRight: 25}}
           data={productList}
@@ -23,7 +19,6 @@ const ProductList = ({productList}) => {
           horizontal
           renderItem={({item}) => <ProductCard card={item} />}
         />
-
       </View>
     </View>
   );

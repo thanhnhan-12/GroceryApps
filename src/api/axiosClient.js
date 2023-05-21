@@ -4,6 +4,8 @@ import { BASE_URL } from '../config';
 
 const baseURL = BASE_URL
 
+console.log(BASE_URL);
+
 const instance = axios.create({
   baseURL,
   // headers: { 'Content-Type': '' }

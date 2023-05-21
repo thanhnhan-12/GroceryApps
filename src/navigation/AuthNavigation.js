@@ -31,6 +31,12 @@ const AuthNavigation = () => {
           </>
         ) : (
           <>
+            {/* <Stack.Screen
+              name="HomeNavigation"
+              component={MenuNavigation}
+              options={{headerShown: false}}
+            /> */}
+
             <Stack.Screen
               name="Login"
               component={LoginScreen}

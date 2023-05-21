@@ -1,12 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {dataProduct} from '../ProductList/data';
 import IconDe from '../../assets/SVG/iconDecrease.svg';
 import IconIn from '../../assets/SVG/iconIncrease.svg';
 import IconRemove from '../../assets/SVG/IconRemove.svg';
 import Checkbox from '../CheckBoxTrash/Checkbox';
+import Trash from '../CheckBoxTrash/Trash';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 import cartApi from '../../api/cartApi';
+import {AuthContext} from '../../context/AuthContext';
+
+import {useFocusEffect} from '@react-navigation/native';
 
 const renderHiddenItem = ({item}) => (
   <View style={styles.rowBack}>
@@ -17,107 +29,135 @@ const renderHiddenItem = ({item}) => (
       }}>
       <Checkbox />
     </TouchableOpacity>
+
+    {/* Remove Items */}
+    <TouchableOpacity
+      style={[styles.rowCheckbox]}
+      onPress={() => {
+        console.log(`Left action for item with key: ${item.key}`);
+      }}>
+      <Trash />
+    </TouchableOpacity>
   </View>
 );
 
 const Cart = ({card}) => {
-  // const data = dataProduct;
-
-  // const {
-  //   productID,
-  //   imageURL,
-  //   productName,
-  //   unit,
-  //   price,
-  //   expirationDate,
-  //   // quantity,
-  // } = card;
-
   const [products, setProducts] = useState(1);
 
   const [cart, setCart] = useState([]);
 
-  const fetchCartApi = async () => {
-    const renderCart = await cartApi.cart();
-    setCart(renderCart.cartList);
-    console.log('Log ' + JSON.stringify(renderCart));
+  const {userInfo} = useContext(AuthContext);
+
+  const {token, users} = userInfo;
+
+  const [loading, setLoading] = useState(true);
+
+  const fetchCartApi = async userID => {
+    const {cartList} = await cartApi.cart(userID);
+    setCart(cartList);
+    // console.log('Log ' + JSON.stringify({cartList}));
+    setLoading(false);
   };
 
-  useEffect(() => {
-    fetchCartApi();
-  }, []);
+  // useEffect(() => {
+  //   console.log('000');
+  //   fetchCartApi(users.userID);
 
-  const handleIncreaseQuantity = productId => {
-    setProducts(prevState => {
-      return prevState.map(product => {
-        if (product.id === productId) {
-          return {...product, quantity: product.quantity + 1};
-        }
-        return product;
-      });
-    });
+  //   return () => {
+  //     console.log('Return cart');
+  //     setCart([]);
+  //   };
+  // }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchCartApi(users.userID);
+    }, []),
+  );
+
+  const handleIncreaseQuantity = async productID => {
+    try {
+      await cartApi.createCart({productID, userID: users.userID, quantity: 1});
+      fetchCartApi(users.userID);
+    } catch (error) {
+      console.log('Err ', error);
+    }
   };
 
-  const handleDecreaseQuantity = productId => {
-    setProducts(prevState => {
-      return prevState.map(product => {
-        if (product.id === productId && product.quantity > 0) {
-          return {...product, quantity: product.quantity - 1};
-        }
-        return product;
+  const handleDecreaseQuantity = async productID => {
+    console.log("ID ", productID, users.userID);
+    try {
+      await cartApi.decreaseQuantity({
+        productID,
+        userID: users.userID,
+        quantity: 1,
       });
-    });
+      fetchCartApi(users.userID);
+    } catch (error) {
+      console.log('Err ', error);
+    }
   };
 
   const renderItem = ({item, index}) => (
-    <View style={[styles.common, styles.border]} key={index}>
-      <Image style={[styles.imgProduct]} source={{uri: item.imageURL}} />
+    <>
+      <View style={[styles.common, styles.border]} key={index}>
+        <Image style={[styles.imgProduct]} source={{uri: item.imageURL}} />
 
-      <View style={[styles.common, {marginVertical: 30}]}>
-        <View style={[{marginLeft: 18, marginRight: 20}]}>
-          <Text style={[styles.nameProduct]}>{item.productName}</Text>
-          <Text>{item.unit}</Text>
-          <View style={[{flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
-            <TouchableOpacity
-              style={[styles.btnDeIn]}
-              onPress={() => handleDecreaseQuantity(item.id)}>
-              <Text>
-                <IconDe />
-              </Text>
-            </TouchableOpacity>
+        <View style={[{marginVertical: 10}]}>
+          <View style={[{marginLeft: 18, marginRight: 20}]}>
+            <Text style={[styles.nameProduct]}>{item.productName}</Text>
+            <Text>{item.unit}</Text>
+            <View
+              style={[{flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
+              <TouchableOpacity
+                style={[styles.btnDeIn]}
+                onPress={() => handleDecreaseQuantity(item.productID)}>
+                <Text>
+                  <IconDe />
+                </Text>
+              </TouchableOpacity>
 
-            <Text style={[styles.textAmount]}>{item.quantity}</Text>
+              <Text style={[styles.textAmount]}>{item.quantity}</Text>
 
-            <TouchableOpacity
-              style={[styles.btnDeIn]}
-              onPress={() => handleIncreaseQuantity(item.id)}>
-              <Text>
-                <IconIn />
-              </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.btnDeIn]}
+                onPress={() => handleIncreaseQuantity(item.productID)}>
+                <Text>
+                  <IconIn />
+                </Text>
+              </TouchableOpacity>
+
+              <View style={[{marginLeft: 50}]}>
+                <Text style={[styles.price]}>{item.price}</Text>
+              </View>
+            </View>
           </View>
         </View>
-
-        <View style={[{}]}>
-          <TouchableOpacity style={[{marginLeft: 64}]}>
-            <Text>
-              <IconRemove />
-            </Text>
-          </TouchableOpacity>
-
-          <Text style={[styles.price]}>{item.price}</Text>
-        </View>
       </View>
-    </View>
+    </>
   );
 
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
+
   return (
-    <SwipeListView
-      data={cart}
-      renderItem={renderItem}
-      renderHiddenItem={renderHiddenItem}
-      leftOpenValue={75} 
-    />
+    <>
+      {cart.length > 0 ? (
+        <SwipeListView
+          data={cart}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          rightOpenValue={-75}
+          leftOpenValue={75}
+        />
+      ) : (
+        // <ScrollView>
+
+        // </ScrollView>
+        <Text> Giỏ hàng trống </Text>
+      )}
+    </>
   );
 };
 
@@ -170,17 +210,17 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 14,
     color: '#181725',
-    marginTop: 50,
+    marginTop: 30,
   },
 
   // Hidden Items
   rowBack: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#EBFFEB',
-    paddingLeft: 15,
+    paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: '#E2E2E2',
   },

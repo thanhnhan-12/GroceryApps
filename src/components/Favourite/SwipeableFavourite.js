@@ -5,21 +5,20 @@ import Trash from '../CheckBoxTrash/Trash';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import Checkbox from '../CheckBoxTrash/Checkbox';
 
-
 const renderHiddenItem = ({item}) => (
   <View style={styles.rowBack}>
     {/* Checkbox */}
     <TouchableOpacity
-      style={[styles.rowCheckbox, ]}
+      style={[styles.rowCheckbox]}
       onPress={() => {
         console.log(`Left action for item with key: ${item.key}`);
       }}>
-      <Checkbox/>
+      <Checkbox />
     </TouchableOpacity>
 
     {/* Remove Items */}
     <TouchableOpacity
-      style={[styles.rowCheckbox, ]}
+      style={[styles.rowCheckbox]}
       onPress={() => {
         console.log(`Left action for item with key: ${item.key}`);
       }}>
@@ -59,8 +58,8 @@ const SwipeableFavourite = () => {
       data={data}
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
-      rightOpenValue={-75} 
-      leftOpenValue={75} 
+      rightOpenValue={-75}
+      leftOpenValue={75}
     />
   );
 };
@@ -72,7 +71,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     backgroundColor: '#fff',
-
   },
 
   border: {
@@ -118,8 +116,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E2E2E2',
   },
-
-
 });
 
 export default SwipeableFavourite;

@@ -12,6 +12,10 @@ const productApi = {
   productPopular: async () => {
     return await instance.get(`/product/get-productpopular`);
   },
+
+  productDetail: async (productID) => {
+    return await instance.get(`/product/get-productdetail/${productID}`);
+  },
 };
 
 export default productApi;

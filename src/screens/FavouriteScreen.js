@@ -5,8 +5,8 @@ import Favourite from '../components/Favourite/Favourite'
 const FavouriteScreen = () => {
   return (
     <SafeAreaView>
-        <ScrollView>
             <Favourite />
+        <ScrollView>
             
         </ScrollView>
     </SafeAreaView>

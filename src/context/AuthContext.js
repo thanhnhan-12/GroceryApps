@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect } from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import authApi from '../api/authApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Toast} from 'react-native-toast-message';
@@ -34,7 +34,7 @@ const AuthProvider = ({children}) => {
         setUserInfo(res);
         AsyncStorage.setItem('userInfo', JSON.stringify(res));
         setIsLoading(false);
-        Alert('Đăng ký thành công');
+        Alert('Đăng nhập thành công');
       })
       .catch(e => {
         console.error(e.response.data.message);

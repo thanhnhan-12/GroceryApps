@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import {dataProduct} from '../../components/ProductList/data';
 import productApi from '../../api/productApi';
+import cartApi from '../../api/cartApi';
+import { AuthContext } from '../../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
+import moment from 'moment';
 
 const ProductCard = ({card}) => {
   const {
@@ -23,15 +27,9 @@ const ProductCard = ({card}) => {
     quantity,
   } = card;
 
-  const dateObject = new Date(expirationDate);
-  const day = dateObject.getDate();
-  const month = dateObject.getMonth() + 1; // Tháng trong đối tượng Date được đếm từ 0 đến 11, nên cần +1
-  const year = dateObject.getFullYear();
+  const {userInfo} = useContext(AuthContext);
 
-  // Định dạng lại thành "DD-MM-YYYY"
-  const formattedDate = `${day < 10 ? '0' + day : day}-${
-    month < 10 ? '0' + month : month
-  }-${year}`;
+  const {users: {userID}} = userInfo;
 
   const route = useRoute();
 
@@ -44,8 +42,12 @@ const ProductCard = ({card}) => {
 
   const handlePressDetails = id => {
     console.log(id);
-    navigation.navigate('ProductDetails');
+    navigation.navigate('ProductDetails', { id });
   };
+
+  const handleAddCart = async (productID) => {
+    await cartApi.createCart({ productID, userID , quantity: 1 } )
+  }
 
   return (
     <View style={[{}]}>
@@ -61,13 +63,13 @@ const ProductCard = ({card}) => {
 
               <Text style={styles.nameProduct}> {productName} </Text>
               <Text style={[styles.common, styles.unit]}>{unit}</Text>
-              <Text style={[styles.common, styles.unit]}>HSD: {formattedDate}</Text>
+              <Text style={[styles.common, styles.unit]}>HSD: {moment(expirationDate).format('DD-MM-YYYY')}</Text>
               <Text style={[styles.common, styles.unit]}>Số lượng: {quantity}</Text>
 
               <View style={[styles.inline]}>
                 <Text style={[styles.common, styles.price]}>{price}</Text>
 
-                <TouchableOpacity style={[styles.btnAdd]}>
+                <TouchableOpacity style={[styles.btnAdd]} onPress={() => handleAddCart(productID)} >
                   <Image
                     source={require('../../assets/images/IconAddProduct.png')}
                     style={styles.iconAdd}

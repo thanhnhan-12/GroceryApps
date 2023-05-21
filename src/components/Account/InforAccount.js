@@ -1,34 +1,45 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {dataInforAccount} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
 import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
-import {AuthContext} from '../../context/AuthContext';
+import AuthProvider, {AuthContext} from '../../context/AuthContext';
+import authApi from '../../api/authApi';
 
 const InforAccount = () => {
   const [inforAccount, setInforAccount] = useState(dataInforAccount);
 
-  const {logout} = useContext(AuthContext);
+  const {userInfo, logout} = useContext(AuthContext);
+
+  const {token, users} = userInfo;
+  const {fullName, email} = users;
+
+  console.log('Users: ', users);
 
   const navigation = useNavigation();
 
   return (
     <View style={{backgroundColor: '#fff'}}>
-      <View style={[styles.account]}>
-        <TouchableOpacity style={[styles.iconAccount]}>
-          <IconAccount width={80} />
-        </TouchableOpacity>
-        <View style={{marginLeft: 20}}>
-          <Text style={[styles.nameAccount, styles.colors]}>Họ và tên</Text>
-          <Text style={[styles.emailAccount]}>Email</Text>
+      <AuthProvider>
+        <View style={[styles.account]}>
+          <TouchableOpacity style={[styles.iconAccount]}>
+            <IconAccount width={80} />
+          </TouchableOpacity>
+          <View style={{marginLeft: 20}}>
+            <Text style={[styles.nameAccount, styles.colors]}>
+              {fullName || 'Họ và tên'}
+            </Text>
+            <Text style={[styles.emailAccount]}>{email || 'Email'}</Text>
+          </View>
         </View>
-      </View>
+      </AuthProvider>
 
       {inforAccount.map((items, index) => (
         <>
           <TouchableOpacity
             style={[styles.inline1]}
+            key={index}
             onPress={id => {
               if (items.id === 1) {
                 navigation.navigate('OrderScreen');
@@ -50,8 +61,7 @@ const InforAccount = () => {
 
             <View style={[styles.inline2]}>
               <Text style={[styles.textTitle, styles.colors]}>
-                {' '}
-                {items.title}{' '}
+                {items.title}
               </Text>
               {items.iconArrow}
             </View>
