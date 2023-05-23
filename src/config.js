@@ -6,10 +6,14 @@
 
 // const IP_CONFIG = '192.168.1.118';
 
-const IP_CONFIG = '192.168.1.19';
+// const IP_CONFIG = '192.168.1.19';
+
+// const IP_CONFIG = '192.168.31.147';
 
 // const IP_CONFIG = "192.168.43.151"
 
 // const IP_CONFIG = "192.168.0.108"
+
+const IP_CONFIG = '192.168.1.59';
 
 export const BASE_URL = `http://${IP_CONFIG}:5000/api/v1`;

@@ -4,39 +4,11 @@ import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
 import deliveryApi from '../../api/deliveryApi';
 
-const DropdownDistrict = () => {
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-
-  const [district, setdistrict] = useState([]);
-
-  const fetchApidistrict = async () => {
-    const renderdistrict = await deliveryApi.district();
-    setdistrict(renderdistrict.districtList);
-    // console.log('Log ' + JSON.stringify(renderdistrict));
-  };
-
-  useEffect(() => {
-    console.log("Fetch !");
-    fetchApidistrict();
-  }, []);
-
-  const dataDistrict = district.map((item) => ({
-    label: item.nameDistrict,
-    value: item.districtID,
-  }));
-
-  // console.log("Data ", dataDistrict);
-
-  useEffect(() => {
-    console.log("Selected value: ", value);
-  }, [value]);
-
-
+const DropdownDistrict = ({dataDistrict, district, onChangeValue}) => {
   return (
-    <View >
+    <View>
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        style={[styles.dropdown, {borderColor: 'blue'}]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
@@ -44,21 +16,18 @@ const DropdownDistrict = () => {
         data={dataDistrict}
         search
         maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? 'Chọn Quận/ Huyện' : '...'}
+        labelField="nameDistrict"
+        valueField="districtID"
+        placeholder={'Chọn Quận/ Huyện'}
         searchPlaceholder="Tìm kiếm..."
-        value={value ? value.value : null}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={(item) => {
-          setValue(item);
-          setIsFocus(false);
+        value={district}
+        onChange={item => {
+          onChangeValue(item.districtID);
         }}
         renderLeftIcon={() => (
           <Feather
             style={styles.icon}
-            color={isFocus ? 'blue' : 'black'}
+            // color={isFocus ? 'blue' : 'black'}
             name="map-pin"
             size={20}
           />
@@ -66,7 +35,6 @@ const DropdownDistrict = () => {
       />
     </View>
   );
-
 };
 
 const styles = StyleSheet.create({

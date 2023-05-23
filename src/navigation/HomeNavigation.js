@@ -16,6 +16,9 @@ import AccountAdmin from '../components/Admin/Account';
 import ProductListAdmin from '../components/Admin/ProductList';
 import DeliveryScreen from '../screens/DeliveryScreen';
 import OrderScreen from '../screens/OrderScreen';
+import UserAddress from '../components/DeliveryAddress/UserAddress';
+import Delivery from '../components/DeliveryAddress/Delivery';
+import DeliveryEdit from '../components/DeliveryAddress/DeliveryEdit';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -79,6 +82,18 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'DeliveryScreen'}
           component={DeliveryScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'DeliveryEdit'}
+          component={DeliveryEdit}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'UserAddress'}
+          component={UserAddress}
           options={{headerShown: false}}
         />
 

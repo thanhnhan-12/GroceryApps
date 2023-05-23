@@ -4,38 +4,11 @@ import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
 import deliveryApi from '../../api/deliveryApi';
 
-const DropdownProvince = () => {
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-
-  const [province, setProvince] = useState([]);
-
-  const fetchApiProvince = async () => {
-    const renderProvince = await deliveryApi.province();
-    setProvince(renderProvince.provinceList);
-    // console.log('Log ' + JSON.stringify(renderProvince));
-  };
-
-  useEffect(() => {
-    console.log("Fetch !");
-    fetchApiProvince();
-  }, []);
-
-  const dataProvince = province.map((item) => ({
-    label: item.nameProvince,
-    value: item.provinceID,
-  }));
-
-  // console.log("Data ", dataProvince);
-
-  useEffect(() => {
-    console.log("Selected value: ", value);
-  }, [value]);
-
+const DropdownProvince = ({dataProvince, province}) => {
   return (
     <View>
       <Dropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={[styles.dropdown, {borderColor: 'blue'}]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
@@ -43,24 +16,16 @@ const DropdownProvince = () => {
         data={dataProvince}
         search
         maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? 'Chọn Tỉnh/ Thành' : '...'}
+        labelField="nameProvince"
+        valueField="provinceID"
+        placeholder={'Chọn Tỉnh/ Thành'}
         searchPlaceholder="Tìm kiếm..."
-        value={value}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={(item) => {
-          setValue(item.value);
-          setIsFocus(false);
+        value={province}
+        onChange={item => {
+          setValue(item.provinceID);
         }}
         renderLeftIcon={() => (
-          <Feather
-            style={styles.icon}
-            color={isFocus ? 'blue' : 'black'}
-            name="map-pin"
-            size={20}
-          />
+          <Feather style={styles.icon} name="map-pin" size={20} />
         )}
       />
     </View>

@@ -58,6 +58,22 @@ export const DeliveryHeading = () => {
   );
 };
 
+export const AddressHeading = () => {
+  const navigation = useNavigation();
+
+  const [hidden, setHidden] = useState(false);
+
+  return (
+    <View style={[styles.flex]}>
+      <TouchableOpacity onPress={() => navigation.navigate('DeliveryScreen')}>
+        <IconBackArrow />
+      </TouchableOpacity>
+      <Text style={[styles.textInfor]}>Cập nhật địa chỉ</Text>
+      <Text>{hidden}</Text>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',

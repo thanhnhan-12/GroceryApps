@@ -6,8 +6,11 @@ import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
 import AuthProvider, {AuthContext} from '../../context/AuthContext';
 import authApi from '../../api/authApi';
+import { Dimensions } from 'react-native';
 
 const InforAccount = () => {
+  const windowHeight = Dimensions.get('window').height;
+
   const [inforAccount, setInforAccount] = useState(dataInforAccount);
 
   const {userInfo, logout} = useContext(AuthContext);
@@ -20,7 +23,7 @@ const InforAccount = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{backgroundColor: '#fff'}}>
+    <View style={{backgroundColor: '#fff', height: windowHeight}}>
       <AuthProvider>
         <View style={[styles.account]}>
           <TouchableOpacity style={[styles.iconAccount]}>

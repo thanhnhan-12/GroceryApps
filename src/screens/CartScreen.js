@@ -23,9 +23,9 @@ const CartScreen = () => {
         <MyCart />
       </ScrollView> */}
 
-      <TouchableOpacity style={styles.btnCheckout}>
+      {/* <TouchableOpacity style={styles.btnCheckout}>
         <Text style={styles.textCheckout}>Thanh toán</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

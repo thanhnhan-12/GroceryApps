@@ -17,31 +17,37 @@ import Trash from '../CheckBoxTrash/Trash';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import cartApi from '../../api/cartApi';
 import {AuthContext} from '../../context/AuthContext';
+import IconTrashRemoveItems from '../../assets/SVG/IconTrashRemoveItems.svg';
 
 import {useFocusEffect} from '@react-navigation/native';
 
-const renderHiddenItem = ({item}) => (
-  <View style={styles.rowBack}>
-    <TouchableOpacity
-      style={[styles.rowCheckbox]}
-      onPress={() => {
-        console.log(`Left action for item with key: ${item.key}`);
-      }}>
-      <Checkbox />
-    </TouchableOpacity>
-
-    {/* Remove Items */}
-    <TouchableOpacity
-      style={[styles.rowCheckbox]}
-      onPress={() => {
-        console.log(`Left action for item with key: ${item.key}`);
-      }}>
-      <Trash />
-    </TouchableOpacity>
-  </View>
-);
-
 const Cart = ({card}) => {
+  const deleteRow = async item => {
+    console.log('Log ', item);
+    const {userID, cartID} = item;
+    await cartApi.deleteCart({userID, cartID});
+    fetchCartApi(userID);
+  };
+
+  const renderHiddenItem = ({item}) => (
+    <View style={styles.rowBack}>
+      <TouchableOpacity
+        style={[styles.rowCheckbox]}
+        onPress={() => {
+          console.log(`Left action for item with key: ${item.key}`);
+        }}>
+        <Checkbox />
+      </TouchableOpacity>
+
+      {/* Remove Items */}
+      <TouchableOpacity
+        style={[styles.rowCheckbox]}
+        onPress={() => deleteRow(item)}>
+        <IconTrashRemoveItems />
+      </TouchableOpacity>
+    </View>
+  );
+
   const [products, setProducts] = useState(1);
 
   const [cart, setCart] = useState([]);
@@ -59,16 +65,6 @@ const Cart = ({card}) => {
     setLoading(false);
   };
 
-  // useEffect(() => {
-  //   console.log('000');
-  //   fetchCartApi(users.userID);
-
-  //   return () => {
-  //     console.log('Return cart');
-  //     setCart([]);
-  //   };
-  // }, []);
-
   useFocusEffect(
     React.useCallback(() => {
       fetchCartApi(users.userID);
@@ -85,7 +81,7 @@ const Cart = ({card}) => {
   };
 
   const handleDecreaseQuantity = async productID => {
-    console.log("ID ", productID, users.userID);
+    console.log('ID ', productID, users.userID);
     try {
       await cartApi.decreaseQuantity({
         productID,
@@ -96,6 +92,27 @@ const Cart = ({card}) => {
     } catch (error) {
       console.log('Err ', error);
     }
+  };
+
+  const handlePayment = async () => {
+    const totalPrice = cart.reduce((accumulator, item) => {
+      const totalPrice = accumulator + item.price * item.quantity;
+
+      return totalPrice;
+    }, 0);
+
+    await cartApi.payments({
+      totalPrice,
+      userID: users.userID,
+      productCart: cart.map(item => {
+        return {
+          productID: item.productID,
+          quantity: item.quantity,
+          cartID: item.cartID,
+        };
+      }),
+    });
+    fetchCartApi(users.userID)
   };
 
   const renderItem = ({item, index}) => (
@@ -128,7 +145,7 @@ const Cart = ({card}) => {
               </TouchableOpacity>
 
               <View style={[{marginLeft: 50}]}>
-                <Text style={[styles.price]}>{item.price}</Text>
+                <Text style={[styles.price]}>{item.price * item.quantity}</Text>
               </View>
             </View>
           </View>
@@ -144,13 +161,19 @@ const Cart = ({card}) => {
   return (
     <>
       {cart.length > 0 ? (
-        <SwipeListView
-          data={cart}
-          renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-75}
-          leftOpenValue={75}
-        />
+        <>
+          <SwipeListView
+            data={cart}
+            renderItem={renderItem}
+            renderHiddenItem={renderHiddenItem}
+            rightOpenValue={-75}
+            leftOpenValue={75}
+          />
+
+          <TouchableOpacity style={styles.btnCheckout} onPress={handlePayment} >
+            <Text style={styles.textCheckout}>Thanh toán</Text>
+          </TouchableOpacity>
+        </>
       ) : (
         // <ScrollView>
 
@@ -211,6 +234,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#181725',
     marginTop: 30,
+  },
+
+  btnCheckout: {
+    backgroundColor: '#4CAD73',
+    alignItems: 'center',
+    flexDirection: 'row',
+    color: '#fff',
+    borderRadius: 10,
+    width: '95%',
+    paddingVertical: '4%',
+    marginVertical: 35,
+    marginLeft: 10,
+  },
+
+  textCheckout: {
+    color: 'white',
+    fontWeight: 700,
+    width: '100%',
+    textAlign: 'center',
   },
 
   // Hidden Items

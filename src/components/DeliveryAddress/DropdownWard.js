@@ -4,38 +4,12 @@ import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
 import deliveryApi from '../../api/deliveryApi';
 
-const DropdownWard = () => {
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-
-  const [ward, setWard] = useState([]);
-
-  const fetchApiWard = async () => {
-    const renderWard = await deliveryApi.ward();
-    setWard(renderWard.wardList);
-    // console.log('Log ' + JSON.stringify(renderWard));
-  };
-
-  useEffect(() => {
-    console.log('Fetch !');
-    fetchApiWard();
-  }, []);
-
-  const dataWard = ward.map(item => ({
-    label: item.nameWard,
-    value: item.WardsID,
-  }));
-
-  // console.log('Data ', dataWard);
-
-  useEffect(() => {
-    console.log('Selected value: ', value);
-  }, [value]);
-
+const DropdownWard = ({dataWard, wardID, onChangeValue}) => {
+  console.log({wardID, dataWard});
   return (
-    <View >
+    <View>
       <Dropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={[styles.dropdown, {borderColor: 'blue'}]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
@@ -43,21 +17,21 @@ const DropdownWard = () => {
         data={dataWard}
         search
         maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? 'Chọn Phường/ Xã' : '...'}
+        labelField="nameWard"
+        valueField="WardsID"
+        placeholder={'Chọn Phường/ Xã'}
         searchPlaceholder="Tìm kiếm..."
-        value={value}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
+        value={wardID}
+        // onFocus={() => setIsFocus(true)}
+        // onBlur={() => setIsFocus(false)}
         onChange={item => {
-          setValue(item.value);
-          setIsFocus(false);
+          console.log('Log: ', item);
+          onChangeValue(item.WardsID);
         }}
         renderLeftIcon={() => (
           <Feather
             style={styles.icon}
-            color={isFocus ? 'blue' : 'black'}
+            // color={isFocus ? 'blue' : 'black'}
             name="map-pin"
             size={20}
           />
@@ -68,7 +42,6 @@ const DropdownWard = () => {
 };
 
 const styles = StyleSheet.create({
-  
   dropdown: {
     height: 50,
     borderColor: 'gray',
@@ -103,7 +76,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  
+
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
