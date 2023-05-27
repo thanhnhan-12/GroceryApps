@@ -6,12 +6,14 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Dimensions
 } from 'react-native';
 import MyCart from '../components/MyCart/MyCart';
 
 const CartScreen = () => {
+
   return (
-    <View>
+    <View >
       <View style={[styles.header ,{backgroundColor: '#fff'}]}>
         <Text style={styles.headerText}>Giỏ hàng</Text>
       </View>

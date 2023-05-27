@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {dataProduct} from '../ProductList/data';

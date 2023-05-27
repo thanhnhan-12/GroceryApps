@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -18,6 +18,8 @@ import SearchBar from '../components/SearchBar';
 import categoryApi from '../api/categoryApi';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import moment from 'moment';
+import cartApi from '../api/cartApi';
+import { AuthContext } from '../context/AuthContext';
 
 const ExploreDetailsScreen = ({navigation, route}) => {
   const [items, setItems] = useState(dataProduct);
@@ -29,6 +31,10 @@ const ExploreDetailsScreen = ({navigation, route}) => {
 
   const [isFilterVisible, setFilterVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('Tất cả');
+
+  const {userInfo} = useContext(AuthContext);
+
+  const {users: {userID}} = userInfo;
 
   const handlePressBackExplore = id => {
     console.log(id);
@@ -64,6 +70,11 @@ const ExploreDetailsScreen = ({navigation, route}) => {
   useEffect(() => {
     fetchExploreType(id);
   }, [id]);
+
+  const handleAddCart = async (productID) => {
+    console.log("Log", productID);
+    await cartApi.createCart({ productID, userID , quantity: 1 } )
+  }
 
   if (loading) {
     return <Spinner visible={loading} />;
@@ -131,7 +142,7 @@ const ExploreDetailsScreen = ({navigation, route}) => {
                           {item.price}
                         </Text>
 
-                        <TouchableOpacity style={[styles.btnAdd]}>
+                        <TouchableOpacity style={[styles.btnAdd]} onPress={() => handleAddCart(item.productID)}>
                           <Image
                             source={require('../assets/images/IconAddProduct.png')}
                             style={styles.iconAdd}

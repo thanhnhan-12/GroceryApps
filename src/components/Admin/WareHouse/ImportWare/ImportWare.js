@@ -1,17 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
+  StyleSheet,
   View,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import IconBackArrow from '../../../../assets/SVG/IconBackArrow.svg';
-import FormAddProduct from './FormAddProduct';
+import {useNavigation} from '@react-navigation/native';
+import FormImport from './FormImport';
 
-const AddProduct = () => {
+const ImportWare = () => {
   const navigation = useNavigation();
 
   const [hidden, setHidden] = useState(false);
@@ -19,15 +20,14 @@ const AddProduct = () => {
   return (
     <SafeAreaView>
       <View style={[styles.flex]}>
-        <TouchableOpacity onPress={() => navigation.navigate('AdminScreen') } >
+        <TouchableOpacity onPress={() => navigation.navigate('AdminScreen') }>
           <IconBackArrow />
         </TouchableOpacity>
-        <Text style={[styles.textAdd]}>Thêm mới sản phẩm</Text>
+        <Text style={[styles.textAdd]}>Nhập hàng</Text>
         <Text>{hidden}</Text>
       </View>
 
-      <FormAddProduct />
-      <ScrollView></ScrollView>
+      <FormImport />
     </SafeAreaView>
   );
 };
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddProduct;
+export default ImportWare;

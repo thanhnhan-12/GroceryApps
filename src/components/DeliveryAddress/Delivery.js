@@ -16,14 +16,15 @@ import deliveryApi from '../../api/deliveryApi';
 import {AuthContext} from '../../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {useFocusEffect} from '@react-navigation/native';
-
+import IconTrashRemoveItems from '../../assets/SVG/IconTrashRemoveItems.svg';
 
 const AddressItem = ({address}) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('DeliveryEdit', { delivery: address  } ) } >
-      <View style={[styles.addressItem]}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('DeliveryEdit', {delivery: address})}>
+      <View >
         <Text style={[styles.nameAddress]}> {address.userNameAddress} </Text>
         <Text style={[styles.nameAddress]}> {address.nameProvince} </Text>
         <Text style={[styles.nameAddress]}> {address.nameDistrict} </Text>
@@ -33,7 +34,7 @@ const AddressItem = ({address}) => {
   );
 };
 
-const Delivery = () => {
+const Delivery = ({item}) => {
   const windowHeight = Dimensions.get('window').height;
 
   const {userInfo} = useContext(AuthContext);
@@ -57,6 +58,14 @@ const Delivery = () => {
     }, []),
   );
 
+  const deleteRow = async item => {
+    // console.log('Log ', item);
+    // console.log('ID: ', users.userID);
+    const {userAddressID, userID} = item;
+    await deliveryApi.deleteUserAddress({userAddressID, userID: users.userID });
+    fetchAddressListApi(users.userID);
+  };
+
   const navigation = useNavigation();
 
   if (loading) {
@@ -70,9 +79,17 @@ const Delivery = () => {
       <ScrollView style={[{marginTop: 20}]}>
         {addressList.length > 0 ? (
           <>
-            <View>
+            <View  >
               {addressList.map(item => (
-                <AddressItem address={item} />
+                <View style={[styles.addressItem]} >
+                  <AddressItem address={item} />
+
+                  <TouchableOpacity
+                    style={[styles.rowCheckbox]}
+                    onPress={() => deleteRow(item)}>
+                    <IconTrashRemoveItems />
+                  </TouchableOpacity>
+                </View>
               ))}
             </View>
           </>
@@ -98,6 +115,9 @@ const styles = StyleSheet.create({
     borderTopColor: '#E2E2E2',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E2E2',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   nameAddress: {
@@ -108,21 +128,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingHorizontal: 16,
-  },
-
-  label: {
-    color: '#333333',
-    fontSize: 16,
-    fontWeight: 500,
-  },
-
-  input: {
-    height: 50,
-    marginTop: 6,
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
-    borderColor: '#ccc',
   },
 
   common: {

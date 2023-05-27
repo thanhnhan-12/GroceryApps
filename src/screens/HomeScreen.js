@@ -17,6 +17,7 @@ import productApi from '../api/productApi';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Groceries from '../components/Groceries/Groceries';
 import categoryApi from '../api/categoryApi';
+import {useFocusEffect} from '@react-navigation/native';
 
 const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -57,11 +58,15 @@ const HomeScreen = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('Fetch');
-    fetchApi();
+  // useEffect(() => {
+  //   fetchApi();
+  // }, []);
 
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchApi();
+    }, []),
+  );
 
   if (loading) {
     return <Spinner visible={loading} />;
@@ -107,7 +112,8 @@ const HomeScreen = () => {
           {/* Groceries */}
           <View style={style.titleProduct}>
             <Text style={style.heading}>Các mặt hàng</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ExploreScreen') } >
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ExploreScreen')}>
               <Text style={style.seeAll}>Xem tất cả</Text>
             </TouchableOpacity>
           </View>

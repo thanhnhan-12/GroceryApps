@@ -19,6 +19,9 @@ import OrderScreen from '../screens/OrderScreen';
 import UserAddress from '../components/DeliveryAddress/UserAddress';
 import Delivery from '../components/DeliveryAddress/Delivery';
 import DeliveryEdit from '../components/DeliveryAddress/DeliveryEdit';
+import WareHouse from '../components/Admin/WareHouse';
+import FormEditProduct from '../components/Admin/ProductList/EditProduct/FormEditProduct';
+import FormAddProduct from '../components/Admin/ProductList/AddProduct/FormAddProduct';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -117,8 +120,26 @@ const HomeNavigation = () => {
         />
 
         <Stack.Screen
-          name={'ProductListAdmin'}
+          name={'ProductAdmin'}
           component={ProductListAdmin}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'FormAddProduct'}
+          component={FormAddProduct}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'FormEditProduct'}
+          component={FormEditProduct}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'WareHouse'}
+          component={WareHouse}
           options={{headerShown: false}}
         />
       </Stack.Group>

@@ -35,7 +35,7 @@ const Admin = () => {
               }
 
               if (items.id === 4) {
-                navigation.navigate('ProductListAdmin');
+                navigation.navigate('ProductAdmin');
               }
 
               if (items.id === 5) {
@@ -43,7 +43,7 @@ const Admin = () => {
               }
 
               if (items.id === 6) {
-                navigation.navigate('');
+                navigation.navigate('WareHouse');
               }
             }}
           >

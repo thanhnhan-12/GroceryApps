@@ -10,7 +10,7 @@ export const dataTitleAdmin = [
   {
     id: 1,
     iconRepresent: (
-      <MaterialCommunityIcons name="account-circle" size={28} color="black" style={[ {marginLeft: -5} ]} />
+      <MaterialCommunityIcons name="account-circle" size={28} color="black" style={[ {marginLeft: -6} ]} />
     ),
     title: 'Tài khoản',
     iconArrow: <IconArrowNext />,
@@ -18,21 +18,21 @@ export const dataTitleAdmin = [
 
   {
     id: 2,
-    iconRepresent: <Fontisto name="dollar" size={28} color="black" />,
+    iconRepresent: <Fontisto name="dollar" size={28} color="black" style={[ {marginRight: 10} ]} />,
     title: 'Chi phí',
     iconArrow: <IconArrowNext />,
   },
 
   {
     id: 3,
-    iconRepresent: <Entypo name="clipboard" size={28} color="black" style={[ {marginLeft: -5} ]} />,
+    iconRepresent: <Entypo name="clipboard" size={28} color="black" style={[ {marginLeft: -5, marginRight: 1} ]} />,
     title: 'Đơn hàng',
     iconArrow: <IconArrowNext />,
   },
 
   {
     id: 4,
-    iconRepresent: <Foundation name="list-bullet" size={28} color="black" />,
+    iconRepresent: <Foundation name="list-bullet" size={28} color="black" style={[ { marginRight: 1} ]} />,
     title: 'Danh sách sản phẩm',
     iconArrow: <IconArrowNext />,
   },

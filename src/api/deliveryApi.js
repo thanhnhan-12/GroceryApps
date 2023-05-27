@@ -22,7 +22,16 @@ const deliveryApi = {
   },
 
   updateAddressById: async (idAddress, body) => {
-    return await instance.put(`/delivery/update-addressbyid/${idAddress}`, body);
+    return await instance.put(
+      `/delivery/update-addressbyid/${idAddress}`,
+      body,
+    );
+  },
+
+  deleteUserAddress: async ({userAddressID, userID}) => {
+    return await instance.delete(
+      `/delivery/delete-useraddress?userAddressID=${userAddressID}&userID=${userID}`,
+    );
   },
 };
 

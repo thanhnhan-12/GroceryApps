@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions
 } from 'react-native';
 import {dataProduct} from '../ProductList/data';
 import IconDe from '../../assets/SVG/iconDecrease.svg';
@@ -14,12 +15,16 @@ import IconRemove from '../../assets/SVG/IconRemove.svg';
 import Cart from './Cart';
 
 const MyCart = ({item}) => {
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <View>
+    <View style={[styles.container, {height: windowHeight}]}>
       <Cart />
 
     </View>
   );
 };
+
+const styles = StyleSheet.create({})
 
 export default MyCart;

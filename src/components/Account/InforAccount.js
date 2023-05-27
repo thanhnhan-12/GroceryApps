@@ -60,7 +60,7 @@ const InforAccount = () => {
                 navigation.navigate('AdminScreen');
               }
             }}>
-            <View>{items.iconRepresent}</View>
+            <View >{items.iconRepresent}</View>
 
             <View style={[styles.inline2]}>
               <Text style={[styles.textTitle, styles.colors]}>

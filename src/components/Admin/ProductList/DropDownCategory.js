@@ -2,10 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
-import deliveryApi from '../../api/deliveryApi';
 
-const DropdownProvince = ({dataProvince, province}) => {
-  const [value, setValue] = useState(null);
+const DropDownCategory = ({dataCategory, category, onChangeValue}) => {
   return (
     <View>
       <Dropdown
@@ -14,19 +12,24 @@ const DropdownProvince = ({dataProvince, province}) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={dataProvince}
+        data={dataCategory}
         search
         maxHeight={300}
-        labelField="nameProvince"
-        valueField="provinceID"
-        placeholder={'Chọn Tỉnh/ Thành'}
+        labelField="categoryName"
+        valueField="categoryID"
+        placeholder={'Chọn Danh mục'}
         searchPlaceholder="Tìm kiếm..."
-        value={province}
+        value={category}
         onChange={item => {
-          setValue(item.provinceID);
+          onChangeValue(item.categoryID);
         }}
         renderLeftIcon={() => (
-          <Feather style={styles.icon} name="map-pin" size={20} />
+          <Feather
+            style={styles.icon}
+            // color={isFocus ? 'blue' : 'black'}
+            name="map-pin"
+            size={20}
+          />
         )}
       />
     </View>
@@ -73,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DropdownProvince;
+export default DropDownCategory;

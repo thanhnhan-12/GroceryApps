@@ -25,6 +25,8 @@ const UserAddress = () => {
 
   const [address, setAddress] = useState(null);
 
+  const [provinceID, setProvinceID] = useState('');
+
   const [districtList, setDistrictList] = useState([]);
   const [districtID, setDistrictID] = useState('');
 
@@ -93,7 +95,7 @@ const UserAddress = () => {
           <Text style={[styles.label, styles.common]}>Chọn Tỉnh/ Thành</Text>
           <DropdownProvince
             dataProvince={provinceList}
-            province={provinceList[0].provinceID}
+            // province={provinceList[0].provinceID}
           />
         </View>
 
