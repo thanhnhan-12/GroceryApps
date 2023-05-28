@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {dataProduct} from '../ProductList/data';
@@ -21,6 +20,8 @@ import {AuthContext} from '../../context/AuthContext';
 import IconTrashRemoveItems from '../../assets/SVG/IconTrashRemoveItems.svg';
 
 import {useFocusEffect} from '@react-navigation/native';
+import Delivery from '../DeliveryAddress/Delivery';
+import deliveryApi from '../../api/deliveryApi';
 
 const Cart = ({card}) => {
   const deleteRow = async item => {
@@ -53,6 +54,8 @@ const Cart = ({card}) => {
 
   const [cart, setCart] = useState([]);
 
+  const [addressList, setAddressList] = useState([]);
+
   const {userInfo} = useContext(AuthContext);
 
   const {token, users} = userInfo;
@@ -66,9 +69,17 @@ const Cart = ({card}) => {
     setLoading(false);
   };
 
+  const fetchAddressListApi = async userID => {
+    const renderAddressList = await deliveryApi.addressList(userID);
+    setAddressList(renderAddressList);
+    // console.log('Log: ', renderAddressList);
+    setLoading(false);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       fetchCartApi(users.userID);
+      fetchAddressListApi(users.userID);
     }, []),
   );
 
@@ -113,7 +124,11 @@ const Cart = ({card}) => {
         };
       }),
     });
-    fetchCartApi(users.userID)
+    fetchCartApi(users.userID);
+
+    if(addressList.length > 0) {
+      
+    }
   };
 
   const renderItem = ({item, index}) => (
@@ -171,7 +186,7 @@ const Cart = ({card}) => {
             leftOpenValue={75}
           />
 
-          <TouchableOpacity style={styles.btnCheckout} onPress={handlePayment} >
+          <TouchableOpacity style={styles.btnCheckout} onPress={handlePayment}>
             <Text style={styles.textCheckout}>Thanh toán</Text>
           </TouchableOpacity>
         </>
@@ -179,7 +194,10 @@ const Cart = ({card}) => {
         // <ScrollView>
 
         // </ScrollView>
-        <Text> Giỏ hàng trống </Text>
+        <View>
+          <Text> Giỏ hàng trống </Text>
+
+        </View>
       )}
     </>
   );

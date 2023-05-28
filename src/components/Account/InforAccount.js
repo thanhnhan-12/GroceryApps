@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {dataInforAccount} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
@@ -6,7 +6,7 @@ import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
 import AuthProvider, {AuthContext} from '../../context/AuthContext';
 import authApi from '../../api/authApi';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
 const InforAccount = () => {
   const windowHeight = Dimensions.get('window').height;
@@ -39,11 +39,10 @@ const InforAccount = () => {
       </AuthProvider>
 
       {inforAccount.map((items, index) => (
-        <>
+        <Fragment key={index}>
           <TouchableOpacity
             style={[styles.inline1]}
-            key={index}
-            onPress={id => {
+            onPress={() => {
               if (items.id === 1) {
                 navigation.navigate('OrderScreen');
               }
@@ -60,7 +59,7 @@ const InforAccount = () => {
                 navigation.navigate('AdminScreen');
               }
             }}>
-            <View >{items.iconRepresent}</View>
+            <View>{items.iconRepresent}</View>
 
             <View style={[styles.inline2]}>
               <Text style={[styles.textTitle, styles.colors]}>
@@ -69,7 +68,7 @@ const InforAccount = () => {
               {items.iconArrow}
             </View>
           </TouchableOpacity>
-        </>
+        </Fragment>
       ))}
 
       <TouchableOpacity style={[styles.btnLogout]} onPress={logout}>

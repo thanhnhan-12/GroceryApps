@@ -62,9 +62,9 @@ const FormAddProduct = () => {
         // setMedias(response.assets);
         return response.assets;
       }
-      console.log('A', response.assets);
+      // console.log('A', response.assets);
     });
-    console.log('I', images.assets);
+    // console.log('I', images.assets);
     const files = images.assets.map(file => ({
       name: file.fileName,
       type: file.type,
@@ -103,7 +103,7 @@ const FormAddProduct = () => {
       dateManufactured: moment(dateManufactured).format('YYYY-MM-DD'),
     };
     objToForm(payload, formData);
-    console.log('Me', medias);
+    // console.log('Me', medias);
     if (medias) {
       for (let i = 0; i < medias.length; i++) {
         formData.append('medias', medias[i]);

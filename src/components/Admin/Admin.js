@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -16,11 +16,12 @@ const Admin = () => {
 
   return (
     <SafeAreaView style={[{backgroundColor: '#fff'}]}>
-      <Text style={[styles.txtHeading, styles.colors ]}>Admin!</Text>
+      <Text style={[styles.txtHeading, styles.colors]}>Admin!</Text>
 
       {titleAdmin.map((items, index) => (
-        <>
-          <TouchableOpacity style={[styles.inline1]}
+        <Fragment key={index}>
+          <TouchableOpacity
+            style={[styles.inline1]}
             onPress={id => {
               if (items.id === 1) {
                 navigation.navigate('AccountAdmin');
@@ -45,8 +46,7 @@ const Admin = () => {
               if (items.id === 6) {
                 navigation.navigate('WareHouse');
               }
-            }}
-          >
+            }}>
             <View>{items.iconRepresent}</View>
 
             <View style={[styles.inline2]}>
@@ -56,7 +56,7 @@ const Admin = () => {
               {items.iconArrow}
             </View>
           </TouchableOpacity>
-        </>
+        </Fragment>
       ))}
     </SafeAreaView>
   );
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     // marginLeft: 20.49,
   },
-
 });
 
 export default Admin;

@@ -15,11 +15,8 @@ const BannerProductDetails = ({imageURL}) => {
   const navigation = useNavigation();
 
   const handlePressBackHome = id => {
-    console.log(id);
     navigation.navigate('HomeScreen');
   };
-
-  console.log('Images: ', imageURL);
 
   return (
     <View style={[styles.container]}>
@@ -37,7 +34,7 @@ const BannerProductDetails = ({imageURL}) => {
         autoplay={true}
         autoplayInterval={10000}
         sliderBoxHeight={350}
-        imageStyle={{ width: 100, height: 200 }}
+        imageStyle={{width: 100, height: 200}}
       />
     </View>
   );

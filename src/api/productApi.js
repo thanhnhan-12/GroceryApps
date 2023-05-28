@@ -28,6 +28,13 @@ const productApi = {
       },
     });
   },
+
+  updateProductById: async (idProduct, body) => {
+    return await instance.put(
+      `/product//update-productbyid/${idProduct}`,
+      body,
+    );
+  },
 };
 
 export default productApi;

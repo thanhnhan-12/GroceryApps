@@ -18,7 +18,7 @@ const MyCart = ({item}) => {
   const windowHeight = Dimensions.get('window').height;
 
   return (
-    <View style={[styles.container, {height: windowHeight}]}>
+    <View style={[styles.container,]}>
       <Cart />
 
     </View>

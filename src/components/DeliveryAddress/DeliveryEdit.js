@@ -58,6 +58,7 @@ const DeliveryEdit = ({navigate, route}) => {
     console.log('district: ', value);
     setDistrictID(value);
   };
+  
   const handleOnChangeWard = value => {
     setWardID(value);
   };
@@ -66,6 +67,7 @@ const DeliveryEdit = ({navigate, route}) => {
     const renderProvince = await deliveryApi.province();
     setProvinceList(renderProvince.provinceList);
   };
+
   useEffect(() => {
     fetchApiWard(districtID);
   }, [districtID]);

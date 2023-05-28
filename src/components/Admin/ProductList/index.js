@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   View,
   Dimensions,
@@ -20,40 +20,43 @@ import IconTrashRemoveItems from '../../../assets/SVG/IconTrashRemoveItems.svg';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import productApi from '../../../api/productApi';
+import moment from 'moment';
+
 
 const ProductItem = ({item}) => {
   const windowHeight = Dimensions.get('window').height;
 
-  // const navigation = useNavigation();
-  // const {id} = route.params;
-  // console.log('ID: ', id);
+  const navigation = useNavigation();
 
   return (
     <View>
       <TouchableOpacity>
         <View style={[styles.common, styles.border]}>
-          <Image
-            style={[styles.imgProduct]}
-            source={{uri: item.imageURL }}
-          />
+          <Image style={[styles.imgProduct]} source={{uri: item.imageURL}} />
 
-          <View style={[{marginVertical: 10}]}>
-            <View style={[{marginLeft: 10, marginRight: 0}]}>
-              <Text style={[styles.nameProduct]}>{item.productName}</Text>
-              <Text>Ngày nhập: {item.importDate}</Text>
-              <Text>Số lượng nhâp: {item.quantity}</Text>
+          <View
+            style={[
+              styles.common,
+              {flex: 1, justifyContent: 'space-between', paddingHorizontal: 25},
+            ]}>
+            <View style={[{marginVertical: 10}]}>
+              <View style={[{marginLeft: -5, marginRight: 0}]}>
+                <Text style={[styles.nameProduct]}>{item.productName}</Text>
+                <Text>Ngày nhập: {item.importDate ? moment(item.importDate).format('DD-MM-YYYY') : "Chưa nhập" }</Text>
+                <Text>Số lượng nhâp: {item.quantity}</Text>
 
-              <Text>{item.price}</Text>
+                <Text>{item.price}</Text>
+              </View>
             </View>
+
+            <TouchableOpacity
+              style={[{marginLeft: 40}]}
+              onPress={() => navigation.navigate('FormEditProduct', {productID: item.productID}) }>
+              <View>
+                <AntDesign name="edit" size={28} color="black" />
+              </View>
+            </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            style={[{marginLeft: 40}]}
-            onPress={() => navigation.navigate('FormEditProduct')}>
-            <View>
-              <AntDesign name="edit" size={28} color="black" />
-            </View>
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </View>
@@ -63,6 +66,8 @@ const ProductItem = ({item}) => {
 const ProductList = () => {
   const windowHeight = Dimensions.get('window').height;
 
+  const [loading, setLoading] = useState(true);
+
   const [listProduct, setListProduct] = useState([]);
 
   const navigation = useNavigation();
@@ -70,7 +75,8 @@ const ProductList = () => {
   const fetchListAllProductApi = async () => {
     const listAllProduct = await productApi.getListAllProduct();
     setListProduct(listAllProduct);
-    console.log('Log: ', listAllProduct);
+    // console.log('Log: ', listAllProduct);
+    setLoading(false);
   };
 
   useFocusEffect(
@@ -79,13 +85,19 @@ const ProductList = () => {
     }, []),
   );
 
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
+
   return (
     <ScrollView>
       <View>
         {listProduct.length > 0 ? (
           <>
-            {listProduct.map(item => (
-              <ProductItem item={item} />
+            {listProduct.map((item, index )=> (
+              <Fragment key={index} >
+                <ProductItem item={item} />
+              </Fragment>
             ))}
           </>
         ) : (

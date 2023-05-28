@@ -63,7 +63,7 @@ const ProductCard = ({card}) => {
 
               <Text style={styles.nameProduct}> {productName} </Text>
               <Text style={[styles.common, styles.unit]}>{unit}</Text>
-              <Text style={[styles.common, styles.unit]}>HSD: {moment(expirationDate).format('DD-MM-YYYY')}</Text>
+              <Text style={[styles.common, styles.unit]}>HSD: {expirationDate ? moment(expirationDate).format('DD-MM-YYYY') : "Chưa nhập" }</Text>
               <Text style={[styles.common, styles.unit]}>Số lượng: {quantity}</Text>
 
               <View style={[styles.inline]}>
