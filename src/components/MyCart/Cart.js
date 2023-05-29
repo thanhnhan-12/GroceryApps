@@ -18,12 +18,26 @@ import Spinner from 'react-native-loading-spinner-overlay/lib';
 import cartApi from '../../api/cartApi';
 import {AuthContext} from '../../context/AuthContext';
 import IconTrashRemoveItems from '../../assets/SVG/IconTrashRemoveItems.svg';
-
 import {useFocusEffect} from '@react-navigation/native';
 import Delivery from '../DeliveryAddress/Delivery';
 import deliveryApi from '../../api/deliveryApi';
+import Payment from './Payment';
 
 const Cart = ({card}) => {
+  const [products, setProducts] = useState(1);
+
+  const [cart, setCart] = useState([]);
+
+  const [addressList, setAddressList] = useState([]);
+
+  const {userInfo} = useContext(AuthContext);
+
+  const {token, users} = userInfo;
+
+  const [loading, setLoading] = useState(true);
+
+  const [isFilterVisible, setFilterVisible] = useState(false);
+
   const deleteRow = async item => {
     console.log('Log ', item);
     const {userID, cartID} = item;
@@ -49,18 +63,6 @@ const Cart = ({card}) => {
       </TouchableOpacity>
     </View>
   );
-
-  const [products, setProducts] = useState(1);
-
-  const [cart, setCart] = useState([]);
-
-  const [addressList, setAddressList] = useState([]);
-
-  const {userInfo} = useContext(AuthContext);
-
-  const {token, users} = userInfo;
-
-  const [loading, setLoading] = useState(true);
 
   const fetchCartApi = async userID => {
     const {cartList} = await cartApi.cart(userID);
@@ -106,29 +108,34 @@ const Cart = ({card}) => {
     }
   };
 
+  const handleFilterClose = () => {
+    setFilterVisible(false);
+  };
+
   const handlePayment = async () => {
-    const totalPrice = cart.reduce((accumulator, item) => {
-      const totalPrice = accumulator + item.price * item.quantity;
+    setFilterVisible(true);
+    // const totalPrice = cart.reduce((accumulator, item) => {
+    //   const totalPrice = accumulator + item.price * item.quantity;
 
-      return totalPrice;
-    }, 0);
+    //   return totalPrice;
+    // }, 0);
 
-    await cartApi.payments({
-      totalPrice,
-      userID: users.userID,
-      productCart: cart.map(item => {
-        return {
-          productID: item.productID,
-          quantity: item.quantity,
-          cartID: item.cartID,
-        };
-      }),
-    });
-    fetchCartApi(users.userID);
+    // await cartApi.payments({
+    //   totalPrice,
+    //   userID: users.userID,
+    //   productCart: cart.map(item => {
+    //     return {
+    //       productID: item.productID,
+    //       quantity: item.quantity,
+    //       cartID: item.cartID,
+    //     };
+    //   }),
+    // });
+    // fetchCartApi(users.userID);
 
-    if(addressList.length > 0) {
-      
-    }
+    // if(addressList.length > 0) {
+
+    // }
   };
 
   const renderItem = ({item, index}) => (
@@ -187,16 +194,25 @@ const Cart = ({card}) => {
           />
 
           <TouchableOpacity style={styles.btnCheckout} onPress={handlePayment}>
-            <Text style={styles.textCheckout}>Thanh toán</Text>
+            <Text style={styles.textCheckout}>Mua hàng</Text>
           </TouchableOpacity>
+
+          <Payment
+            visible={isFilterVisible}
+            onClose={handleFilterClose}
+            totalCost={cart.reduce((accumulator, item) => {
+              const totalPrice = accumulator + item.price * item.quantity;
+              return totalPrice;
+            }, 0)}
+          />
         </>
       ) : (
         // <ScrollView>
 
         // </ScrollView>
         <View>
-          <Text> Giỏ hàng trống </Text>
-
+          <Text style={[ { color: '#7C7C7C', fontSize: 24 } ]} > Giỏ hàng trống </Text>
+          <Image source={require('../../assets/images/EmptyCart.png')} style={[ {width: '100%', height: '91%', } ]} />
         </View>
       )}
     </>

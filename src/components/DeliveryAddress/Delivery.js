@@ -24,7 +24,7 @@ const AddressItem = ({address}) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('DeliveryEdit', {delivery: address})}>
-      <View >
+      <View>
         <Text style={[styles.nameAddress]}> {address.userNameAddress} </Text>
         <Text style={[styles.nameAddress]}> {address.nameProvince} </Text>
         <Text style={[styles.nameAddress]}> {address.nameDistrict} </Text>
@@ -62,7 +62,7 @@ const Delivery = ({item}) => {
     // console.log('Log ', item);
     // console.log('ID: ', users.userID);
     const {userAddressID, userID} = item;
-    await deliveryApi.deleteUserAddress({userAddressID, userID: users.userID });
+    await deliveryApi.deleteUserAddress({userAddressID, userID: users.userID});
     fetchAddressListApi(users.userID);
   };
 
@@ -78,21 +78,19 @@ const Delivery = ({item}) => {
 
       <ScrollView style={[{marginTop: 20}]}>
         {addressList.length > 0 ? (
-          <>
-            <View  >
-              {addressList.map(item => (
-                <View style={[styles.addressItem]} >
-                  <AddressItem address={item} />
+          <View  >
+            {addressList.map((item, index) => (
+              <View key={index} style={[styles.addressItem]}>
+                <AddressItem address={item} />
 
-                  <TouchableOpacity
-                    style={[styles.rowCheckbox]}
-                    onPress={() => deleteRow(item)}>
-                    <IconTrashRemoveItems />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </View>
-          </>
+                <TouchableOpacity
+                  style={[styles.rowCheckbox]}
+                  onPress={() => deleteRow(item)}>
+                  <IconTrashRemoveItems />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
         ) : (
           <Text>Danh sách địa chỉ trống</Text>
         )}

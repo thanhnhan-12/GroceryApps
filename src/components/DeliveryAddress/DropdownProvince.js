@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
-import deliveryApi from '../../api/deliveryApi';
 
 const DropdownProvince = ({dataProvince, province}) => {
   const [value, setValue] = useState(null);
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 16,
   },
+
   dropdown: {
     height: 50,
     borderColor: 'gray',
@@ -45,28 +45,34 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
   },
-  icon: {
-    marginRight: 5,
-  },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
+
+  // icon: {
+  //   marginRight: 5,
+  // },
+
+  // label: {
+  //   position: 'absolute',
+  //   backgroundColor: 'white',
+  //   left: 22,
+  //   top: 8,
+  //   zIndex: 999,
+  //   paddingHorizontal: 8,
+  //   fontSize: 14,
+  // },
+
   placeholderStyle: {
     fontSize: 16,
   },
+
   selectedTextStyle: {
     fontSize: 16,
   },
+
   iconStyle: {
     width: 20,
     height: 20,
   },
+
   inputSearchStyle: {
     height: 40,
     fontSize: 16,

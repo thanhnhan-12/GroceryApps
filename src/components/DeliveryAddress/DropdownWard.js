@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
-import deliveryApi from '../../api/deliveryApi';
 
 const DropdownWard = ({dataWard, wardID, onChangeValue}) => {
   console.log({wardID, dataWard});

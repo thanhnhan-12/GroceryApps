@@ -17,7 +17,7 @@ const AuthProvider = ({children}) => {
       .register({fullName, email, password})
       .then(res => {
         setIsLoading(false);
-        Alert('Đăng ký thành công');
+        Alert.alert('Đăng ký thành công');
       })
       .catch(e => {
         console.error(e.response.data.message);
@@ -34,7 +34,7 @@ const AuthProvider = ({children}) => {
         setUserInfo(res);
         AsyncStorage.setItem('userInfo', JSON.stringify(res));
         setIsLoading(false);
-        Alert('Đăng nhập thành công');
+        Alert.alert('Đăng nhập thành công');
       })
       .catch(e => {
         console.error(e.response.data.message);

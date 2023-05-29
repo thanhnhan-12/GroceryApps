@@ -120,7 +120,7 @@ const UserAddress = () => {
         <TouchableOpacity
           style={styles.btnLogin}
           onPress={updateUserAddressApi}>
-          <Text style={styles.textLogin}>Cập nhật</Text>
+          <Text style={styles.textLogin}>Thêm địa chỉ</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

@@ -46,7 +46,7 @@ const CategoriesBrandFilters = () => {
         </Text>
 
         {categories.map((items, index) => (
-          <View style={[{marginTop: 20}]} key={items.id}>
+          <View style={[{marginTop: 20}]} key={index}>
             <CheckBox
               isChecked={selectedCategories.includes(items.id)}
               onClick={() => handleCategoryChange(items.id)}
@@ -73,7 +73,7 @@ const CategoriesBrandFilters = () => {
         </Text>
 
         {brand.map((items, index) => (
-          <View style={[{marginTop: 20}]} key={items.id}>
+          <View style={[{marginTop: 20}]} key={index}>
             <CheckBox
               isChecked={selectedBrand.includes(items.id)}
               onClick={() => handleBrandChange(items.id)}

@@ -22,7 +22,6 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import productApi from '../../../api/productApi';
 import moment from 'moment';
 
-
 const ProductItem = ({item}) => {
   const windowHeight = Dimensions.get('window').height;
 
@@ -42,7 +41,12 @@ const ProductItem = ({item}) => {
             <View style={[{marginVertical: 10}]}>
               <View style={[{marginLeft: -5, marginRight: 0}]}>
                 <Text style={[styles.nameProduct]}>{item.productName}</Text>
-                <Text>Ngày nhập: {item.importDate ? moment(item.importDate).format('DD-MM-YYYY') : "Chưa nhập" }</Text>
+                <Text>
+                  Ngày nhập:{' '}
+                  {item.importDate
+                    ? moment(item.importDate).format('DD-MM-YYYY')
+                    : 'Chưa nhập'}
+                </Text>
                 <Text>Số lượng nhâp: {item.quantity}</Text>
 
                 <Text>{item.price}</Text>
@@ -51,7 +55,11 @@ const ProductItem = ({item}) => {
 
             <TouchableOpacity
               style={[{marginLeft: 40}]}
-              onPress={() => navigation.navigate('FormEditProduct', {productID: item.productID}) }>
+              onPress={() =>
+                navigation.navigate('FormEditProduct', {
+                  productID: item.productID,
+                })
+              }>
               <View>
                 <AntDesign name="edit" size={28} color="black" />
               </View>
@@ -94,8 +102,8 @@ const ProductList = () => {
       <View>
         {listProduct.length > 0 ? (
           <>
-            {listProduct.map((item, index )=> (
-              <Fragment key={index} >
+            {listProduct.map((item, index) => (
+              <Fragment key={index}>
                 <ProductItem item={item} />
               </Fragment>
             ))}

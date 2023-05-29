@@ -63,7 +63,7 @@ const ExploreDetailsScreen = ({navigation, route}) => {
   const fetchExploreType = async categoryID => {
     const {categoryTypeList} = await categoryApi.categoryType(categoryID);
     setExploreDetailType(categoryTypeList);
-    console.log({categoryTypeList});
+    // console.log({categoryTypeList});
     setLoading(false);
   };
 

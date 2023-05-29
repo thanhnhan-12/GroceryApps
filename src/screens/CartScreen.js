@@ -9,28 +9,25 @@ import {
   Dimensions,
 } from 'react-native';
 import MyCart from '../components/MyCart/MyCart';
-import {StripeProvider} from '@stripe/stripe-react-native';
-import PaymentScreen from '../components/MyCart/Payment';
 
 const CartScreen = () => {
   return (
-   
+    <View>
+      <View style={[styles.header, {backgroundColor: '#fff'}]}>
+        <Text style={styles.headerText}>Giỏ hàng</Text>
+      </View>
       <View>
-        <View style={[styles.header, {backgroundColor: '#fff'}]}>
-          <Text style={styles.headerText}>Giỏ hàng</Text>
-        </View>
-        <View>
-          <MyCart />
-        </View>
+        <MyCart />
+      </View>
 
-        {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
+      {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
         <MyCart />
       </ScrollView> */}
 
-        {/* <TouchableOpacity style={styles.btnCheckout}>
+      {/* <TouchableOpacity style={styles.btnCheckout}>
         <Text style={styles.textCheckout}>Thanh toán</Text>
       </TouchableOpacity> */}
-      </View>
+    </View>
   );
 };
 
