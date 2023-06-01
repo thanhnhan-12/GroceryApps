@@ -22,6 +22,11 @@ import DeliveryEdit from '../components/DeliveryAddress/DeliveryEdit';
 import WareHouse from '../components/Admin/WareHouse';
 import FormEditProduct from '../components/Admin/ProductList/EditProduct/FormEditProduct';
 import FormAddProduct from '../components/Admin/ProductList/AddProduct/FormAddProduct';
+import AccountList from '../components/Admin/Account';
+import FormEditAccount from '../components/Admin/Account/EditAccount/FormEditAccount';
+import FormAddAccount from '../components/Admin/Account/AddAccount/FormAddAccount';
+import PaymentSuccess from '../components/MyCart/PaymentSuccess';
+import OrderAdmin from '../components/Admin/Order';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -55,6 +60,12 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'CartScreen'}
           component={CartScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'PaymentSuccess'}
+          component={PaymentSuccess}
           options={{headerShown: false}}
         />
 
@@ -114,8 +125,26 @@ const HomeNavigation = () => {
         />
 
         <Stack.Screen
-          name={'AccountAdmin'}
-          component={AccountAdmin}
+          name={'AccountList'}
+          component={AccountList}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'FormAddAccount'}
+          component={FormAddAccount}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'FormEditAccount'}
+          component={FormEditAccount}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'OrderAdmin'}
+          component={OrderAdmin}
           options={{headerShown: false}}
         />
 

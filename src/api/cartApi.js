@@ -1,26 +1,26 @@
 import instance from './axiosClient';
 
 const cartApi = {
-  cart: async userID => {
-    return await instance.get(`/cart/get-cart/${userID}`);
+  cart: userID => {
+    return instance.get(`/cart/get-cart/${userID}`);
   },
 
-  createCart: async payload => {
-    return await instance.post(`/cart/create-cart`, payload);
+  createCart: payload => {
+    return instance.post(`/cart/create-cart`, payload);
   },
 
-  decreaseQuantity: async payload => {
-    return await instance.post(`/cart/decrease-quantity`, payload);
+  decreaseQuantity: payload => {
+    return instance.post(`/cart/decrease-quantity`, payload);
   },
 
-  deleteCart: async ({cartID, userID}) => {
-    return await instance.delete(
+  deleteCart: ({cartID, userID}) => {
+    return instance.delete(
       `/cart/delete-cart?cartID=${cartID}&userID=${userID}`,
     );
   },
 
-  payments: async payload => {
-    return await instance.post(`/cart/payments`, payload);
+  payments: payload => {
+    return instance.post(`/cart/payments`, payload);
   },
 };
 

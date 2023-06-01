@@ -24,7 +24,7 @@ const Admin = () => {
             style={[styles.inline1]}
             onPress={id => {
               if (items.id === 1) {
-                navigation.navigate('AccountAdmin');
+                navigation.navigate('AccountList');
               }
 
               if (items.id === 2) {
@@ -32,7 +32,7 @@ const Admin = () => {
               }
 
               if (items.id === 3) {
-                navigation.navigate('');
+                navigation.navigate('OrderAdmin');
               }
 
               if (items.id === 4) {

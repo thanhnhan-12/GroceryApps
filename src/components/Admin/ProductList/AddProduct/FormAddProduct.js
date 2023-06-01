@@ -72,9 +72,6 @@ const FormAddProduct = () => {
     }));
     setMedias([...medias, ...files]);
 
-    // setMedias(pre => [...pre, ...images.assets]);
-
-    // setMedias([...medias, { name: file.fileName, type: file.type, uri: file.uri }])
   };
 
   const fetchExploreApi = async () => {
@@ -164,7 +161,7 @@ const FormAddProduct = () => {
             label="Hạn sử dụng"
             dateSelected={expireDate}
             onChangeDate={date => {
-              console.log('D: ', date);
+              // console.log('D: ', date);
               setExpireDate(date);
             }}
           />

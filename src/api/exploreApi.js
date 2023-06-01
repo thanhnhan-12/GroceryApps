@@ -1,8 +1,8 @@
 import instance from './axiosClient';
 
 const exploreApi = {
-  explore: async () => {
-    return await instance.get(`/category/get-category`);
+  explore: () => {
+    return instance.get(`/category/get-category`);
   },
 };
 

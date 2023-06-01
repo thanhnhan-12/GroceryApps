@@ -24,7 +24,7 @@ const SelectDateTime = ({label, dateSelected, onChangeDate}) => {
       <Text style={[styles.label, styles.commonInput]}>{label}</Text>
 
       <TouchableOpacity style={styles.input} onPress={showDatePicker}>
-        <Text style={styles.textLogin}>{dateSelected ? dateSelected.toLocaleDateString() : 'No date selected'}</Text>
+        <Text style={styles.textLogin}>{dateSelected ? dateSelected.toLocaleDateString() : 'Chọn ngày tháng năm sinh'}</Text>
 
       </TouchableOpacity>
 

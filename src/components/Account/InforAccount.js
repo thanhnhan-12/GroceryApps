@@ -1,6 +1,6 @@
 import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-import {dataInforAccount} from './DataInforAccount';
+import {dataInforAccount, dataInforAdmin} from './DataInforAccount';
 import IconAccount from '../../assets/SVG/IconAccountCircle.svg';
 import IconLogout from '../../assets/SVG/IconLogout.svg';
 import {useNavigation} from '@react-navigation/native';
@@ -10,8 +10,6 @@ import {Dimensions} from 'react-native';
 
 const InforAccount = () => {
   const windowHeight = Dimensions.get('window').height;
-
-  const [inforAccount, setInforAccount] = useState(dataInforAccount);
 
   const {userInfo, logout} = useContext(AuthContext);
 
@@ -38,38 +36,77 @@ const InforAccount = () => {
         </View>
       </AuthProvider>
 
-      {inforAccount.map((items, index) => (
-        <Fragment key={index}>
-          <TouchableOpacity
-            style={[styles.inline1]}
-            onPress={() => {
-              if (items.id === 1) {
-                navigation.navigate('OrderScreen');
-              }
+      {users.roleID === 1 ? (
+        <>
+          {dataInforAdmin.map((items, index) => (
+            <Fragment key={index}>
+              <TouchableOpacity
+                style={[styles.inline1]}
+                onPress={() => {
+                  if (items.id === 1) {
+                    navigation.navigate('OrderScreen');
+                  }
 
-              if (items.id === 2) {
-                navigation.navigate('PersonalInformation');
-              }
+                  if (items.id === 2) {
+                    navigation.navigate('PersonalInformation');
+                  }
 
-              if (items.id === 3) {
-                navigation.navigate('DeliveryScreen');
-              }
+                  if (items.id === 3) {
+                    navigation.navigate('DeliveryScreen');
+                  }
 
-              if (items.id === 4) {
-                navigation.navigate('AdminScreen');
-              }
-            }}>
-            <View>{items.iconRepresent}</View>
+                  if (items.id === 4) {
+                    navigation.navigate('AdminScreen');
+                  }
+                }}>
+                <View>{items.iconRepresent}</View>
 
-            <View style={[styles.inline2]}>
-              <Text style={[styles.textTitle, styles.colors]}>
-                {items.title}
-              </Text>
-              {items.iconArrow}
-            </View>
-          </TouchableOpacity>
-        </Fragment>
-      ))}
+                <View style={[styles.inline2]}>
+                  <Text style={[styles.textTitle, styles.colors]}>
+                    {items.title}
+                  </Text>
+                  {items.iconArrow}
+                </View>
+              </TouchableOpacity>
+            </Fragment>
+          ))}
+        </>
+      ) : (
+        <>
+          {dataInforAccount.map((items, index) => (
+            <Fragment key={index}>
+              <TouchableOpacity
+                style={[styles.inline1]}
+                onPress={() => {
+                  if (items.id === 1) {
+                    navigation.navigate('OrderScreen');
+                  }
+
+                  if (items.id === 2) {
+                    navigation.navigate('PersonalInformation');
+                  }
+
+                  if (items.id === 3) {
+                    navigation.navigate('DeliveryScreen');
+                  }
+
+                  if (items.id === 4) {
+                    navigation.navigate('AdminScreen');
+                  }
+                }}>
+                <View>{items.iconRepresent}</View>
+
+                <View style={[styles.inline2]}>
+                  <Text style={[styles.textTitle, styles.colors]}>
+                    {items.title}
+                  </Text>
+                  {items.iconArrow}
+                </View>
+              </TouchableOpacity>
+            </Fragment>
+          ))}
+        </>
+      )}
 
       <TouchableOpacity style={[styles.btnLogout]} onPress={logout}>
         <View style={[{marginRight: '4%'}]}>

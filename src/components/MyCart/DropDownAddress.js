@@ -24,13 +24,10 @@ const DropDownAddress = ({dataAddress, address}) => {
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={dataAddress}
-        search
-        minHeight={400}
         // maxHeight={300}
         labelField="userNameAddress"
         valueField="userAddressID"
-        placeholder={'Chọn địa chỉ'}
-        searchPlaceholder="Tìm kiếm..."
+        placeholder={'Chọn'}
         value={address}
         onChange={item => {
           setValue(item.userAddressID);
@@ -50,8 +47,9 @@ const styles = StyleSheet.create({
   dropdown: {
     // height: 50,
     // paddingVertical: 50,
-    paddingHorizontal: 40,
-    marginLeft: -40,
+    // paddingHorizontal: 40,
+    // marginLeft: -40,
+    width: 200,
   },
 
   placeholderStyle: {

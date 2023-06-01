@@ -9,8 +9,9 @@ import deliveryApi from '../../api/deliveryApi';
 import {AuthContext} from '../../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {useFocusEffect} from '@react-navigation/native';
+import cartApi from '../../api/cartApi';
 
-const Payment = ({visible, onClose, onSelectFilter, totalCost}) => {
+const Payment = ({visible, onClose, onSelectFilter, totalCost, cart}) => {
   const navigation = useNavigation();
 
   const {userInfo} = useContext(AuthContext);
@@ -34,6 +35,22 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost}) => {
     }, []),
   );
 
+  const handlePayment = async () => {
+    await cartApi.payments({
+      totalPrice: totalCost,
+      userID: users.userID,
+      productCart: cart.map(item => {
+        return {
+          productID: item.productID,
+          quantity: item.quantity,
+          cartID: item.cartID,
+        };
+      }),
+    });
+
+    navigation.navigate('PaymentSuccess');
+  };
+
   if (loading) {
     return <Spinner visible={loading} />;
   }
@@ -51,10 +68,10 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost}) => {
 
           <View>
             <View style={[styles.common, styles.padding]}>
-              {/* <Text style={[styles.textLeft]}>Địa chỉ giao hàng</Text> */}
+              <Text style={[styles.textLeft]}>Chọn địa chỉ</Text>
 
               <TouchableOpacity style={[styles.common]}>
-                <Text >
+                <Text>
                   <DropDownAddress dataAddress={addressList} />
                 </Text>
               </TouchableOpacity>
@@ -68,7 +85,7 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost}) => {
 
             <TouchableOpacity
               style={styles.btnCheckout}
-              onPress={'handlePayment'}>
+              onPress={handlePayment}>
               <Text style={styles.textCheckout}>Thanh toán</Text>
             </TouchableOpacity>
           </View>
@@ -95,6 +112,8 @@ const styles = StyleSheet.create({
   common: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 20,
+    display: 'flex',
     alignItems: 'center',
   },
 

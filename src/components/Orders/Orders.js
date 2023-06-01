@@ -1,13 +1,83 @@
-import React from 'react'
-import { View } from 'react-native'
-import DropdownList from './DropdownList'
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
+import DropdownList from './DropdownList';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
+import {AuthContext} from '../../context/AuthContext';
+import orderApi from '../../api/orderApi';
+import {useFocusEffect} from '@react-navigation/native';
+import moment from 'moment';
+
+const OrdersItem = ({item}) => {
+  return (
+    <View >
+      <Text>Tình trạng: {item.orderStatus ? "Chưa giao" : "Đã giao" }</Text>
+      <Text>Tổng giá tiền: {item.totalPrice}</Text>
+      <Text>Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}</Text>
+      <Text>Ngày giao hàng: {item.deliveryDate ? "" : "Trống" }</Text>
+    </View>
+  );
+};
 
 const Orders = () => {
-  return (
-    <View>
-      <DropdownList/>
-    </View>
-  )
-}
+  const [loading, setLoading] = useState(true);
 
-export default Orders
+  const {userInfo} = useContext(AuthContext);
+
+  const {users} = userInfo;
+
+  const [orders, setOrders] = useState([]);
+
+  const fecthOrderListApi = async userID => {
+    const orderList = await orderApi.getAllOrders(userID);
+    setOrders(orderList);
+    // console.log('Log: ', orderList);
+    setLoading(false);
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fecthOrderListApi(users.userID);
+    }, []),
+  );
+
+  if (loading) {
+    return <Spinner visible={loading} />;
+  }
+
+  return (
+    <View style={[ { backgroundColor: '#fff' } ]} >
+      <DropdownList />
+
+      <ScrollView>
+        {orders.length > 0 ? (
+          <View>
+            {orders.map((item, index) => (
+              <View key={index}  style={[styles.ordersItem]} >
+                <OrdersItem item={item} />
+              </View>
+            ))}
+          </View>
+        ) : (
+          <Text>Danh sách đơn hàng trống</Text>
+        )}
+
+      </ScrollView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  ordersItem: {
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E2E2',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
+
+export default Orders;

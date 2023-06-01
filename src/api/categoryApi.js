@@ -1,14 +1,13 @@
 import instance from './axiosClient';
 
 const categoryApi = {
-  category: async () => {
-    return await instance.get(`/category/get-category`);
+  category: () => {
+    return instance.get(`/category/get-category`);
   },
 
-  categoryType: async (categoryID) => {
-    return await instance.get(`/category/get-categorytype/${categoryID}`);
+  categoryType: categoryID => {
+    return instance.get(`/category/get-categorytype/${categoryID}`);
   },
-
-};  
+};
 
 export default categoryApi;

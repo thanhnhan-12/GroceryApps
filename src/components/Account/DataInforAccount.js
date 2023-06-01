@@ -25,7 +25,9 @@ export const dataInforAccount = [
     title: 'Địa chỉ giao hàng',
     iconArrow: <IconArrowNext />,
   },
+];
 
+export const dataInforAdmin = [
   {
     id: 4,
     iconRepresent: (

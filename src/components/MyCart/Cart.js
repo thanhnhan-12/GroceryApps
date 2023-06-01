@@ -204,6 +204,7 @@ const Cart = ({card}) => {
               const totalPrice = accumulator + item.price * item.quantity;
               return totalPrice;
             }, 0)}
+            cart={cart}
           />
         </>
       ) : (
@@ -211,7 +212,6 @@ const Cart = ({card}) => {
 
         // </ScrollView>
         <View>
-          <Text style={[ { color: '#7C7C7C', fontSize: 24 } ]} > Giỏ hàng trống </Text>
           <Image source={require('../../assets/images/EmptyCart.png')} style={[ {width: '100%', height: '91%', } ]} />
         </View>
       )}

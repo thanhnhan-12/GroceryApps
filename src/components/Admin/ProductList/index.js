@@ -8,15 +8,8 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {SwipeListView} from 'react-native-swipe-list-view';
-import IconDe from '../../../assets/SVG/iconDecrease.svg';
-import IconIn from '../../../assets/SVG/iconIncrease.svg';
-import IconRemove from '../../../assets/SVG/IconRemove.svg';
-import Checkbox from '../../CheckBoxTrash/Checkbox';
+
 import Spinner from 'react-native-loading-spinner-overlay/lib';
-import cartApi from '../../../api/cartApi';
-import {AuthContext} from '../../../context/AuthContext';
-import IconTrashRemoveItems from '../../../assets/SVG/IconTrashRemoveItems.svg';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import productApi from '../../../api/productApi';
@@ -182,17 +175,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Hidden Items
-  rowBack: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#EBFFEB',
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: '#E2E2E2',
-  },
 });
 
 export default ProductList;
