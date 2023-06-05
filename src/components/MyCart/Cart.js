@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {dataProduct} from '../ProductList/data';
@@ -39,7 +40,6 @@ const Cart = ({card}) => {
   const [isFilterVisible, setFilterVisible] = useState(false);
 
   const deleteRow = async item => {
-    console.log('Log ', item);
     const {userID, cartID} = item;
     await cartApi.deleteCart({userID, cartID});
     fetchCartApi(userID);
@@ -90,7 +90,7 @@ const Cart = ({card}) => {
       await cartApi.createCart({productID, userID: users.userID, quantity: 1});
       fetchCartApi(users.userID);
     } catch (error) {
-      console.log('Err ', error);
+      Alert.alert("Vượt quá số lượng sản phẩm");
     }
   };
 
@@ -212,7 +212,10 @@ const Cart = ({card}) => {
 
         // </ScrollView>
         <View>
-          <Image source={require('../../assets/images/EmptyCart.png')} style={[ {width: '100%', height: '91%', } ]} />
+          <Image
+            source={require('../../assets/images/EmptyCart.png')}
+            style={[{width: '100%', height: '91%'}]}
+          />
         </View>
       )}
     </>

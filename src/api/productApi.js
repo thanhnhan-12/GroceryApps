@@ -32,6 +32,10 @@ const productApi = {
   updateProductById: (idProduct, body) => {
     return instance.put(`/product/update-productbyid/${idProduct}`, body);
   },
+
+  findProductByName: (productName) => {
+    return instance.get(`/product/find-productbyname/${productName}`);
+  },
 };
 
 export default productApi;

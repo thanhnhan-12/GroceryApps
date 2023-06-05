@@ -27,6 +27,7 @@ import FormEditAccount from '../components/Admin/Account/EditAccount/FormEditAcc
 import FormAddAccount from '../components/Admin/Account/AddAccount/FormAddAccount';
 import PaymentSuccess from '../components/MyCart/PaymentSuccess';
 import OrderAdmin from '../components/Admin/Order';
+import SearchResultsScreen from '../screens/SearchResultsScreen';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -114,6 +115,12 @@ const HomeNavigation = () => {
         <Stack.Screen
           name={'PersonalInformation'}
           component={PersonalInformation}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'SearchResultsScreen'}
+          component={SearchResultsScreen}
           options={{headerShown: false}}
         />
 

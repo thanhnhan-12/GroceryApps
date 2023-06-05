@@ -12,9 +12,10 @@ import {
 import {dataProduct} from '../../components/ProductList/data';
 import productApi from '../../api/productApi';
 import cartApi from '../../api/cartApi';
-import { AuthContext } from '../../context/AuthContext';
-import { useFocusEffect } from '@react-navigation/native';
+import {AuthContext} from '../../context/AuthContext';
+import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const ProductCard = ({card}) => {
   const {
@@ -29,7 +30,9 @@ const ProductCard = ({card}) => {
 
   const {userInfo} = useContext(AuthContext);
 
-  const {users: {userID}} = userInfo;
+  const {
+    users: {userID},
+  } = userInfo;
 
   const route = useRoute();
 
@@ -42,12 +45,17 @@ const ProductCard = ({card}) => {
 
   const handlePressDetails = id => {
     console.log(id);
-    navigation.navigate('ProductDetails', { id });
+    navigation.navigate('ProductDetails', {id});
   };
 
-  const handleAddCart = async (productID) => {
-    await cartApi.createCart({ productID, userID , quantity: 1 } )
-  }
+  const handleAddCart = async productID => {
+    await cartApi.createCart({productID, userID, quantity: 1});
+    Toast.show({
+      type: 'success',
+      text1: 'Sản phẩm đã được thêm vào giỏ hàng',
+      visibilityTime: 3000,
+    })
+  };
 
   return (
     <View style={[{}]}>
@@ -63,13 +71,22 @@ const ProductCard = ({card}) => {
 
               <Text style={styles.nameProduct}> {productName} </Text>
               <Text style={[styles.common, styles.unit]}>{unit}</Text>
-              <Text style={[styles.common, styles.unit]}>HSD: {expirationDate ? moment(expirationDate).format('DD-MM-YYYY') : "Chưa nhập" }</Text>
-              <Text style={[styles.common, styles.unit]}>Số lượng: {quantity}</Text>
+              <Text style={[styles.common, styles.unit]}>
+                HSD:{' '}
+                {expirationDate
+                  ? moment(expirationDate).format('DD-MM-YYYY')
+                  : 'Chưa nhập'}
+              </Text>
+              <Text style={[styles.common, styles.unit]}>
+                Số lượng: {quantity}
+              </Text>
 
               <View style={[styles.inline]}>
                 <Text style={[styles.common, styles.price]}>{price}</Text>
 
-                <TouchableOpacity style={[styles.btnAdd]} onPress={() => handleAddCart(productID)} >
+                <TouchableOpacity
+                  style={[styles.btnAdd]}
+                  onPress={() => handleAddCart(productID)}>
                   <Image
                     source={require('../../assets/images/IconAddProduct.png')}
                     style={styles.iconAdd}

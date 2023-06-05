@@ -9,11 +9,18 @@ import moment from 'moment';
 
 const OrdersItem = ({item}) => {
   return (
-    <View >
-      <Text>Tình trạng: {item.orderStatus ? "Chưa giao" : "Đã giao" }</Text>
+    <View>
+      <Text>Tình trạng: {item.orderStatus == 0 ? 'Chưa giao' : 'Đã giao'}</Text>
       <Text>Tổng giá tiền: {item.totalPrice}</Text>
-      <Text>Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}</Text>
-      <Text>Ngày giao hàng: {item.deliveryDate ? "" : "Trống" }</Text>
+      <Text>
+        Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}
+      </Text>
+      <Text>
+        Ngày giao hàng:{' '}
+        {item.deliveryDate
+          ? moment(item.deliveryDate).format('DD/MM/YYYY HH:mm')
+          : 'Trống'}
+      </Text>
     </View>
   );
 };
@@ -45,14 +52,14 @@ const Orders = () => {
   }
 
   return (
-    <View style={[ { backgroundColor: '#fff' } ]} >
+    <View style={[{backgroundColor: '#fff'}]}>
       <DropdownList />
 
       <ScrollView>
         {orders.length > 0 ? (
-          <View>
+          <View style={[ { marginBottom: '48%' } ]} >
             {orders.map((item, index) => (
-              <View key={index}  style={[styles.ordersItem]} >
+              <View key={index} style={[styles.ordersItem]}>
                 <OrdersItem item={item} />
               </View>
             ))}
@@ -60,7 +67,6 @@ const Orders = () => {
         ) : (
           <Text>Danh sách đơn hàng trống</Text>
         )}
-
       </ScrollView>
     </View>
   );

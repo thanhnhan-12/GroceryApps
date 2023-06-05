@@ -25,12 +25,15 @@ const ExploreDetailsScreen = ({navigation, route}) => {
   const [items, setItems] = useState(dataProduct);
 
   const [exploreDetailType, setExploreDetailType] = useState([]);
-  const {id, categoryName} = route.params;
-  console.log('ID: ', id);
+
   const [loading, setLoading] = useState(true);
 
   const [isFilterVisible, setFilterVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('Tất cả');
+
+  const {id, categoryName} = route.params;
+  console.log('ID: ', id);
+  
 
   const {userInfo} = useContext(AuthContext);
 
@@ -112,7 +115,7 @@ const ExploreDetailsScreen = ({navigation, route}) => {
             renderItem={({item}) => (
               <View style={[]}>
                 <TouchableOpacity
-                // onPress={() => handlePressDetails(items.id)}
+                onPress={() => handlePressDetails(item.productID)}
                 >
                   <SafeAreaView style={styles.container}>
                     <View>

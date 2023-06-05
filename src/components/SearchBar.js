@@ -1,3 +1,4 @@
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Image,
@@ -7,19 +8,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function SearchBar({value, updateSearch, style}) {
   const [query, setQuery] = useState();
   const [error, setError] = useState();
+
+  const navigation = useNavigation();
+
+  const [nameProduct, setNameProduct] = useState();
+
   return (
-    <View style={[styles.container, { marginTop: '10%' } ]}>
+    <View style={[styles.container, {marginTop: '10%'}]}>
       <View style={styles.searchContainer}>
-        <View style={styles.vwSearch}>
+        {/* <View style={styles.vwSearch}>
           <Image
             style={styles.icSearch}
             source={require('../assets/Icons/IconSearch.png')}
           />
-        </View>
+        </View> */}
 
         <TextInput
           value={query}
@@ -29,18 +36,19 @@ export default function SearchBar({value, updateSearch, style}) {
             var letters = /^$|^[a-zA-Z._\b ]+$/;
             if (text.length > 12) setError('Query too long.');
             else if (text.match(letters)) {
-              setQuery(text);
+              setNameProduct(text);
               updateSearch(text);
               if (error) setError(false);
             } else setError('Please only enter alphabets');
           }}
         />
-        {query ? (
-          <TouchableOpacity onPress={() => setQuery('')} style={styles.vwClear}>
-            <Image
-              style={styles.icClear}
-              source={require('../assets/Icons/IconSearch.png')}
-            />
+        {nameProduct ? (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('SearchResultsScreen', {nameProduct})
+            }
+            style={styles.vwClear}>
+            <AntDesign name="search1" size={25} color="#000" />
           </TouchableOpacity>
         ) : (
           <View style={styles.vwClear} />
@@ -66,6 +74,7 @@ const styles = StyleSheet.create({
   textInput: {
     // backgroundColor: 'green',
     flex: 1,
+    paddingLeft: 22,
   },
 
   vwSearch: {

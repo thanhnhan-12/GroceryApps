@@ -10,7 +10,13 @@
 
 // const IP_CONFIG = '192.168.1.34';
 
-const IP_CONFIG = '192.168.1.39';
+// const IP_CONFIG = '192.168.1.39';
+
+// const IP_CONFIG = '192.168.1.126';
+
+// const IP_CONFIG = '192.168.1.16';
+
+const IP_CONFIG = '192.168.1.116';
 
 // const IP_CONFIG = "192.168.43.151"
 

@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -14,6 +15,9 @@ import IconDe from '../assets/SVG/iconDecrease.svg';
 import IconIn from '../assets/SVG/iconIncrease.svg';
 import {StarRatings} from '../components/ReviewStar/Star';
 import productApi from '../api/productApi.js';
+import cartApi from '../api/cartApi.js';
+import {AuthContext} from '../context/AuthContext.js';
+import {Toast} from 'react-native-toast-message/lib/src/Toast.js';
 
 const ProductDetails = ({navigation, route}) => {
   const [amount, setAmount] = useState(1);
@@ -25,13 +29,29 @@ const ProductDetails = ({navigation, route}) => {
 
   const {productDetail, images} = detail;
 
-  // Increase Or Decrease Amount
-  const handleAmountIncrease = () => {
-    setAmount(() => amount + 1);
+  const {userInfo} = useContext(AuthContext);
+
+  const {token, users} = userInfo;
+
+  const handleIncreaseQuantity = async productID => {
+    if (amount === productDetail.quantity) {
+      Alert.alert('Vượt quá số lượng');
+    } else {
+      setAmount(amount + 1);
+    }
   };
 
-  const handleAmountDecrease = () => {
-    setAmount(() => amount - 1);
+  const handleDecreaseQuantity = async productID => {
+    setAmount(amount - 1);
+  };
+
+  const handleAddCart = async productID => {
+    await cartApi.createCart({productID, userID: users.userID, quantity: amount});
+    Toast.show({
+      type: 'success',
+      text1: 'Sản phẩm đã được thêm vào giỏ hàng',
+      visibilityTime: 3000,
+    });
   };
 
   // Expanded Test
@@ -44,12 +64,10 @@ const ProductDetails = ({navigation, route}) => {
     setDetail({productDetail, images});
     // console.log({productDetail, images});
     setLoading(false);
-
   };
 
   useEffect(() => {
     fetchProductDetailApi(id);
-
   }, []);
 
   if (loading) {
@@ -81,15 +99,15 @@ const ProductDetails = ({navigation, route}) => {
             {/* Button Decrease - Increase */}
             <View style={[styles.heading, styles.btnAmount]}>
               <TouchableOpacity
-                onPress={handleAmountDecrease}
-                disabled={amount === 1 && true}
+                onPress={handleDecreaseQuantity}
+                disabled={amount === 1}
                 style={[styles.btnDecrease]}>
                 <IconDe />
               </TouchableOpacity>
 
               <Text style={[styles.amount]}>{amount}</Text>
 
-              <TouchableOpacity onPress={handleAmountIncrease}>
+              <TouchableOpacity onPress={handleIncreaseQuantity}>
                 <IconIn />
               </TouchableOpacity>
             </View>
@@ -124,7 +142,9 @@ const ProductDetails = ({navigation, route}) => {
             <StarRatings />
           </View>
 
-          <TouchableOpacity style={styles.btnAddCart}>
+          <TouchableOpacity
+            onPress={() => handleAddCart(id)}
+            style={styles.btnAddCart}>
             <Text
               style={{
                 fontWeight: '600',

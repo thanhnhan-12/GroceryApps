@@ -74,6 +74,23 @@ export const AddressHeading = () => {
   );
 };
 
+export const SearchResultsHeading = () => {
+  const navigation = useNavigation();
+
+  const [hidden, setHidden] = useState(false);
+
+  return (
+    <View style={[styles.flex]}>
+      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+        <IconBackArrow />
+      </TouchableOpacity>
+      <Text style={[styles.textInfor]}>Kết quả tìm kiếm</Text>
+      <Text>{hidden}</Text>
+    </View>
+  );
+};
+
+
 const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
