@@ -19,6 +19,7 @@ const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPass, setConfirmPass] = useState(null);
+  const [phone, setPhone] = useState(null);
 
   const {register, isLoading} = useContext(AuthContext);
 
@@ -39,7 +40,7 @@ const RegisterScreen = ({navigation}) => {
       if (password !== confirmPass) {
         console.error('Mật khẩu không trùng khớp');
       }
-      register(fullName, email, password);
+      register(fullName, email, password, phone);
     }
   };
 
@@ -52,7 +53,7 @@ const RegisterScreen = ({navigation}) => {
           resizeMode="cover"
           style={{height: 400}}>
           <View style={styles.backgroundCurved}>
-            <Text style={styles.titleLogin}>Register</Text>
+            <Text style={styles.titleLogin}>Đăng ký</Text>
             {/* <Register/> */}
           </View>
           <View style={[styles.vectorRegister, {marginTop: 16}]}>
@@ -69,7 +70,7 @@ const RegisterScreen = ({navigation}) => {
               placeholder={'Nhập Họ và tên'}
               keyboardType={'default'}
               value={fullName}
-              onChangeText={text => setFullName(text.trim())}
+              onChangeText={text => setFullName(text)}
               secureTextEntry={false}
               style={styles.input}
             />
@@ -110,6 +111,18 @@ const RegisterScreen = ({navigation}) => {
               value={confirmPass}
               onChangeText={text => setConfirmPass(text.trim())}
               secureTextEntry={true}
+              style={styles.input}
+            />
+          </View>
+
+          <View style={[styles.commonInput]}>
+            <Text style={styles.label}>Nhập Số điện thoại</Text>
+            <TextInput
+              placeholder={'Nhập số điện thoại'}
+              keyboardType={'default'}
+              value={phone}
+              onChangeText={number => setPhone(number.trim())}
+              secureTextEntry={false}
               style={styles.input}
             />
           </View>

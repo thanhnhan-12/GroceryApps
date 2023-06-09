@@ -46,7 +46,7 @@ const LoginScreen = ({navigation}) => {
           resizeMode="cover"
           style={{height: 360}}>
           <View style={styles.backgroundCurved}>
-            <Text style={styles.titleLogin}>Login</Text>
+            <Text style={styles.titleLogin}>Đăng nhập</Text>
             {/* <Login/> */}
           </View>
           <View style={{marginLeft: 200}}>

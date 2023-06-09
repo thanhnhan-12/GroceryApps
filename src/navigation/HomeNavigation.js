@@ -28,6 +28,8 @@ import FormAddAccount from '../components/Admin/Account/AddAccount/FormAddAccoun
 import PaymentSuccess from '../components/MyCart/PaymentSuccess';
 import OrderAdmin from '../components/Admin/Order';
 import SearchResultsScreen from '../screens/SearchResultsScreen';
+import Expense from '../components/Expense/Expense';
+import InforAccount from '../components/Account/InforAccount';
 
 const HomeNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -126,8 +128,20 @@ const HomeNavigation = () => {
 
         {/* ADMIN */}
         <Stack.Screen
+          name={'InforAccount'}
+          component={InforAccount}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
           name={'AdminScreen'}
           component={AdminScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name={'Expense'}
+          component={Expense}
           options={{headerShown: false}}
         />
 

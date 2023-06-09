@@ -16,12 +16,12 @@ export const dataTitleAdmin = [
     iconArrow: <IconArrowNext />,
   },
 
-  {
-    id: 2,
-    iconRepresent: <Fontisto name="dollar" size={28} color="black" style={[ {marginRight: 10} ]} />,
-    title: 'Chi phí',
-    iconArrow: <IconArrowNext />,
-  },
+  // {
+  //   id: 2,
+  //   iconRepresent: <Fontisto name="dollar" size={28} color="black" style={[ {marginRight: 10} ]} />,
+  //   title: 'Thống kê',
+  //   iconArrow: <IconArrowNext />,
+  // },
 
   {
     id: 3,
@@ -37,17 +37,17 @@ export const dataTitleAdmin = [
     iconArrow: <IconArrowNext />,
   },
 
-  {
-    id: 5,
-    iconRepresent: <AntDesign name="areachart" size={28} color="black" />,
-    title: 'Doanh thu',
-    iconArrow: <IconArrowNext />,
-  },
+  // {
+  //   id: 5,
+  //   iconRepresent: <AntDesign name="areachart" size={28} color="black" />,
+  //   title: 'Doanh thu',
+  //   iconArrow: <IconArrowNext />,
+  // },
 
-  {
-    id: 6,
-    iconRepresent: <Feather name="package" size={28} color="black" />,
-    title: 'Kho hàng',
-    iconArrow: <IconArrowNext />,
-  },
+  // {
+  //   id: 6,
+  //   iconRepresent: <Feather name="package" size={28} color="black" />,
+  //   title: 'Kho hàng',
+  //   iconArrow: <IconArrowNext />,
+  // },
 ];

@@ -14,6 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import productApi from '../../../api/productApi';
 import moment from 'moment';
+import {formatPrice} from '../../Heading';
 
 const ProductItem = ({item}) => {
   const windowHeight = Dimensions.get('window').height;
@@ -42,7 +43,7 @@ const ProductItem = ({item}) => {
                 </Text>
                 <Text>Số lượng nhâp: {item.quantity}</Text>
 
-                <Text>{item.price}</Text>
+                <Text>{formatPrice(Number(item.price))}</Text>
               </View>
             </View>
 
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
   },
-
 });
 
 export default ProductList;

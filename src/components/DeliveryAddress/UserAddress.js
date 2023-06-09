@@ -17,6 +17,7 @@ import {AddressHeading} from '../Heading';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import deliveryApi from '../../api/deliveryApi';
 import {AuthContext} from '../../context/AuthContext';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 const UserAddress = () => {
   const windowHeight = Dimensions.get('window').height;
@@ -45,6 +46,11 @@ const UserAddress = () => {
       userNameAddress: address,
       userID: users.userID,
       WardsID: wardID,
+    });
+    Toast.show({
+      type: 'success',
+      text1: 'Thêm địa chỉ thành công',
+      visibilityTime: 3000,
     });
   };
 

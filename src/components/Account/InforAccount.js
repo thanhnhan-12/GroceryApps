@@ -16,7 +16,7 @@ const InforAccount = () => {
   const {token, users} = userInfo;
   const {fullName, email} = users;
 
-  console.log('Users: ', users);
+  // console.log('Users: ', users);
 
   const navigation = useNavigation();
 
@@ -43,20 +43,24 @@ const InforAccount = () => {
               <TouchableOpacity
                 style={[styles.inline1]}
                 onPress={() => {
-                  if (items.id === 1) {
-                    navigation.navigate('OrderScreen');
-                  }
+                  // if (items.id === 1) {
+                  //   navigation.navigate('OrderScreen');
+                  // }
 
-                  if (items.id === 2) {
-                    navigation.navigate('PersonalInformation');
-                  }
+                  // if (items.id === 2) {
+                  //   navigation.navigate('PersonalInformation');
+                  // }
 
-                  if (items.id === 3) {
-                    navigation.navigate('DeliveryScreen');
-                  }
+                  // if (items.id === 3) {
+                  //   navigation.navigate('DeliveryScreen');
+                  // }
 
                   if (items.id === 4) {
                     navigation.navigate('AdminScreen');
+                  }
+
+                  if (items.id === 5) {
+                    navigation.navigate('Expense');
                   }
                 }}>
                 <View>{items.iconRepresent}</View>

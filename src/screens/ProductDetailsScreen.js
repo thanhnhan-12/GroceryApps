@@ -18,6 +18,8 @@ import productApi from '../api/productApi.js';
 import cartApi from '../api/cartApi.js';
 import {AuthContext} from '../context/AuthContext.js';
 import {Toast} from 'react-native-toast-message/lib/src/Toast.js';
+import { formatPrice } from '../components/Heading/index.js';
+
 
 const ProductDetails = ({navigation, route}) => {
   const [amount, setAmount] = useState(1);
@@ -113,7 +115,7 @@ const ProductDetails = ({navigation, route}) => {
             </View>
 
             {/* Money */}
-            <Text>{productDetail.price}</Text>
+            <Text>{formatPrice(Number(productDetail.price))}</Text>
           </View>
 
           <View style={[{marginTop: 18.05}, styles.borderBottom]}>

@@ -3,8 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
 
-const DropdownWard = ({dataWard, wardID, onChangeValue}) => {
-  // console.log({wardID, dataWard});
+const DropDownYear = ({dataYear, year}) => {
+  const [value, setValue] = useState(null);
   return (
     <View>
       <Dropdown
@@ -13,27 +13,19 @@ const DropdownWard = ({dataWard, wardID, onChangeValue}) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={dataWard}
+        data={dataYear}
         search
         maxHeight={300}
-        labelField="nameWard"
-        valueField="WardsID"
-        placeholder={'Chọn Phường/ Xã'}
-        searchPlaceholder="Tìm kiếm..."
-        value={wardID}
-        // onFocus={() => setIsFocus(true)}
-        // onBlur={() => setIsFocus(false)}
+        labelField="nameProvince"
+        valueField="provinceID"
+        placeholder={'Chọn Tháng'}
+        // searchPlaceholder="Tìm kiếm..."
+        value={year}
         onChange={item => {
-          console.log('Log: ', item);
-          onChangeValue(item.WardsID);
+          setValue(item.provinceID);
         }}
         renderLeftIcon={() => (
-          <Feather
-            style={styles.icon}
-            // color={isFocus ? 'blue' : 'black'}
-            name="map-pin"
-            size={20}
-          />
+          <Feather style={styles.icon} name="map-pin" size={20} />
         )}
       />
     </View>
@@ -41,6 +33,11 @@ const DropdownWard = ({dataWard, wardID, onChangeValue}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    padding: 16,
+  },
+
   dropdown: {
     height: 50,
     borderColor: 'gray',
@@ -49,19 +46,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
 
-  icon: {
-    marginRight: 5,
-  },
+  // icon: {
+  //   marginRight: 5,
+  // },
 
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
+  // label: {
+  //   position: 'absolute',
+  //   backgroundColor: 'white',
+  //   left: 22,
+  //   top: 8,
+  //   zIndex: 999,
+  //   paddingHorizontal: 8,
+  //   fontSize: 14,
+  // },
 
   placeholderStyle: {
     fontSize: 16,
@@ -82,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DropdownWard;
+export default DropDownYear;

@@ -12,6 +12,13 @@ import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
 import {AuthContext} from '../../../context/AuthContext';
 import orderApi from '../../../api/orderApi';
+import {
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+  AccordionList,
+} from 'accordion-collapse-react-native';
+import productApi from '../../../api/productApi';
 
 const Checkbox = ({checked, onCheck, orderID}) => {
   return (
@@ -28,17 +35,48 @@ const Checkbox = ({checked, onCheck, orderID}) => {
 const OrdersItem = ({item}) => {
   return (
     <View>
-      <Text>Tình trạng: {item.orderStatus == 0 ? 'Chưa giao' : 'Đã giao'}</Text>
-      <Text>Tổng giá tiền: {item.totalPrice}</Text>
-      <Text>
-        Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}
-      </Text>
-      <Text>
-        Ngày giao hàng:{' '}
-        {item.deliveryDate
-          ? moment(item.deliveryDate).format('DD/MM/YYYY HH:mm')
-          : 'Trống'}
-      </Text>
+      <Collapse>
+        <CollapseHeader>
+          <Text>Tên người mua: {item.fullName}</Text>
+          <Text>
+            Tình trạng: {item.orderStatus == 0 ? 'Chưa giao' : 'Đã giao'}
+          </Text>
+          <Text>Tổng giá tiền: {item.totalPrice}</Text>
+          <Text>
+            Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}
+          </Text>
+          {item.deliveryDate && (
+            <Text>
+              Ngày giao hàng:{' '}
+              {moment(item.deliveryDate).format('DD/MM/YYYY HH:mm')}
+            </Text>
+          )}
+        </CollapseHeader>
+
+        <CollapseBody
+          style={{
+            // alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            backgroundColor: '#EDEDED',
+            width: '100%',
+            padding: 10,
+            marginTop: 10,
+          }}>
+          <Text style={[{}]}>Số điện thoại: {item.phone}</Text>
+          <Text>Địa chỉ giao hàng: {item.userNameAddress}</Text>
+          <View>
+            <Text>Chi tiết đơn hàng: </Text>
+            {item.orderDetails?.map((orderDetail, index) => (
+              <View key={index}>
+                <Text>Tên sản phẩm: {orderDetail.productName}</Text>
+                <Text>Số lượng: {orderDetail.quantity}</Text>
+                <Text>Giá tiền{orderDetail.price}</Text>
+              </View>
+            ))}
+          </View>
+        </CollapseBody>
+      </Collapse>
     </View>
   );
 };
@@ -53,6 +91,8 @@ const OrderAdmin = () => {
   const {users} = userInfo;
 
   const [orders, setOrders] = useState([]);
+
+  const [product, setProduct] = useState([]);
 
   const handleCheckTab = tab => {
     // console.log('Tab', tab);

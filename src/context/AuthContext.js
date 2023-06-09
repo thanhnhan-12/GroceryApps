@@ -11,10 +11,10 @@ const AuthProvider = ({children}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const register = async (fullName, email, password) => {
+  const register = async (fullName, email, password, phone) => {
     setIsLoading(true);
     await authApi
-      .register({fullName, email, password})
+      .register({fullName, email, password, phone})
       .then(res => {
         setIsLoading(false);
         Alert.alert('Đăng ký thành công');

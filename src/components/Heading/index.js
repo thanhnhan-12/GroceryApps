@@ -10,6 +10,9 @@ import {
 import IconBackArrow from '../../assets/SVG/IconBackArrow.svg';
 import {useNavigation} from '@react-navigation/native';
 
+export const formatPrice = price =>
+  price.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+
 export const OrderHeading = () => {
   const navigation = useNavigation();
 
@@ -90,6 +93,35 @@ export const SearchResultsHeading = () => {
   );
 };
 
+export const AdminHeading = () => {
+  const navigation = useNavigation();
+
+  const [hidden, setHidden] = useState(false);
+
+  return (
+    <View style={[styles.flex]}>
+      <TouchableOpacity onPress={() => navigation.navigate('InforAccount')}>
+        <IconBackArrow />
+      </TouchableOpacity>
+      <Text style={[styles.textInfor]}>Quản lý</Text>
+      <Text>{hidden}</Text>
+    </View>
+  );
+};
+
+export const RevenueHeading = () => {
+  const navigation = useNavigation();
+  const [hidden, setHidden] = useState(false);
+  return (
+    <View style={[styles.flex]}>
+      <TouchableOpacity onPress={() => navigation.navigate('InforAccount')}>
+        <IconBackArrow />
+      </TouchableOpacity>
+      <Text style={[styles.textInfor]}>Thống kê</Text>
+      <Text>{hidden}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   flex: {

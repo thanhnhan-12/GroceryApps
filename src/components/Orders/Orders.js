@@ -6,12 +6,14 @@ import {AuthContext} from '../../context/AuthContext';
 import orderApi from '../../api/orderApi';
 import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
+import {formatPrice} from '../Heading';
+
 
 const OrdersItem = ({item}) => {
   return (
     <View>
       <Text>Tình trạng: {item.orderStatus == 0 ? 'Chưa giao' : 'Đã giao'}</Text>
-      <Text>Tổng giá tiền: {item.totalPrice}</Text>
+      <Text>Tổng giá tiền: {formatPrice(Number(item.totalPrice))}</Text>
       <Text>
         Ngày tạo đơn hàng: {moment(item.orderDate).format('DD-MM-YYYY')}
       </Text>

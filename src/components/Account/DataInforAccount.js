@@ -41,4 +41,18 @@ export const dataInforAdmin = [
     title: 'Quản lý',
     iconArrow: <IconArrowNext />,
   },
+
+  {
+    id: 5,
+    iconRepresent: (
+      <AntDesign
+        name="addusergroup"
+        size={28}
+        color="black"
+        style={[{marginLeft: -5}]}
+      />
+    ),
+    title: 'Thống kê',
+    iconArrow: <IconArrowNext />,
+  },
 ];

@@ -12,8 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
 
-const DropDownAddress = ({dataAddress, address}) => {
-  const [value, setValue] = useState(null);
+const DropDownAddress = ({dataAddress, idAddress, onChangeValue}) => {
 
   return (
     <View style={[styles.container, ]} >
@@ -28,9 +27,9 @@ const DropDownAddress = ({dataAddress, address}) => {
         labelField="userNameAddress"
         valueField="userAddressID"
         placeholder={'Chọn'}
-        value={address}
+        value={idAddress}
         onChange={item => {
-          setValue(item.userAddressID);
+          onChangeValue(item.userAddressID);
         }}
       />
     </View>

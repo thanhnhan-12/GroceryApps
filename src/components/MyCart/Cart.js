@@ -23,6 +23,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import Delivery from '../DeliveryAddress/Delivery';
 import deliveryApi from '../../api/deliveryApi';
 import Payment from './Payment';
+import {formatPrice} from '../Heading';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Cart = ({card}) => {
   const [products, setProducts] = useState(1);
@@ -43,6 +45,11 @@ const Cart = ({card}) => {
     const {userID, cartID} = item;
     await cartApi.deleteCart({userID, cartID});
     fetchCartApi(userID);
+    Toast.show({
+      type: 'success',
+      text1: 'Sản phẩm đã được xoá khỏi giỏ hàng',
+      visibilityTime: 3000,
+    });
   };
 
   const renderHiddenItem = ({item}) => (
@@ -90,7 +97,7 @@ const Cart = ({card}) => {
       await cartApi.createCart({productID, userID: users.userID, quantity: 1});
       fetchCartApi(users.userID);
     } catch (error) {
-      Alert.alert("Vượt quá số lượng sản phẩm");
+      Alert.alert('Vượt quá số lượng sản phẩm');
     }
   };
 
@@ -168,7 +175,9 @@ const Cart = ({card}) => {
               </TouchableOpacity>
 
               <View style={[{marginLeft: 50}]}>
-                <Text style={[styles.price]}>{item.price * item.quantity}</Text>
+                <Text style={[styles.price]}>
+                  {formatPrice(Number(item.price * item.quantity))}
+                </Text>
               </View>
             </View>
           </View>

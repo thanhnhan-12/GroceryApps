@@ -1,5 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Modal} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Modal,
+  Alert,
+} from 'react-native';
 import IconCloseFilter from '../../assets/SVG/IconCloseFilter.svg';
 import IconArrowNext from '../../assets/SVG/IconArrowNext.svg';
 import {useNavigation} from '@react-navigation/native';
@@ -10,6 +17,7 @@ import {AuthContext} from '../../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {useFocusEffect} from '@react-navigation/native';
 import cartApi from '../../api/cartApi';
+import {formatPrice} from '../Heading';
 
 const Payment = ({visible, onClose, onSelectFilter, totalCost, cart}) => {
   const navigation = useNavigation();
@@ -21,6 +29,7 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost, cart}) => {
   const [addressList, setAddressList] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const [idAddress, setIDAddress] = useState('');
 
   const fetchAddressListApi = async userID => {
     const renderAddressList = await deliveryApi.addressList(userID);
@@ -36,19 +45,38 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost, cart}) => {
   );
 
   const handlePayment = async () => {
-    await cartApi.payments({
-      totalPrice: totalCost,
-      userID: users.userID,
-      productCart: cart.map(item => {
-        return {
-          productID: item.productID,
-          quantity: item.quantity,
-          cartID: item.cartID,
-        };
-      }),
-    });
+    if (addressList.length === 0) {
+      Alert.alert('Chưa có địa chỉ', 'Bạn có muốn thêm địa chỉ không ?', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('DeliveryScreen'),
+        },
+        {
+          text: 'Huỷ',
+          style: 'cancel',
+        },
+      ]);
+    } else if (!idAddress) {
+      Alert.alert('Bạn chưa chọn địa chỉ');
+    } else {
+      await cartApi.payments({
+        totalPrice: totalCost,
+        userID: users.userID,
+        productCart: cart.map(item => {
+          return {
+            productID: item.productID,
+            quantity: item.quantity,
+            cartID: item.cartID,
+          };
+        }),
+        userAddressID: idAddress
+      });
+      navigation.navigate('PaymentSuccess');
+    }
+  };
 
-    navigation.navigate('PaymentSuccess');
+  const handleOnChangeValue = idAddress => {
+    setIDAddress(idAddress);
   };
 
   if (loading) {
@@ -72,15 +100,26 @@ const Payment = ({visible, onClose, onSelectFilter, totalCost, cart}) => {
 
               <TouchableOpacity style={[styles.common]}>
                 <Text>
-                  <DropDownAddress dataAddress={addressList} />
+                  <DropDownAddress
+                    dataAddress={addressList}
+                    onChangeValue={handleOnChangeValue}
+                    idAddress={idAddress}
+                  />
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={[styles.common, styles.padding]}>
+              <Text style={[styles.textLeft]}>Số điện thoại</Text>
+              <Text style={[styles.textRight]}> {users.phone} </Text>
+            </View>
+
+            <View style={[styles.common, styles.padding]}>
               <Text style={[styles.textLeft]}>Tổng chi phí</Text>
 
-              <Text style={[styles.textRight]}>{totalCost} VNĐ</Text>
+              <Text style={[styles.textRight]}>
+                {formatPrice(Number(totalCost))}
+              </Text>
             </View>
 
             <TouchableOpacity
@@ -106,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F3F2',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    height: '55%',
+    height: '62%',
   },
 
   common: {

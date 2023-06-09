@@ -17,6 +17,7 @@ import {AddressHeading} from '../Heading';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import deliveryApi from '../../api/deliveryApi';
 import {AuthContext} from '../../context/AuthContext';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 const DeliveryEdit = ({navigate, route}) => {
   const {
@@ -47,6 +48,11 @@ const DeliveryEdit = ({navigate, route}) => {
       userNameAddress: address,
       WardsID: wardID,
     });
+    Toast.show({
+      type: 'success',
+      text1: 'Cập nhật địa chỉ thành công',
+      visibilityTime: 3000,
+    });
   };
 
   const fetchApiWard = async id => {
@@ -55,10 +61,10 @@ const DeliveryEdit = ({navigate, route}) => {
   };
 
   const handleOnChangeDistrict = value => {
-    console.log('district: ', value);
+    // console.log('district: ', value);
     setDistrictID(value);
   };
-  
+
   const handleOnChangeWard = value => {
     setWardID(value);
   };

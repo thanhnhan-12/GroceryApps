@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {dataTitleAdmin} from './DataTitleAdmin';
+import { AdminHeading } from '../Heading';
 
 const Admin = () => {
   const [titleAdmin, setTitleAdmin] = useState(dataTitleAdmin);
@@ -16,6 +17,8 @@ const Admin = () => {
 
   return (
     <SafeAreaView style={[{backgroundColor: '#fff'}]}>
+      <AdminHeading />
+
       <Text style={[styles.txtHeading, styles.colors]}>Admin!</Text>
 
       {titleAdmin.map((items, index) => (

@@ -90,9 +90,9 @@ const HomeScreen = () => {
           {/* Newest */}
           <View style={style.titleProduct}>
             <Text style={style.heading}>Mới nhất</Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Text style={style.seeAll}>Xem tất cả</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Card Items - Newest */}
@@ -101,9 +101,9 @@ const HomeScreen = () => {
           {/* Best selling */}
           <View style={style.titleProduct}>
             <Text style={style.heading}>Bán chạy</Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Text style={style.seeAll}>Xem tất cả</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Card Items - Best Selling */}
@@ -124,9 +124,9 @@ const HomeScreen = () => {
           {/* Popular */}
           <View style={style.titleProduct}>
             <Text style={style.heading}>Phổ biến</Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Text style={style.seeAll}>Xem tất cả</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Card Items - Popular */}

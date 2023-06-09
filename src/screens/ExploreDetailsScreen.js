@@ -19,7 +19,9 @@ import categoryApi from '../api/categoryApi';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import moment from 'moment';
 import cartApi from '../api/cartApi';
-import { AuthContext } from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext';
+import { formatPrice } from '../components/Heading';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const ExploreDetailsScreen = ({navigation, route}) => {
   const [items, setItems] = useState(dataProduct);
@@ -33,11 +35,12 @@ const ExploreDetailsScreen = ({navigation, route}) => {
 
   const {id, categoryName} = route.params;
   console.log('ID: ', id);
-  
 
   const {userInfo} = useContext(AuthContext);
 
-  const {users: {userID}} = userInfo;
+  const {
+    users: {userID},
+  } = userInfo;
 
   const handlePressBackExplore = id => {
     console.log(id);
@@ -74,23 +77,28 @@ const ExploreDetailsScreen = ({navigation, route}) => {
     fetchExploreType(id);
   }, [id]);
 
-  const handleAddCart = async (productID) => {
-    console.log("Log", productID);
-    await cartApi.createCart({ productID, userID , quantity: 1 } )
-  }
+  const handleAddCart = async productID => {
+    // console.log('Log', productID);
+    await cartApi.createCart({productID, userID, quantity: 1});
+    Toast.show({
+      type: 'success',
+      text1: 'Sản phẩm đã được thêm vào giỏ hàng',
+      visibilityTime: 3000,
+    });
+  };
 
   if (loading) {
     return <Spinner visible={loading} />;
   }
 
   return (
-    <SafeAreaView style={[{ backgroundColor: '#fff' }]} >
+    <SafeAreaView style={[{backgroundColor: '#fff'}]}>
       <View style={[styles.inline, {paddingHorizontal: 15}]}>
         <TouchableOpacity onPress={() => handlePressBackExplore()}>
           <BackArrow />
         </TouchableOpacity>
 
-        <Text style={[styles.nameList, ]}>{categoryName} </Text>
+        <Text style={[styles.nameList]}>{categoryName} </Text>
 
         <TouchableOpacity onPress={() => setFilterVisible(true)}>
           <IconFilter />
@@ -115,8 +123,7 @@ const ExploreDetailsScreen = ({navigation, route}) => {
             renderItem={({item}) => (
               <View style={[]}>
                 <TouchableOpacity
-                onPress={() => handlePressDetails(item.productID)}
-                >
+                  onPress={() => handlePressDetails(item.productID)}>
                   <SafeAreaView style={styles.container}>
                     <View>
                       <View style={styles.centerImg}>
@@ -142,10 +149,12 @@ const ExploreDetailsScreen = ({navigation, route}) => {
 
                       <View style={[styles.inline]}>
                         <Text style={[styles.common, styles.price]}>
-                          {item.price}
+                          {formatPrice(Number(item.price))}
                         </Text>
 
-                        <TouchableOpacity style={[styles.btnAdd]} onPress={() => handleAddCart(item.productID)}>
+                        <TouchableOpacity
+                          style={[styles.btnAdd]}
+                          onPress={() => handleAddCart(item.productID)}>
                           <Image
                             source={require('../assets/images/IconAddProduct.png')}
                             style={styles.iconAdd}

@@ -15,7 +15,8 @@ import cartApi from '../../api/cartApi';
 import {AuthContext} from '../../context/AuthContext';
 import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import {formatPrice} from '../Heading';
 
 const ProductCard = ({card}) => {
   const {
@@ -54,7 +55,7 @@ const ProductCard = ({card}) => {
       type: 'success',
       text1: 'Sản phẩm đã được thêm vào giỏ hàng',
       visibilityTime: 3000,
-    })
+    });
   };
 
   return (
@@ -82,7 +83,9 @@ const ProductCard = ({card}) => {
               </Text>
 
               <View style={[styles.inline]}>
-                <Text style={[styles.common, styles.price]}>{price}</Text>
+                <Text style={[styles.common, styles.price]}>
+                  {formatPrice(Number(price))}
+                </Text>
 
                 <TouchableOpacity
                   style={[styles.btnAdd]}
