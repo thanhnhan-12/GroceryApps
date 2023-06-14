@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -24,7 +24,7 @@ import Delivery from '../DeliveryAddress/Delivery';
 import deliveryApi from '../../api/deliveryApi';
 import Payment from './Payment';
 import {formatPrice} from '../Heading';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 const Cart = ({card}) => {
   const [products, setProducts] = useState(1);
@@ -145,9 +145,9 @@ const Cart = ({card}) => {
     // }
   };
 
-  const renderItem = ({item, index}) => (
-    <>
-      <View style={[styles.common, styles.border]} key={index}>
+  const renderItem = ({item, idProduct}) => (
+    <Fragment key={idProduct}>
+      <View style={[styles.common, styles.border]}>
         <Image style={[styles.imgProduct]} source={{uri: item.imageURL}} />
 
         <View style={[{marginVertical: 10}]}>
@@ -183,7 +183,7 @@ const Cart = ({card}) => {
           </View>
         </View>
       </View>
-    </>
+    </Fragment>
   );
 
   if (loading) {

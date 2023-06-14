@@ -4,11 +4,12 @@ import {Dropdown} from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const data = [
-  {label: 'Chưa giao', value: '1'},
-  {label: 'Đã giao', value: '2'},
+  
 ];
 
-const DropdownList = () => {
+const DropdownList = ({dataOrders, orderID, onChangeValue}) => {
+  console.log({dataOrders, orderID});
+
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -32,19 +33,19 @@ const DropdownList = () => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={data}
+        data={dataOrders}
         search
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? 'Chọn' : '...'}
+        placeholder={'Chọn'}
         searchPlaceholder="Search..."
-        value={value}
+        value={orderID}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
-          setValue(item.value);
-          setIsFocus(false);
+          console.log("Log: ", item);
+          onChangeValue=(item.orderStatus)
         }}
       />
     </View>

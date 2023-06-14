@@ -8,7 +8,6 @@ import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
 import {formatPrice} from '../Heading';
 
-
 const OrdersItem = ({item}) => {
   return (
     <View>
@@ -43,6 +42,10 @@ const Orders = () => {
     setLoading(false);
   };
 
+  const handleOnChangeOrder = value => {
+    setOrders(value);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       fecthOrderListApi(users.userID);
@@ -55,11 +58,17 @@ const Orders = () => {
 
   return (
     <View style={[{backgroundColor: '#fff'}]}>
-      <DropdownList />
+      <DropdownList
+        dataOrders={[
+          {label: 'Chưa giao', value: '0'},
+          {label: 'Đã giao', value: '1'},
+        ]}
+        onChangeValue={handleOnChangeOrder}
+      />
 
       <ScrollView>
         {orders.length > 0 ? (
-          <View style={[ { marginBottom: '48%' } ]} >
+          <View style={[{marginBottom: '48%'}]}>
             {orders.map((item, index) => (
               <View key={index} style={[styles.ordersItem]}>
                 <OrdersItem item={item} />

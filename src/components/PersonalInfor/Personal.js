@@ -45,7 +45,7 @@ const Personal = ({navigation, route}) => {
     console.log('Log', [
       {
         userName,
-        passWord,
+        // passWord,
         fullName,
         email,
         phone,
@@ -59,7 +59,7 @@ const Personal = ({navigation, route}) => {
   const updateUserInfor = async () => {
     const body = {
       userName: usersName,
-      passWord: pass,
+      // passWord: pass,
       fullName: name,
       email: email,
       phone: phones,
@@ -68,9 +68,9 @@ const Personal = ({navigation, route}) => {
 
     const userInforById = await userApi.updateUserInforById(users.userID, body);
 
-    if (pass !== confirmPass) {
-      console.error('Mật khẩu không trùng khớp');
-    }
+    // if (pass !== confirmPass) {
+    //   console.error('Mật khẩu không trùng khớp');
+    // }
   };
 
   useFocusEffect(
@@ -99,7 +99,7 @@ const Personal = ({navigation, route}) => {
             />
           </View>
 
-          <View style={[styles.commonInput]}>
+          {/* <View style={[styles.commonInput]}>
             <Text style={styles.label}>Mật khẩu</Text>
             <TextInput
               placeholder={'Nhập Mật khẩu'}
@@ -121,7 +121,7 @@ const Personal = ({navigation, route}) => {
               secureTextEntry={true}
               style={styles.input}
             />
-          </View>
+          </View> */}
 
           <View style={[styles.inputEmail, styles.commonInput]}>
             <Text style={styles.label}>Họ và tên</Text>

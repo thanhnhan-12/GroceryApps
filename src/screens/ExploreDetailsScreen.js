@@ -34,7 +34,7 @@ const ExploreDetailsScreen = ({navigation, route}) => {
   const [selectedFilter, setSelectedFilter] = useState('Tất cả');
 
   const {id, categoryName} = route.params;
-  console.log('ID: ', id);
+  // console.log('ID: ', id);
 
   const {userInfo} = useContext(AuthContext);
 
@@ -43,17 +43,17 @@ const ExploreDetailsScreen = ({navigation, route}) => {
   } = userInfo;
 
   const handlePressBackExplore = id => {
-    console.log(id);
+    // console.log(id);
     navigation.navigate('ExploreScreen', {id});
   };
 
   const handlePressDetails = id => {
-    console.log(id);
+    // console.log(id);
     navigation.navigate('ProductDetails', {id});
   };
 
   const handlePressFilters = id => {
-    console.log(id);
+    // console.log(id);
     navigation.navigate('Filter');
   };
 

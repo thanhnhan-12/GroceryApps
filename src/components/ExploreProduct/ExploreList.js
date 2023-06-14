@@ -18,7 +18,7 @@ const ExploreList = () => {
   const navigation = useNavigation();
 
   const handlePressForwardExploreDetails = (id, categoryName) => {
-    console.log(id);
+    // console.log(id);
     navigation.navigate('ExploreDetailsScreen', {id, categoryName});
   };
 
